@@ -13,7 +13,7 @@ const app = express();
 app.use(bp.json());
 app.use(bp.urlencoded({ extended: false }));
 
-mongoose.connect('mongodb://localhost/jwtAuth');
+mongoose.connect('mongodb://localhost/moodMusic');
 
 app.use(express.static(`${__dirname}/client/build`));
 app.use('/auth', auth);
