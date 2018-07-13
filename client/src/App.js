@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './App.css';
+import Playlist from './Playlist'
 import Login from './Login';
 import Signup from './Signup';
 import { UserProfile } from './UserProfile';
 import PhotoForm from './forms/PhotoForm'
-
+import Button from '@material-ui/core/Button';
 
 class App extends Component {
   constructor(props) {
@@ -14,7 +15,7 @@ class App extends Component {
       token: '',
       user: null,
       lockedResult: '',
-      song: '',
+      playlist: [],
       spotifyToken: ''
     }
     this.checkForLocalToken = this.checkForLocalToken.bind(this);
@@ -49,7 +50,7 @@ class App extends Component {
       .then(response => {
       console.log(response.data);
       this.setState({
-        song: response.data.tracks[0].name
+        playlist: response.data.tracks
         })
       })
   }
@@ -73,7 +74,7 @@ class App extends Component {
     //Look for Spotify token in local storage
     let spotifyToken = localStorage.getItem('spotifyToken');
     console.log('checking for sfy token')
-    if (!spotifyToken || spotifyToken == 'undefined') {
+    if (!spotifyToken || spotifyToken === 'undefined') {
       // There was no token
       // clear out anything weird that might be there
       console.log('no sfy token found')
@@ -143,8 +144,15 @@ class App extends Component {
           <button onClick= {this.handlePlaylistClick}>get a playlist??!</button>
           <p>{this.state.song}</p>
           <PhotoForm />
+          <Button variant="contained" onClick= {this.handlePlaylistClick}>get a playlist??!</Button>
+          <p><Playlist playlist={this.state.playlist}/></p>
         </div>
       )
+    }
+      if (this.state.playlist) {
+        return (
+          <p><Playlist playlist={this.state.playlist}/></p>
+        )
     }
   }
 }
