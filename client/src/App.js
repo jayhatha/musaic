@@ -4,6 +4,7 @@ import './App.css';
 import Login from './Login';
 import Signup from './Signup';
 import { UserProfile } from './UserProfile';
+import PhotoForm from './PhotoForm'
 
 
 class App extends Component {
@@ -93,6 +94,7 @@ class App extends Component {
         <div className="App">
           <Signup liftToken={this.liftTokenToState} />
           <Login liftToken={this.liftTokenToState} />
+          <PhotoForm />
         </div>
       )
     }
