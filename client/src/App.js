@@ -5,11 +5,8 @@ import Playlist from './Playlist'
 import Login from './Login';
 import Signup from './Signup';
 import { UserProfile } from './UserProfile';
-<<<<<<< HEAD
 import PhotoForm from './PhotoForm';
 import Button from '@material-ui/core/Button';
-=======
->>>>>>> d5da6f69ac74a341846337714c4ed03e2889ffe6
 
 
 class App extends Component {
@@ -147,6 +144,7 @@ class App extends Component {
 
           <Button variant="contained" onClick= {this.handlePlaylistClick}>get a playlist??!</Button>
           <p><Playlist playlist={this.state.playlist}/></p>
+
         </div>
       )
     }
