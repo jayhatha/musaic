@@ -4,7 +4,8 @@ import './App.css';
 import Login from './Login';
 import Signup from './Signup';
 import { UserProfile } from './UserProfile';
-import PhotoForm from './PhotoForm'
+import PhotoForm from './PhotoForm';
+import Button from '@material-ui/core/Button';
 
 
 class App extends Component {
@@ -73,7 +74,7 @@ class App extends Component {
     //Look for Spotify token in local storage
     let spotifyToken = localStorage.getItem('spotifyToken');
     console.log('checking for sfy token')
-    if (!spotifyToken || spotifyToken == 'undefined') {
+    if (!spotifyToken || spotifyToken === 'undefined') {
       // There was no token
       // clear out anything weird that might be there
       console.log('no sfy token found')
@@ -140,7 +141,7 @@ class App extends Component {
           <Signup liftToken={this.liftTokenToState} />
           <Login liftToken={this.liftTokenToState} />
 
-          <button onClick= {this.handlePlaylistClick}>get a playlist??!</button>
+          <Button variant="contained" onClick= {this.handlePlaylistClick}>get a playlist??!</Button>
           <p>{this.state.song}</p>
         </div>
       )
