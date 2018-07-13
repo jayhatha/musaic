@@ -5,9 +5,8 @@ import Playlist from './Playlist'
 import Login from './Login';
 import Signup from './Signup';
 import { UserProfile } from './UserProfile';
-import PhotoForm from './PhotoForm';
+import PhotoForm from './forms/PhotoForm'
 import Button from '@material-ui/core/Button';
-
 
 class App extends Component {
   constructor(props) {
@@ -142,6 +141,9 @@ class App extends Component {
           <Signup liftToken={this.liftTokenToState} />
           <Login liftToken={this.liftTokenToState} />
 
+          <button onClick= {this.handlePlaylistClick}>get a playlist??!</button>
+          <p>{this.state.song}</p>
+          <PhotoForm />
           <Button variant="contained" onClick= {this.handlePlaylistClick}>get a playlist??!</Button>
           <p><Playlist playlist={this.state.playlist}/></p>
 
