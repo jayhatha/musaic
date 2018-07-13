@@ -6,20 +6,20 @@ const userSchema = new mongoose.Schema({
     name: {
         type: String,
         required: [ true, 'A name is required.' ],
-        minLength: [ 1, 'Name must be between 1 and 99 characters.' ],
-        maxLength: [ 99, 'Name must be between 1 and 99 characters.' ]
+        minlength: [ 1, 'Name must be between 1 and 99 characters.' ],
+        maxlength: [ 99, 'Name must be between 1 and 99 characters.' ]
     },
     email: {
         type: String,
         required: [ true, 'Please enter an email address.' ],
-        minLength: [ 1, 'Name must be between 1 and 99 characters.' ],
-        maxLength: [ 99, 'Name must be between 1 and 99 characters.' ]
+        minlength: [ 1, 'Name must be between 1 and 99 characters.' ],
+        maxlength: [ 99, 'Name must be between 1 and 99 characters.' ]
     },
     password: {
         type: String,
         required: [ true, 'A password is required.' ],
-        minLength: [ 8, 'Password must be between 8 and 99 characters.' ],
-        maxLength: [ 99, 'Name must be between 8 and 99 characters.' ]
+        minlength: [ 8, 'Password must be between 8 and 99 characters.' ],
+        maxlength: [ 99, 'Name must be between 8 and 99 characters.' ]
     }
 });
 
