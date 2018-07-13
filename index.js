@@ -6,14 +6,14 @@ const expressJWT = require('express-jwt');
 const auth = require('./routes/auth');
 const locked = require('./routes/locked');
 
-const port = process.env.port || 3001;
+const port = process.env.port || 3000;
 
 const app = express();
 
 app.use(bp.json());
 app.use(bp.urlencoded({ extended: false }));
 
-mongoose.connect('mongodb://localhost/jwtAuth');
+mongoose.connect('mongodb://localhost/moodMusic');
 
 app.use(express.static(`${__dirname}/client/build`));
 app.use('/auth', auth);
@@ -24,7 +24,7 @@ app.get('*', (req, res) => {
 });
 
 const server = app.listen(port, () => {
-console.log('You\'re listening to the smooooth sounds of port ' + port)
+    console.log('You\'re listening to the smooooth sounds of port ' + port)
 });
 
 module.exports = server;
