@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './App.css';
+import Playlist from './Playlist'
 import Login from './Login';
 import Signup from './Signup';
 import { UserProfile } from './UserProfile';
-import PhotoForm from './PhotoForm'
 
 
 class App extends Component {
@@ -14,7 +14,7 @@ class App extends Component {
       token: '',
       user: null,
       lockedResult: '',
-      song: '',
+      playlist: [],
       spotifyToken: ''
     }
     this.checkForLocalToken = this.checkForLocalToken.bind(this);
@@ -49,7 +49,7 @@ class App extends Component {
       .then(response => {
       console.log(response.data);
       this.setState({
-        song: response.data.tracks[0].name
+        playlist: response.data.tracks
         })
       })
   }
@@ -139,11 +139,17 @@ class App extends Component {
         <div className="App">
           <Signup liftToken={this.liftTokenToState} />
           <Login liftToken={this.liftTokenToState} />
-
           <button onClick= {this.handlePlaylistClick}>get a playlist??!</button>
-          <p>{this.state.song}</p>
+
+          <p><Playlist playlist={this.state.playlist}/></p>
+
         </div>
       )
+    }
+      if (this.state.playlist) {
+        return (
+          <p><Playlist playlist={this.state.playlist}/></p>
+        )
     }
   }
 }
