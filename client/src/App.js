@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './App.css';
+import Playlist from './Playlist'
 import Login from './Login';
 import Signup from './Signup';
 import { UserProfile } from './UserProfile';
+<<<<<<< HEAD
 import PhotoForm from './PhotoForm';
 import Button from '@material-ui/core/Button';
+=======
+>>>>>>> d5da6f69ac74a341846337714c4ed03e2889ffe6
 
 
 class App extends Component {
@@ -15,7 +19,7 @@ class App extends Component {
       token: '',
       user: null,
       lockedResult: '',
-      song: '',
+      playlist: [],
       spotifyToken: ''
     }
     this.checkForLocalToken = this.checkForLocalToken.bind(this);
@@ -50,7 +54,7 @@ class App extends Component {
       .then(response => {
       console.log(response.data);
       this.setState({
-        song: response.data.tracks[0].name
+        playlist: response.data.tracks
         })
       })
   }
@@ -142,9 +146,14 @@ class App extends Component {
           <Login liftToken={this.liftTokenToState} />
 
           <Button variant="contained" onClick= {this.handlePlaylistClick}>get a playlist??!</Button>
-          <p>{this.state.song}</p>
+          <p><Playlist playlist={this.state.playlist}/></p>
         </div>
       )
+    }
+      if (this.state.playlist) {
+        return (
+          <p><Playlist playlist={this.state.playlist}/></p>
+        )
     }
   }
 }
