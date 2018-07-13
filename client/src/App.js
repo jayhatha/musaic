@@ -4,7 +4,7 @@ import './App.css';
 import Login from './Login';
 import Signup from './Signup';
 import { UserProfile } from './UserProfile';
-import PhotoForm from './PhotoForm'
+import PhotoForm from './forms/PhotoForm'
 
 
 class App extends Component {
@@ -142,6 +142,7 @@ class App extends Component {
 
           <button onClick= {this.handlePlaylistClick}>get a playlist??!</button>
           <p>{this.state.song}</p>
+          <PhotoForm />
         </div>
       )
     }
