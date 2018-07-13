@@ -35,7 +35,7 @@ class Signup extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    if (this.state.password.length < 8 || this.state.password > 99) {
+    if (this.state.password.length < 8 || this.state.password.length > 99) {
       // Password does not meet length requirements
       this.setState({
         error: {
