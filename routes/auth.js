@@ -4,6 +4,9 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
+var request = require('request'); // "Request" library
+const spotify_key = process.env.BASE_KEY
+
 
 router.post('/signup', (req,res) => {
   // see if the email is already in the DB
@@ -94,5 +97,26 @@ router.post('/me/from/token', (req,res) => {
     })
   }
 })
+
+router.post('/get/spotify/token',  (req, res) => {
+  console.log('trying to get a token from spotify')
+  console.log('this is the spotify key', spotify_key)
+  console.log(process.env)
+  var options = {
+      url: 'https://accounts.spotify.com/api/token',
+      headers: {
+        'Authorization': 'Basic ' + spotify_key.toString()
+      },
+      form: {
+        grant_type: 'client_credentials'
+      },
+    json: true};
+    request.post(options, function(error, response, body) {
+      console.log(body);
+      res.json(body);
+  });
+})
+
+
 
 module.exports = router;

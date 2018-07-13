@@ -12,12 +12,15 @@ class App extends Component {
     this.state = {
       token: '',
       user: null,
-      lockedResult: ''
+      lockedResult: '',
+      song: '',
+      spotifyToken: ''
     }
     this.checkForLocalToken = this.checkForLocalToken.bind(this);
     this.logout = this.logout.bind(this);
     this.liftTokenToState = this.liftTokenToState.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handlePlaylistClick = this.handlePlaylistClick.bind(this);
   }
 
   liftTokenToState(data) {
@@ -37,6 +40,24 @@ class App extends Component {
     })
   }
 
+  handlePlaylistClick(e) {
+    var token = localStorage.getItem('spotifyToken');
+    console.log(token)
+    axios.defaults.headers.common['Authorization'] = "Bearer " + token;
+      axios.get('https://api.spotify.com/v1/recommendations?limit=50&seed_genres=pop&max_danceability=0.5&max_valence=0.5&max_energy=0.5')
+      .then(response => {
+      console.log(response.data);
+      this.setState({
+        song: response.data.tracks[0].name
+        })
+      })
+  }
+
+  componentDidMount() {
+    this.checkForLocalToken();
+    this.checkForSpotifyToken()
+    }
+
   logout() {
     // remove token from local storage
     localStorage.removeItem('mernToken');
@@ -45,6 +66,33 @@ class App extends Component {
       token: '',
       user: null
     })
+  }
+
+  checkForSpotifyToken() {
+    //Look for Spotify token in local storage
+    let spotifyToken = localStorage.getItem('spotifyToken');
+    console.log('checking for sfy token')
+    if (!spotifyToken || spotifyToken == 'undefined') {
+      // There was no token
+      // clear out anything weird that might be there
+      console.log('no sfy token found')
+      localStorage.removeItem('spotifyToken')
+      this.setState({
+        spotifyToken: '',
+      })
+
+      // we need to call the Spotify API on the back end and get a token
+      // let's hit that route
+      console.log('trying to hit route on back end')
+      axios.post('/auth/get/spotify/token').then( results => {
+        // put the token in local storage
+        console.log(results.data)
+        localStorage.setItem('spotifyToken', results.data.access_token);
+        this.setState({
+          spotifyToken: results.data.access_token,
+        })
+      }).catch( err => console.log(err))
+    }
   }
 
   checkForLocalToken() {
@@ -74,9 +122,6 @@ class App extends Component {
     }
   }
 
-  componentDidMount() {
-    this.checkForLocalToken();
-  }
 
   render() {
     let user = this.state.user;
@@ -93,6 +138,8 @@ class App extends Component {
         <div className="App">
           <Signup liftToken={this.liftTokenToState} />
           <Login liftToken={this.liftTokenToState} />
+          <button onClick= {this.handlePlaylistClick}>get a playlist??!</button>
+          <p>{this.state.song}</p>
         </div>
       )
     }
