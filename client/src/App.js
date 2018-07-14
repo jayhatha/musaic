@@ -5,7 +5,7 @@ import Playlist from './Playlist'
 import Login from './Login';
 import Signup from './Signup';
 import { UserProfile } from './UserProfile';
-import PhotoForm from './PhotoForm';
+import PhotoForm from './forms/PhotoForm';
 import Button from './@material-ui/core/button';
 import GetCloudinary from './GetCloudinary';
 
@@ -178,19 +178,17 @@ class App extends Component {
             <p>Drop your files or click here to upload</p>
           </Dropzone>
           <button onClick= {this.handlePlaylistClick}>get a playlist??!</button>
-          <p>{this.state.song}</p>
+
           <GetCloudinary />
         </div>
           )
         }
+        if (this.state.playlist) {
+          return (
+            <p><Playlist playlist={this.state.playlist}/></p>
+          )
+        }
       }
     }
-      if (this.state.playlist) {
-        return (
-          <p><Playlist playlist={this.state.playlist}/></p>
-        )
-    }
-  }
-}
 
 export default App;
