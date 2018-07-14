@@ -7,7 +7,7 @@ import Signup from './Signup';
 import { UserProfile } from './UserProfile';
 import PhotoForm from './forms/PhotoForm';
 // import Button from './@material-ui/core/button';
-import GetCloudinary from './GetCloudinary';
+
 
 
 class App extends Component {
@@ -24,7 +24,6 @@ class App extends Component {
     this.logout = this.logout.bind(this);
     this.liftTokenToState = this.liftTokenToState.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    this.handlePlaylistClick = this.handlePlaylistClick.bind(this);
   }
 
   liftTokenToState(data) {
@@ -44,18 +43,6 @@ class App extends Component {
     })
   }
 
-  handlePlaylistClick(e) {
-    var token = localStorage.getItem('spotifyToken');
-    console.log(token)
-    axios.defaults.headers.common['Authorization'] = "Bearer " + token;
-      axios.get('https://api.spotify.com/v1/recommendations?limit=50&seed_genres=pop&max_danceability=0.5&max_valence=0.5&max_energy=0.5')
-      .then(response => {
-      console.log(response.data);
-      this.setState({
-        playlist: response.data.tracks
-        })
-      })
-  }
 
   handleDrop = files => {
   // Push all the axios request promise into a single array
@@ -169,17 +156,11 @@ class App extends Component {
         <div className="App">
           <Signup liftToken={this.liftTokenToState} />
           <Login liftToken={this.liftTokenToState} />
-          {/* <Dropzone
-            onDrop={this.handleDrop}
-            multiple
-            accept="image/*"
-            style={styles.dropzone}
-            >
-            <p>Drop your files or click here to upload</p>
-          </Dropzone> */}
-          {/* <Button variant="contained" onClick= {this.handlePlaylistClick}>get a playlist??!</Button> */}
 
-          <GetCloudinary />
+          <PhotoForm />
+
+          <p><Playlist playlist={this.state.playlist}/></p>
+
         </div>
           )
         }
