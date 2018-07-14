@@ -101,6 +101,7 @@ router.post('/me/from/token', (req,res) => {
 router.post('/get/spotify/token',  (req, res) => {
   console.log('trying to get a token from spotify')
   console.log('this is the spotify key', spotify_key)
+
   var options = {
       url: 'https://accounts.spotify.com/api/token',
       headers: {
