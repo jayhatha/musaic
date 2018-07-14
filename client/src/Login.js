@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Button from '@material-ui/core/Button';
+
 
 class Login extends Component {
   constructor(props) {
@@ -59,7 +61,7 @@ class Login extends Component {
                            value={this.state.password}
                            onChange={this.handlePasswordChange}
                     />
-          <input type="submit" value="Log In"/>
+          <Button variant="contained" type="submit" value="Log In">Log In</Button>
         </form>
       </div>
     )

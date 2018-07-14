@@ -1,8 +1,31 @@
 import React, {Component} from 'react';
 import convert from 'color-convert';
-import {colors} from './colors';
+import {colors} from '../colors';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+
 
 class PhotoForm extends Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			genre: '',
+			valence: 0,
+			mode: 0,
+			energy: 0,
+			danceability: 0
+		}
+	}
+
+	handleChange(e) {
+		this.setState({
+			[e.target.name]: e.target.value
+		})
+	}
+
 	getColorRange(hexHash) {
 		let hexColor = hexHash.split('#')[1];
 		let hslColor = convert.hex.hsl(hexColor);
@@ -53,7 +76,7 @@ class PhotoForm extends Component {
 		energy = energy / cloudColors.length;
 		danceability = danceability / cloudColors.length;
 
-		return [valence, mode, energy, danceability];
+		// this.setState({valence, mode, energy, danceability});
 	}
 
 
@@ -61,7 +84,16 @@ class PhotoForm extends Component {
 	render() {
 		console.log(this.spotifyAttributes([["#222E02",6.7], ["#385B0C",6.3], ["#F3285C",5.0], ["#B3CB6E",5.0], ["#688F1C",4.4], ["#324D07",4.4], ["#8EAA34",4.3], ["#4F6D0D",4.2], ["#789446",4.1], ["#DF1327",3.9], ["#A10B12",3.7], ["#273804",3.4], ["#0D1802",3.4], ["#D5E191",3.2], ["#646E20",3.1], ["#94AF4D",2.9], ["#FB54A9",2.8], ["#48570B",2.7], ["#ACC655",2.7], ["#FCA2D9",2.7], ["#63110A",2.6], ["#E9B327",2.2], ["#6D644D",2.1], ["#6D8D12",2.0], ["#8F9F27",1.9], ["#C3573E",1.8], ["#CFD76E",1.6], ["#A0B058",1.6], ["#FCD0E9",1.6], ["#728F2D",1.4], ["#F958A1",1.4], ["#D1B694",1.0]]));
 		return (
-			<h1>HI</h1>
+			<form autoComplete="off">
+				<FormControl>
+				<InputLabel htmlFor="genre-select">Genre</InputLabel>
+					<Select value={this.state.genre}
+							onChange={this.handleChange}
+							inputProps={{name: 'genre', id: 'genre-select'}} >
+
+					</Select>
+				</FormControl>
+			</form>
 		);
 	}
 }
