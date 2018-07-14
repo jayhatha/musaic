@@ -144,7 +144,7 @@ class App extends Component {
           <button onClick= {this.handlePlaylistClick}>get a playlist??!</button>
           <p>{this.state.song}</p>
           <PhotoForm />
-          <Button variant="contained" onClick= {this.handlePlaylistClick}>get a playlist??!</Button>
+
           <p><Playlist playlist={this.state.playlist}/></p>
         </div>
       )
