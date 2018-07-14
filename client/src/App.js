@@ -4,7 +4,9 @@ import './App.css';
 import Login from './Login';
 import Signup from './Signup';
 import { UserProfile } from './UserProfile';
-import PhotoForm from './PhotoForm'
+import PhotoForm from './PhotoForm';
+import Button from './@material-ui/core/button';
+import GetCloudinary from './GetCloudinary';
 
 
 class App extends Component {
@@ -53,6 +55,33 @@ class App extends Component {
         })
       })
   }
+
+  handleDrop = files => {
+  // Push all the axios request promise into a single array
+  const uploaders = files.map(file => {
+    // Initial FormData
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", process.env.REACT_APP_UPLOAD_PRESET);
+    formData.append("api_key", process.env.REACT_APP_CLOUDINARY_API);
+    formData.append("timestamp", (Date.now() / 1000) | 0);
+
+    // Make an AJAX upload request using Axios (replace Cloudinary URL below with your own)
+    return axios.post("https://api.cloudinary.com/v1_1/dieaqkurh/image/upload", formData, {
+      headers: { "X-Requested-With": "XMLHttpRequest" },
+    }).then(response => {
+      const data = response.data;
+      const fileURL = data.secure_url
+      console.log(data);
+    })
+  });
+
+  // Once all the files are uploaded
+  axios.all(uploaders).then(() => {
+    // ... perform after upload is successful operation
+    console.log('############HEEEEEEYYYYYY!!!###########')
+  });
+}
 
   componentDidMount() {
     this.checkForLocalToken();
@@ -139,13 +168,22 @@ class App extends Component {
         <div className="App">
           <Signup liftToken={this.liftTokenToState} />
           <Login liftToken={this.liftTokenToState} />
-
+          <Dropzone
+            onDrop={this.handleDrop}
+            multiple
+            accept="image/*"
+            style={styles.dropzone}
+            >
+            <p>Drop your files or click here to upload</p>
+          </Dropzone>
           <button onClick= {this.handlePlaylistClick}>get a playlist??!</button>
           <p>{this.state.song}</p>
+          <GetCloudinary />
         </div>
-      )
+          )
+        }
+      }
     }
-  }
-}
+
 
 export default App;
