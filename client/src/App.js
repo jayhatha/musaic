@@ -6,7 +6,7 @@ import Login from './Login';
 import Signup from './Signup';
 import { UserProfile } from './UserProfile';
 import PhotoForm from './forms/PhotoForm';
-import Button from './@material-ui/core/Button';
+import Button from '@material-ui/core/Button';
 import GetCloudinary from './GetCloudinary';
 
 
@@ -170,14 +170,7 @@ class App extends Component {
           <Signup liftToken={this.liftTokenToState} />
           <Login liftToken={this.liftTokenToState} />
           <PhotoForm />
-          <Dropzone
-            onDrop={this.handleDrop}
-            multiple
-            accept="image/*"
-            style={styles.dropzone}
-          >
-          <p>Drop your files or click here to upload</p>
-          </Dropzone>
+          
           <Button variant="contained" onClick={this.handlePlaylistClick}>get a playlist??!</Button>
           <GetCloudinary />
         </div>
