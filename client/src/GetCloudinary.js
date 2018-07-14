@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Dropzone from 'react-dropzone'
-import axios from 'axios'
 
 class GetCloudinary extends Component {
   constructor(props) {
@@ -10,8 +8,9 @@ class GetCloudinary extends Component {
 
 //get cloud result
   getCloudinaryResult() {
-    axios.get('/cloudinary-test').then((err, result) => {
-      console.log(result);
+    axios.get('/cloudinary-test').then((result) => {
+      console.log(result.data);
+      console.log('here are colors: ', result.data.colors);
     });
   }
 

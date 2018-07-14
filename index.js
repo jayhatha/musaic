@@ -30,8 +30,9 @@ app.use('/locked', expressJWT({ secret: process.env.JWT_SECRET }).unless({ metho
 //creating the test route
 app.get('/cloudinary-test', function(req, res) {
   //NEED name delete 'something'
-  cloudinary.v2.api.resource(req.body.something, {colors: true},
+  cloudinary.v2.api.resource('qebgunexmg4dtmrhcdpa', {colors: true},
     function(error, result) {
+      console.log(result);
       res.json(result);
   });
 })
