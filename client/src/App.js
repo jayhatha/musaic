@@ -6,7 +6,7 @@ import Login from './Login';
 import Signup from './Signup';
 import { UserProfile } from './UserProfile';
 import PhotoForm from './forms/PhotoForm';
-import Button from './@material-ui/core/button';
+import Button from './@material-ui/core/Button';
 import GetCloudinary from './GetCloudinary';
 
 
