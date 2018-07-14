@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 var request = require('request'); // "Request" library
+var axios = require('axios');
 const spotify_key = process.env.BASE_KEY
 
 
@@ -100,8 +101,6 @@ router.post('/me/from/token', (req,res) => {
 
 router.post('/get/spotify/token',  (req, res) => {
   console.log('trying to get a token from spotify')
-  console.log('this is the spotify key', spotify_key)
-
   var options = {
       url: 'https://accounts.spotify.com/api/token',
       headers: {

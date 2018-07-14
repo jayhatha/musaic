@@ -19,8 +19,8 @@ mongoose.connect('mongodb://localhost/moodMusic');
 //ADDED config cloudinary (want to add to route once created)
 cloudinary.config({
   cloud_name: 'dieaqkurh',
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET
+  api_key: process.env.REACT_APP_CLOUDINARY_API_KEY,
+  api_secret: process.env.REACT_APP_CLOUDINARY_API_SECRET
 });
 
 app.use(express.static(`${__dirname}/client/build`));
