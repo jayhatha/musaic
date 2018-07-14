@@ -35,7 +35,7 @@ class App extends Component {
   handleClick(e) {
     e.preventDefault();
     axios.defaults.headers.common['Authorization'] = `Bearer ${this.state.token}`;
-    axios.get('/locked/test').then( results => {
+    axios.get('/locked/test').then(results => {
       this.setState({
         lockedResult: results.data
       })
@@ -46,11 +46,11 @@ class App extends Component {
     var token = localStorage.getItem('spotifyToken');
     console.log(token)
     axios.defaults.headers.common['Authorization'] = "Bearer " + token;
-      axios.get('https://api.spotify.com/v1/recommendations?limit=50&seed_genres=pop&max_danceability=0.5&max_valence=0.5&max_energy=0.5')
+    axios.get('https://api.spotify.com/v1/recommendations?limit=50&seed_genres=pop&max_danceability=0.5&max_valence=0.5&max_energy=0.5')
       .then(response => {
-      console.log(response.data);
-      this.setState({
-        playlist: response.data.tracks
+        console.log(response.data);
+        this.setState({
+          playlist: response.data.tracks
         })
       })
   }
@@ -58,7 +58,7 @@ class App extends Component {
   componentDidMount() {
     this.checkForLocalToken();
     this.checkForSpotifyToken()
-    }
+  }
 
   logout() {
     // remove token from local storage
@@ -86,14 +86,14 @@ class App extends Component {
       // we need to call the Spotify API on the back end and get a token
       // let's hit that route
       console.log('trying to hit route on back end')
-      axios.post('/auth/get/spotify/token').then( results => {
+      axios.post('/auth/get/spotify/token').then(results => {
         // put the token in local storage
         console.log(results.data)
         localStorage.setItem('spotifyToken', results.data.access_token);
         this.setState({
           spotifyToken: results.data.access_token,
         })
-      }).catch( err => console.log(err))
+      }).catch(err => console.log(err))
     }
   }
 
@@ -113,14 +113,14 @@ class App extends Component {
       // send it to the back to be verified
       axios.post('/auth/me/from/token', {
         token
-      }).then( results => {
+      }).then(results => {
         // put the token in local storage
         localStorage.setItem('mernToken', results.data.token);
         this.setState({
           token: results.data.token,
           user: results.data.user
         })
-      }).catch( err => console.log(err))
+      }).catch(err => console.log(err))
     }
   }
 
@@ -130,7 +130,7 @@ class App extends Component {
     if (user) {
       return (
         <div className="App">
-          <UserProfile user={user} logout={this.logout}/>
+          <UserProfile user={user} logout={this.logout} />
           <a onClick={this.handleClick}> Test the protected route</a>
           <p>{this.state.lockedResult}</p>
         </div>
@@ -140,20 +140,15 @@ class App extends Component {
         <div className="App">
           <Signup liftToken={this.liftTokenToState} />
           <Login liftToken={this.liftTokenToState} />
-
-          <button onClick= {this.handlePlaylistClick}>get a playlist??!</button>
-          <p>{this.state.song}</p>
           <PhotoForm />
-          <Button variant="contained" onClick= {this.handlePlaylistClick}>get a playlist??!</Button>
-          <p><Playlist playlist={this.state.playlist}/></p>
-
+          <Button variant="contained" onClick={this.handlePlaylistClick}>get a playlist??!</Button>
         </div>
       )
     }
-      if (this.state.playlist) {
-        return (
-          <p><Playlist playlist={this.state.playlist}/></p>
-        )
+    if (this.state.playlist) {
+      return (
+        <p><Playlist playlist={this.state.playlist} /></p>
+      )
     }
   }
 }
