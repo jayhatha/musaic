@@ -2,8 +2,10 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import convert from 'color-convert';
 import {colors} from '../colors';
-// import PropTypes from 'prop-types';
-// import { withStyles } from '@material-ui/core/styles';
+import ColorChart from '../ColorChart';
+import AttsChart from '../AttsChart';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -23,6 +25,7 @@ class PhotoForm extends Component {
 			spotifyToken: '',
 			genres: [],
 			cloudColors: [],
+			spfyAtts: [],
 			currImgURL: ''
 		}
 	}
@@ -45,10 +48,10 @@ class PhotoForm extends Component {
 		// (which were set in cloudinaryResult function)
 		let attributes = this.spotifyAttributes(this.state.cloudColors);
 		// atts are set using the returned array
-		let valence = attributes[0];
-		let mode = attributes[1];
-		let energy = attributes[2];
-		let danceability = attributes[3];
+		const valence = attributes[0];
+		const mode = attributes[1];
+		const energy = attributes[2];
+		const danceability = attributes[3];
 
 		// if more than one genre is selected, join array with comma
 		// let genres = (this.state.genres.length > 1) ? this.state.genres.join(',') : this.state.genres[0];
@@ -72,7 +75,8 @@ class PhotoForm extends Component {
 		  this.setState({
 				spotifyToken,
 		  	// we have a playlist in state!
-		  	playlist: response.data.tracks
+		  	playlist: response.data.tracks,
+		  	spfyAtts: [valence, mode, energy, danceability]
 		    })
 		  })
 	}
@@ -143,6 +147,7 @@ class PhotoForm extends Component {
 		// first, call colorRange function with every cloudColor
 		cloudColors.map((color) => {
 			let colorRange = this.getColorRange(color[0]);
+
 			colorsArr.push(colorRange);
 		});
 		
@@ -189,6 +194,7 @@ class PhotoForm extends Component {
 					<FormControl required>
 					<InputLabel htmlFor="genre-select">Genre</InputLabel>
 						<Select value={this.state.genres}
+								multiple
 								onChange={this.handleChange}
 								inputProps={{name: 'genres', id: 'genre-select'}} >
 
@@ -226,6 +232,10 @@ class PhotoForm extends Component {
 					</FormControl>
 					<Input value="Get Playlist" type="submit"></Input>
 				</form>
+
+				<ColorChart colors={this.state.cloudColors} />
+				<AttsChart spfyAtts={this.state.spfyAtts} />
+
 			</div>
 		);
 	}
