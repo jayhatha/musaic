@@ -9,9 +9,7 @@ import { UserProfile } from './UserProfile';
 import PhotoForm from './forms/PhotoForm';
 import Navbar from './Navbar';
 import Home from './Home';
-// import Button from './@material-ui/core/button';
-
-
+import Result from './Result';
 
 
 class App extends Component {
@@ -28,6 +26,7 @@ class App extends Component {
     this.logout = this.logout.bind(this);
     this.liftTokenToState = this.liftTokenToState.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handlePlaylist = this.handlePlaylist.bind(this);
   }
 
   liftTokenToState(data) {
@@ -40,45 +39,17 @@ class App extends Component {
   handleClick(e) {
     e.preventDefault();
     axios.defaults.headers.common['Authorization'] = `Bearer ${this.state.token}`;
-    axios.get('/locked/test').then( results => {
+    axios.get('/locked/test').then(results => {
       this.setState({
         lockedResult: results.data
       })
     })
   }
 
-
-  handleDrop = files => {
-  // Push all the axios request promise into a single array
-  const uploaders = files.map(file => {
-    // Initial FormData
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("upload_preset", process.env.REACT_APP_UPLOAD_PRESET);
-    formData.append("api_key", process.env.REACT_APP_CLOUDINARY_API);
-    formData.append("timestamp", (Date.now() / 1000) | 0);
-
-    // Make an AJAX upload request using Axios (replace Cloudinary URL below with your own)
-    return axios.post("https://api.cloudinary.com/v1_1/dieaqkurh/image/upload", formData, {
-      headers: { "X-Requested-With": "XMLHttpRequest" },
-    }).then(response => {
-      const data = response.data;
-      const fileURL = data.secure_url
-      console.log(data);
-    })
-  });
-
-  // Once all the files are uploaded
-  axios.all(uploaders).then(() => {
-    // ... perform after upload is successful operation
-    console.log('############HEEEEEEYYYYYY!!!###########')
-  });
-}
-
   componentDidMount() {
     this.checkForLocalToken();
     this.checkForSpotifyToken()
-    }
+  }
 
   logout() {
     // remove token from local storage
@@ -94,7 +65,7 @@ class App extends Component {
     //Look for Spotify token in local storage
     let spotifyToken = localStorage.getItem('spotifyToken');
     console.log('checking for sfy token')
-    if (!spotifyToken || spotifyToken === 'undefined') {
+    if (!spotifyToken || spotifyToken == 'undefined') {
       // There was no token
       // clear out anything weird that might be there
       console.log('no sfy token found')
@@ -102,18 +73,16 @@ class App extends Component {
       this.setState({
         spotifyToken: '',
       })
-
       // we need to call the Spotify API on the back end and get a token
-      // let's hit that route
-      console.log('trying to hit route on back end')
-      axios.post('/auth/get/spotify/token').then( results => {
+      axios.post('/auth/get/spotify/token').then(results => {
+        console.log('trying to hit route on back end')
         // put the token in local storage
         console.log(results.data)
         localStorage.setItem('spotifyToken', results.data.access_token);
         this.setState({
           spotifyToken: results.data.access_token,
         })
-      }).catch( err => console.log(err))
+      }).catch(err => console.log(err))
     }
   }
 
@@ -133,15 +102,21 @@ class App extends Component {
       // send it to the back to be verified
       axios.post('/auth/me/from/token', {
         token
-      }).then( results => {
+      }).then(results => {
         // put the token in local storage
         localStorage.setItem('mernToken', results.data.token);
         this.setState({
           token: results.data.token,
           user: results.data.user
         })
-      }).catch( err => console.log(err))
+      }).catch(err => console.log(err))
     }
+  }
+
+  handlePlaylist(tracks) {
+    this.setState({
+      playlist: tracks
+    });
   }
 
 
@@ -158,6 +133,10 @@ class App extends Component {
               <p>{this.state.lockedResult}</p>
             </div>
           </Router>
+          <UserProfile user={user} logout={this.logout} />
+          <a onClick={this.handleClick}> Test the protected route</a>
+          <p>{this.state.lockedResult}</p>
+          <Result />
         </div>
       );
     } else {
@@ -183,13 +162,20 @@ class App extends Component {
               <p><Playlist playlist={this.state.playlist}/></p>
             </div>
           </Router>
+          <Signup liftToken={this.liftTokenToState} />
+          <Login liftToken={this.liftTokenToState} />
+
+
+          <PhotoForm liftPlaylist={this.handlePlaylist} />
+
+          <p><Playlist playlist={this.state.playlist}/></p>
 
         </div>
           )
         }
         if (this.state.playlist) {
           return (
-            <p><Playlist playlist={this.state.playlist}/></p>
+            <Playlist playlist={this.state.playlist} />
           )
         }
       }
