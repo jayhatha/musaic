@@ -24,6 +24,7 @@ class App extends Component {
     this.logout = this.logout.bind(this);
     this.liftTokenToState = this.liftTokenToState.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handlePlaylist = this.handlePlaylist.bind(this);
   }
 
   liftTokenToState(data) {
@@ -112,6 +113,12 @@ class App extends Component {
     }
   }
 
+  handlePlaylist(tracks) {
+    this.setState({
+      playlist: tracks
+    });
+  }
+
 
   render() {
     let user = this.state.user;
@@ -129,7 +136,7 @@ class App extends Component {
           <Signup liftToken={this.liftTokenToState} />
           <Login liftToken={this.liftTokenToState} />
 
-          <PhotoForm />
+          <PhotoForm liftPlaylist={this.handlePlaylist} />
 
           <p><Playlist playlist={this.state.playlist}/></p>
 
@@ -138,7 +145,7 @@ class App extends Component {
         }
         if (this.state.playlist) {
           return (
-            <p><Playlist playlist={this.state.playlist}/></p>
+            <Playlist playlist={this.state.playlist} />
           )
         }
       }
