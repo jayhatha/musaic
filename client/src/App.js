@@ -126,7 +126,6 @@ class App extends Component {
           <UserProfile user={user} logout={this.logout} />
           <a onClick={this.handleClick}> Test the protected route</a>
           <p>{this.state.lockedResult}</p>
-          <Result />
         </div>
       );
     } else {
@@ -134,17 +133,13 @@ class App extends Component {
         <div className="App">
           <Signup liftToken={this.liftTokenToState} />
           <Login liftToken={this.liftTokenToState} />
-
           <PhotoForm liftPlaylist={this.handlePlaylist} />
-
-          <p><Playlist playlist={this.state.playlist} /></p>
-
         </div>
       )
     }
     if (this.state.playlist) {
       return (
-        <Playlist playlist={this.state.playlist} />
+        <Result playlist={this.state.playlist} />
       )
     }
   }
