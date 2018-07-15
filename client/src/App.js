@@ -27,6 +27,7 @@ class App extends Component {
     this.liftTokenToState = this.liftTokenToState.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handlePlaylist = this.handlePlaylist.bind(this);
+    this.handlePhoto = this.handlePhoto.bind(this);
   }
 
   liftTokenToState(data) {
@@ -119,9 +120,16 @@ class App extends Component {
     }, () => {console.log('########', this.state.playlist)});
   }
 
+  handlePhoto(photo) {
+    this.setState({
+      imgURL: photo
+    });
+  }
+
 
   render() {
     let user = this.state.user;
+    let results = (this.state.playlist.length) ? <Result playlist={this.state.playlist} imgURL={this.state.imgURL} /> : '';
     if (user) {
       return (
         <div className="App">
@@ -133,14 +141,15 @@ class App extends Component {
               <p>{this.state.lockedResult}</p>
             </div>
           </Router>
+
+
           <UserProfile user={user} logout={this.logout} />
 
           <a onClick={this.handleClick}> Test the protected route</a>
           <p>{this.state.lockedResult}</p>
 
-          <PhotoForm liftPlaylist={this.handlePlaylist} />
-
-          <Result playlist={this.state.playlist} photo={this.state.imgURL} />
+          <PhotoForm liftPlaylist={this.handlePlaylist} liftPhoto={this.handlePhoto} />
+          {results}
         </div>
       );
     } else {
@@ -164,29 +173,10 @@ class App extends Component {
             </div>
           </Router>
           
-          <PhotoForm liftPlaylist={this.handlePlaylist} />
-          <Result playlist={this.state.playlist} />
-
-          <Signup liftToken={this.liftTokenToState} />
-          <Login liftToken={this.liftTokenToState} />
-
-        </div>
-          )
-        }
-      }
-=======
-              <PhotoForm liftPlaylist={this.handlePlaylist} />
-            </div>
-          </Router>
-          
+          <PhotoForm liftPlaylist={this.handlePlaylist} liftPhoto={this.handlePhoto} />
+          {results}
         </div>
       )
-    }
-    if (this.state.playlist) {
-      return (
-        <Result playlist={this.state.playlist} />
-      )
->>>>>>> 8c7fbe76ccc5d826d5a914e33c170b88d065e431
     }
   }
 }

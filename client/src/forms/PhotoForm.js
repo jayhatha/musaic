@@ -114,7 +114,9 @@ class PhotoForm extends Component {
 	        this.setState({
 	        	cloudColors: result.data.colors, 
 	        	currImgURL: imgURL
-	        }, () => {});
+	        }, () => {
+	        	this.props.liftPhoto(this.state.currImgURL);
+	        });
 	      });
 	    });
 	  }
