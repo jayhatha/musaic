@@ -137,17 +137,17 @@ class App extends Component {
 
           <PhotoForm liftPlaylist={this.handlePlaylist} />
 
-          <p><Playlist playlist={this.state.playlist}/></p>
+          <p><Playlist playlist={this.state.playlist} /></p>
 
         </div>
-          )
-        }
-        if (this.state.playlist) {
-          return (
-            <Playlist playlist={this.state.playlist} />
-          )
-        }
-      }
+      )
     }
+    if (this.state.playlist) {
+      return (
+        <Playlist playlist={this.state.playlist} />
+      )
+    }
+  }
+}
 
 export default App;
