@@ -41,19 +41,6 @@ app.post('/cloudinary-data', function (req, res) {
         });
 });
 
-// Spotify route
-axios.post('/auth/get/spotify/token').then(results => {
-    console.log('trying to hit route on back end')
-    // put the token in local storage
-    console.log(results.data)
-    localStorage.setItem('spotifyToken', results.data.access_token);
-    this.setState({
-        spotifyToken: results.data.access_token,
-    })
-}).catch(err => console.log(err))
-
-
-
 app.get('*', (req, res) => {
     res.sendFile(`${__dirname}/client/build/index.html`);
 });

@@ -62,7 +62,7 @@ class App extends Component {
     //Look for Spotify token in local storage
     let spotifyToken = localStorage.getItem('spotifyToken');
     console.log('checking for sfy token')
-    if (!spotifyToken || spotifyToken === 'undefined') {
+    if (!spotifyToken || spotifyToken == 'undefined') {
       // There was no token
       // clear out anything weird that might be there
       console.log('no sfy token found')
@@ -71,6 +71,15 @@ class App extends Component {
         spotifyToken: '',
       })
       // we need to call the Spotify API on the back end and get a token
+      axios.post('/auth/get/spotify/token').then(results => {
+        console.log('trying to hit route on back end')
+        // put the token in local storage
+        console.log(results.data)
+        localStorage.setItem('spotifyToken', results.data.access_token);
+        this.setState({
+          spotifyToken: results.data.access_token,
+        })
+      }).catch(err => console.log(err))
     }
   }
 
