@@ -10,6 +10,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Dropzone from 'react-dropzone';
 
 class PhotoForm extends Component {
 	constructor(props) {
@@ -146,15 +147,15 @@ class PhotoForm extends Component {
 		console.log('Playlist ', this.state.playlist);
 		return (
 			<div>
-				{/* <Dropzone
+				<Dropzone
 				  onDrop={this.handleDrop}
 				  multiple
 				  accept="image/*"
-				  style={styles.dropzone}
+				  // style={styles.dropzone}
 				  >
 				  <p>Drop your files or click here to upload</p>
-				</Dropzone> */}
-      			<button onClick={this.getCloudinaryResult}>Click me to get sample Cloudinary result</button>
+				</Dropzone>
+      	<button onClick={this.getCloudinaryResult}>Click me to get sample Cloudinary result</button>
 				<form onSubmit={this.handleSubmit} autoComplete="off">
 					<FormControl required>
 					<InputLabel htmlFor="genre-select">Genre</InputLabel>

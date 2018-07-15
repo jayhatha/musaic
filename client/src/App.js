@@ -6,8 +6,7 @@ import Login from './Login';
 import Signup from './Signup';
 import { UserProfile } from './UserProfile';
 import PhotoForm from './forms/PhotoForm';
-// import Button from '@material-ui/core/Button';
-// import GetCloudinary from './GetCloudinary';
+import Result from './Result';
 
 
 class App extends Component {
@@ -148,6 +147,7 @@ class App extends Component {
           <UserProfile user={user} logout={this.logout} />
           <a onClick={this.handleClick}> Test the protected route</a>
           <p>{this.state.lockedResult}</p>
+          <Result/>
         </div>
       );
     } else {

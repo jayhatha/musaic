@@ -6,7 +6,6 @@ const expressJWT = require('express-jwt');
 const auth = require('./routes/auth');
 const locked = require('./routes/locked');
 var cloudinary = require('cloudinary');
-
 const port = process.env.port || 3000;
 
 const app = express();
