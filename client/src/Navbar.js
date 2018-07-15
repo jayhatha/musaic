@@ -29,23 +29,24 @@ function Navbar(props) {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+          {/* Option 2 menu bar - hamburger */}
+          {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
             <MenuButton />
-          </IconButton>
+          </IconButton> */}
           <Typography id='page-title' variant="title" color="inherit" className={classes.flex}>
-            Playlist
+            Moodsic
           </Typography>
 
           <Link to='/'>
-            <Button color="inherit">Home</Button>
+            <Button id='nav-title' color="inherit">Home</Button>
           </Link>
 
           <Link to='/signup'>
-            <Button color="inherit">Signup</Button>
+            <Button id='nav-title' color="inherit">Signup</Button>
           </Link>
 
           <Link to='/login'>
-            <Button color="inherit">Login</Button>
+            <Button id='nav-title' color="inherit">Login</Button>
           </Link>
 
         </Toolbar>
