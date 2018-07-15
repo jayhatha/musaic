@@ -75,6 +75,8 @@ class PhotoForm extends Component {
 		  	// we have a playlist in state!
 		  	playlist: response.data.tracks,
 		  	spfyAtts: [valence, mode, energy, danceability]
+		    }, () => {
+		    	this.props.liftPlaylist(this.state.playlist);
 		    })
 		  })
 	}
