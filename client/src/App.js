@@ -145,7 +145,7 @@ class App extends Component {
         }
         if (this.state.playlist) {
           return (
-            <Playlist playlist={this.state.playlist} />
+            <Result playlist={this.state.playlist} />
           )
         }
       }

@@ -43,8 +43,7 @@ class Result extends Component {
         spotifyToken: '',
       })
 
-      // we need to call the Spotify API on the back end and get a token
-      // let's hit that route
+      // we're calling the Spotify API on the back end to get a token
       console.log('trying to hit route on back end')
       axios.post('/auth/get/spotify/token').then(results => {
         // put the token in local storage
@@ -68,11 +67,11 @@ class Result extends Component {
           <Grid item xs={12} md={6}>
             <Paper className="paper">
               <img src="https://vancouver.ca/images/cov/feature/stanley-park-seawall-autumn-facebook.jpg" width="100%" ></img>
-            </Paper>            
+            </Paper>
           </Grid>
           <Grid item xs={12} md={6}>
               <Paper className="paper">
-                <Playlist playlist={this.state.playlist}/>
+                <Playlist />
                 <p>Here's a song</p>
                 <p>Here's another song</p>
               </Paper>
