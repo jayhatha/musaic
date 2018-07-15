@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import axios from 'axios';
 import './App.css';
-import Playlist from './Playlist'
 import Login from './Login';
 import Signup from './Signup';
 import { UserProfile } from './UserProfile';
@@ -134,7 +133,6 @@ class App extends Component {
               <p>{this.state.lockedResult}</p>
             </div>
           </Router>
-
           <UserProfile user={user} logout={this.logout} />
 
           <a onClick={this.handleClick}> Test the protected route</a>
@@ -176,6 +174,21 @@ class App extends Component {
           )
         }
       }
+=======
+              <PhotoForm liftPlaylist={this.handlePlaylist} />
+            </div>
+          </Router>
+          
+        </div>
+      )
     }
+    if (this.state.playlist) {
+      return (
+        <Result playlist={this.state.playlist} />
+      )
+>>>>>>> 8c7fbe76ccc5d826d5a914e33c170b88d065e431
+    }
+  }
+}
 
 export default App;
