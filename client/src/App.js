@@ -7,7 +7,7 @@ import Signup from './Signup';
 import { UserProfile } from './UserProfile';
 import PhotoForm from './forms/PhotoForm';
 // import Button from './@material-ui/core/button';
-import GetCloudinary from './GetCloudinary';
+
 
 
 class App extends Component {
@@ -24,7 +24,6 @@ class App extends Component {
     this.logout = this.logout.bind(this);
     this.liftTokenToState = this.liftTokenToState.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    this.handlePlaylistClick = this.handlePlaylistClick.bind(this);
   }
 
   liftTokenToState(data) {
@@ -43,46 +42,6 @@ class App extends Component {
       })
     })
   }
-
-  handlePlaylistClick(e) {
-    var token = localStorage.getItem('spotifyToken');
-    console.log(token)
-    axios.defaults.headers.common['Authorization'] = "Bearer " + token;
-      axios.get('https://api.spotify.com/v1/recommendations?limit=50&seed_genres=pop&max_danceability=0.5&max_valence=0.5&max_energy=0.5')
-      .then(response => {
-      console.log(response.data);
-      this.setState({
-        playlist: response.data.tracks
-        })
-      })
-  }
-
-  handleDrop = files => {
-  // Push all the axios request promise into a single array
-  const uploaders = files.map(file => {
-    // Initial FormData
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("upload_preset", process.env.REACT_APP_UPLOAD_PRESET);
-    formData.append("api_key", process.env.REACT_APP_CLOUDINARY_API);
-    formData.append("timestamp", (Date.now() / 1000) | 0);
-
-    // Make an AJAX upload request using Axios (replace Cloudinary URL below with your own)
-    return axios.post("https://api.cloudinary.com/v1_1/dieaqkurh/image/upload", formData, {
-      headers: { "X-Requested-With": "XMLHttpRequest" },
-    }).then(response => {
-      const data = response.data;
-      const fileURL = data.secure_url
-      console.log(data);
-    })
-  });
-
-  // Once all the files are uploaded
-  axios.all(uploaders).then(() => {
-    // ... perform after upload is successful operation
-    console.log('############HEEEEEEYYYYYY!!!###########')
-  });
-}
 
   componentDidMount() {
     this.checkForLocalToken();
@@ -169,22 +128,11 @@ class App extends Component {
         <div className="App">
           <Signup liftToken={this.liftTokenToState} />
           <Login liftToken={this.liftTokenToState} />
-          {/* <Dropzone
-            onDrop={this.handleDrop}
-            multiple
-            accept="image/*"
-            style={styles.dropzone}
-            >
-            <p>Drop your files or click here to upload</p>
-          </Dropzone> */}
-          {/* <Button variant="contained" onClick= {this.handlePlaylistClick}>get a playlist??!</Button> */}
 
-          <button onClick= {this.handlePlaylistClick}>get a playlist??!</button>
-          <p>{this.state.song}</p>
           <PhotoForm />
 
           <p><Playlist playlist={this.state.playlist}/></p>
-          <GetCloudinary />
+
         </div>
           )
         }
