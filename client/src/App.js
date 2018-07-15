@@ -7,7 +7,6 @@ import Signup from './Signup';
 import { UserProfile } from './UserProfile';
 import PhotoForm from './forms/PhotoForm';
 import Result from './Result';
-import Input from '@material-ui/core/Input'
 
 
 
@@ -25,7 +24,6 @@ class App extends Component {
     this.logout = this.logout.bind(this);
     this.liftTokenToState = this.liftTokenToState.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   liftTokenToState(data) {
@@ -44,25 +42,6 @@ class App extends Component {
       })
     })
   }
-
-  // Submit Call to Spotify for the playlist
-  // handleSubmit(e) {
-  //   e.preventDefault();
-  //   console.log("SUBMIT");
-  //   var spotifyToken = localStorage.getItem('spotifyToken');
-  //   console.log('###TOKEN', spotifyToken)
-  //   axios.defaults.headers.common['Authorization'] = "Bearer " + spotifyToken;
-  //   axios.get(`https://api.spotify.com/v1/recommendations?limit=50&seed_genres=indie&max_danceability=0.5&max_valence=0.5&max_energy=0.5`)
-  //     .then(response => {
-  //       console.log(response.data.tracks);
-  //       var spotifyTracks = response.data.tracks;
-  //       this.setState({
-  //         spotifyToken,
-  //         // we have a playlist in state!
-  //         playlist: spotifyTracks
-  //       })
-  //     })
-  // }
 
   componentDidMount() {
     this.checkForLocalToken();
@@ -139,7 +118,6 @@ class App extends Component {
         <div className="App">
           <Signup liftToken={this.liftTokenToState} />
           <Login liftToken={this.liftTokenToState} />
-          
           <PhotoForm/>
           <p><Playlist playlist={this.state.playlist} /></p>
         </div>

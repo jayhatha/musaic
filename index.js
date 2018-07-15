@@ -42,7 +42,6 @@ app.post('/cloudinary-data', function (req, res) {
 });
 
 // Spotify route
-
 axios.post('/auth/get/spotify/token').then(results => {
     console.log('trying to hit route on back end')
     // put the token in local storage
