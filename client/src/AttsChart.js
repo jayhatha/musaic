@@ -1,22 +1,20 @@
 import React, {Component} from 'react';
-import {Pie} from 'react-chartjs-2';
+import {Doughnut} from 'react-chartjs-2';
 
 class AttsChart extends Component {
 	render() {
-		const colors = [];
-		const colorPcts = [];
-
-		this.props.spfyAtts.map((color) => {
-			colors.push(color[0]);
-			colorPcts.push(color[1]);
-		})
+		console.log('##SPFY', this.props.spfyAtts);
+		const valence = this.props.spfyAtts[0] * 100;
+		const mode = (this.props.spfyAtts[1]) ? 'Major' : 'Minor';
+		const energy = this.props.spfyAtts[2] * 100;
+		const danceability = this.props.spfyAtts[3] * 100;
 
 		const data = {
-			labels: colors,
+			labels: ['valence', 'energy', 'danceability'],
 			datasets: [
 				{
-					data: colorPcts,
-					backgroundColor: colors
+					data: [valence, energy, danceability],
+					backgroundColor: ['#32ace1', '#fbeb3e', '#e71a8b']
 				}
 			]
 		}
@@ -28,7 +26,7 @@ class AttsChart extends Component {
 		return (
 			<div>
 				<h1>HIE</h1>
-				<Pie data={data} legend={legendOpts} />
+				<Doughnut data={data} />
 			</div>
 		);
 	}

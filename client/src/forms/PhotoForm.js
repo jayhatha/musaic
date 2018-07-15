@@ -232,7 +232,7 @@ class PhotoForm extends Component {
 				</form>
 
 				<ColorChart colors={this.state.cloudColors} />
-				<AttsChart spfyAtts={this.state.cloudColors} />
+				<AttsChart spfyAtts={this.state.spfyAtts} />
 
 			</div>
 		);
