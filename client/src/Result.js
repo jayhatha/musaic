@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import Grid from '@material-ui/core/Grid';
 import Playlist from './Playlist';
 import axios from 'axios';
-import PropTypes from 'prop-types';
 import {withStyles} from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 
@@ -59,20 +58,24 @@ class Result extends Component {
   }
 
   render() {
-    const { classes } = props;
+    // const { classes } = props;
     return (
-      <div className={classes.root}>
+      <div className="root">
         <Grid container spacing={24}>
           <Grid item xs={12}>
-            <Paper className={classes.paper}>Results:</Paper>
+            <h1>Results:</h1>
           </Grid>
           <Grid item xs={12} md={6}>
-            <img src="https://vancouver.ca/images/cov/feature/stanley-park-seawall-autumn-facebook.jpg" width="100%" ></img>
+            <Paper className="paper">
+              <img src="https://vancouver.ca/images/cov/feature/stanley-park-seawall-autumn-facebook.jpg" width="100%" ></img>
+            </Paper>            
           </Grid>
           <Grid item xs={12} md={6}>
-            <Playlist playlist={this.state.playlist}/>
-            <p>Here's a song</p>
-            <p>Here's another song</p>
+              <Paper className="paper">
+                <Playlist playlist={this.state.playlist}/>
+                <p>Here's a song</p>
+                <p>Here's another song</p>
+              </Paper>
           </Grid>
         </Grid>
       </div>
@@ -81,9 +84,5 @@ class Result extends Component {
 }
 
 //Display photo and playlist in this component
-
-Result.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 export default withStyles(styles)(Result)

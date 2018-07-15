@@ -7,7 +7,8 @@ const auth = require('./routes/auth');
 const locked = require('./routes/locked');
 var cloudinary = require('cloudinary');
 var multer = require('multer');
-var upload = multer({dest: './uploads/'});
+var upload = multer({ dest: './uploads/' });
+const axios = require('axios');
 
 const port = process.env.port || 3000;
 
@@ -20,9 +21,9 @@ mongoose.connect('mongodb://localhost/moodMusic');
 
 //ADDED config cloudinary (want to add to route once created)
 cloudinary.config({
-  cloud_name: 'dieaqkurh',
-  api_key: process.env.REACT_APP_CLOUDINARY_API_KEY,
-  api_secret: process.env.REACT_APP_CLOUDINARY_API_SECRET
+    cloud_name: 'dieaqkurh',
+    api_key: process.env.REACT_APP_CLOUDINARY_API_KEY,
+    api_secret: process.env.REACT_APP_CLOUDINARY_API_SECRET
 });
 
 app.use(express.static(`${__dirname}/client/build`));
@@ -30,15 +31,29 @@ app.use('/auth', auth);
 app.use('/locked', expressJWT({ secret: process.env.JWT_SECRET }).unless({ method: 'POST' }), locked);
 
 //creating the test route
-app.post('/cloudinary-data', function(req, res) {
-  console.log('HIT CLOUD_DATA POST ROUTE')
-  //NEED name delete 'something'
-  cloudinary.v2.api.resource(req.body.imgPublicId, {colors: true},
-    function(error, result) {
-      console.log(result);
-      res.json(result);
-  });
+app.post('/cloudinary-data', function (req, res) {
+    console.log('HIT CLOUD_DATA POST ROUTE')
+    //NEED name delete 'something'
+    cloudinary.v2.api.resource(req.body.imgPublicId, { colors: true },
+        function (error, result) {
+            console.log(result);
+            res.json(result);
+        });
 });
+
+// Spotify route
+
+axios.post('/auth/get/spotify/token').then(results => {
+    console.log('trying to hit route on back end')
+    // put the token in local storage
+    console.log(results.data)
+    localStorage.setItem('spotifyToken', results.data.access_token);
+    this.setState({
+        spotifyToken: results.data.access_token,
+    })
+}).catch(err => console.log(err))
+
+
 
 app.get('*', (req, res) => {
     res.sendFile(`${__dirname}/client/build/index.html`);
