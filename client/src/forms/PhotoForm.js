@@ -54,8 +54,14 @@ class PhotoForm extends Component {
 		const danceability = attributes[3];
 
 		// if more than one genre is selected, join array with comma
+<<<<<<< HEAD
 		let genres = (this.state.genres.length > 1) ? this.state.genres.join(',') : this.state.genres[0];
 
+=======
+		// let genres = (this.state.genres.length > 1) ? this.state.genres.join(',') : this.state.genres[0];
+		let genres = this.state.genres;
+		
+>>>>>>> 3a4971817b027ac6b2fa4f301ffd55c3cebbd8ba
 		// make sure everything has a value!
 		console.log('valence ', valence);
 		console.log('mode ', mode);
@@ -63,15 +69,24 @@ class PhotoForm extends Component {
 		console.log('danceability ', danceability);
 		console.log('genres ', genres);
 
+<<<<<<< HEAD
 		// Calling Spotify to get our playlist
 		var token = localStorage.getItem('spotifyToken');
 		console.log('###TOKEN', token)
 		// Passing in our token from local storage, plus our mood parameters
 		axios.defaults.headers.common['Authorization'] = "Bearer " + token;
+=======
+		// SPOTIFY CALL GOES HERE
+		var spotifyToken = localStorage.getItem('spotifyToken');
+		console.log('###TOKEN', spotifyToken)
+		// Jay Magic...
+		axios.defaults.headers.common['Authorization'] = "Bearer " + spotifyToken;
+>>>>>>> 3a4971817b027ac6b2fa4f301ffd55c3cebbd8ba
 		  axios.get(`https://api.spotify.com/v1/recommendations?limit=50&seed_genres=${genres}&max_danceability=${danceability}&max_valence=${valence}&max_energy=${energy}&mode=${mode}`)
 		  .then(response => {
-		  console.log(response.data);
+		  // console.log(response.data);
 		  this.setState({
+				spotifyToken,
 		  	// we have a playlist in state!
 		  	playlist: response.data.tracks,
 		  	spfyAtts: [valence, mode, energy, danceability]
