@@ -17,7 +17,7 @@ class PhotoForm extends Component {
 		super(props)
 		this.handleChange = this.handleChange.bind(this);
 		this.handleDrop = this.handleDrop.bind(this);
-		// this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
 		this.state = {
 			playlist: [],
 			spotifyToken: '',
@@ -187,6 +187,7 @@ class PhotoForm extends Component {
 					<FormControl required>
 					<InputLabel htmlFor="genre-select">Genre</InputLabel>
 						<Select value={this.state.genres}
+								multiple
 								onChange={this.handleChange}
 								inputProps={{name: 'genres', id: 'genre-select'}} >
 
