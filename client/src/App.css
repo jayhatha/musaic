@@ -2,4 +2,7 @@
   text-align: center;
 }
 
-
+#page-title {
+  color: black !important;
+  font-size: 3em;
+}

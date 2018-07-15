@@ -31,14 +31,14 @@ class PhotoForm extends Component {
 		console.log('change');
 		this.setState({[e.target.name]: e.target.value})
 	}
-	
+
 	// dooeess a lot of things
 	handleSubmit(e) {
 		e.preventDefault();
 		console.log("SUBMIT");
 		console.log('stateCloudColors: ', this.state.cloudColors);
 
-		// first, calls spfyAtts function using the colors stored in state 
+		// first, calls spfyAtts function using the colors stored in state
 		// (which were set in cloudinaryResult function)
 		let attributes = this.spotifyAttributes(this.state.cloudColors);
 		// atts are set using the returned array
@@ -49,7 +49,7 @@ class PhotoForm extends Component {
 
 		// if more than one genre is selected, join array with comma
 		let genres = (this.state.genres.length > 1) ? this.state.genres.join(',') : this.state.genres[0];
-		
+
 		// make sure everything has a value!
 		console.log('valence ', valence);
 		console.log('mode ', mode);
@@ -87,7 +87,7 @@ class PhotoForm extends Component {
 		let hue = hslColor[0];
 		let sat = hslColor[1];
 		let light = hslColor[2];
-		
+
 		// divide colors in to 8 ranges
 		let color;
 		if(hue <= 45) color = 'redOrange';
@@ -115,7 +115,7 @@ class PhotoForm extends Component {
 			let colorRange = this.getColorRange(color[0]);
 			colorsArr.push(colorRange);
 		});
-		
+
 		let valence = 0;
 		let mode = 0;
 		let energy = 0;
@@ -129,7 +129,7 @@ class PhotoForm extends Component {
 			energy += currColor.energy;
 			danceability += currColor.danceability;
 		});
-		
+
 		// then divide those values by the length of the cloudColors array,
 		// to return floats that can be used in spotify call
 		// (mode is always 1 or 0)

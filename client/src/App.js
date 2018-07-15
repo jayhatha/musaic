@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import axios from 'axios';
 import './App.css';
 import Playlist from './Playlist'
@@ -6,7 +7,9 @@ import Login from './Login';
 import Signup from './Signup';
 import { UserProfile } from './UserProfile';
 import PhotoForm from './forms/PhotoForm';
+import Navbar from './Navbar';
 // import Button from './@material-ui/core/button';
+
 
 
 
@@ -146,20 +149,35 @@ class App extends Component {
     if (user) {
       return (
         <div className="App">
-          <UserProfile user={user} logout={this.logout}/>
-          <a onClick={this.handleClick}> Test the protected route</a>
-          <p>{this.state.lockedResult}</p>
+          <Router>
+            <div>
+              <Navbar />
+              <UserProfile user={user} logout={this.logout}/>
+              <a onClick={this.handleClick}> Test the protected route</a>
+              <p>{this.state.lockedResult}</p>
+            </div>
+          </Router>
         </div>
       );
     } else {
       return (
         <div className="App">
-          <Signup liftToken={this.liftTokenToState} />
-          <Login liftToken={this.liftTokenToState} />
+          <Router>
+            <div>
+              <Navbar />
 
-          <PhotoForm />
+              <Route path='/signup' render={() =>
+                <Signup liftToken={this.liftTokenToState} />
+              } />
 
-          <p><Playlist playlist={this.state.playlist}/></p>
+              <Route path='/login' render={() =>
+                <Login liftToken={this.liftTokenToState} />
+              } />
+              
+              <PhotoForm />
+              <p><Playlist playlist={this.state.playlist}/></p>
+            </div>
+          </Router>
 
         </div>
           )
