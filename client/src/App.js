@@ -6,7 +6,7 @@ import Login from './Login';
 import Signup from './Signup';
 import { UserProfile } from './UserProfile';
 import PhotoForm from './forms/PhotoForm';
-// import Button from './@material-ui/core/button';
+import Result from './Result';
 
 
 
@@ -37,7 +37,7 @@ class App extends Component {
   handleClick(e) {
     e.preventDefault();
     axios.defaults.headers.common['Authorization'] = `Bearer ${this.state.token}`;
-    axios.get('/locked/test').then( results => {
+    axios.get('/locked/test').then(results => {
       this.setState({
         lockedResult: results.data
       })
@@ -47,7 +47,7 @@ class App extends Component {
   componentDidMount() {
     this.checkForLocalToken();
     this.checkForSpotifyToken()
-    }
+  }
 
   logout() {
     // remove token from local storage
@@ -63,7 +63,7 @@ class App extends Component {
     //Look for Spotify token in local storage
     let spotifyToken = localStorage.getItem('spotifyToken');
     console.log('checking for sfy token')
-    if (!spotifyToken || spotifyToken === 'undefined') {
+    if (!spotifyToken || spotifyToken == 'undefined') {
       // There was no token
       // clear out anything weird that might be there
       console.log('no sfy token found')
@@ -71,18 +71,16 @@ class App extends Component {
       this.setState({
         spotifyToken: '',
       })
-
       // we need to call the Spotify API on the back end and get a token
-      // let's hit that route
-      console.log('trying to hit route on back end')
-      axios.post('/auth/get/spotify/token').then( results => {
+      axios.post('/auth/get/spotify/token').then(results => {
+        console.log('trying to hit route on back end')
         // put the token in local storage
         console.log(results.data)
         localStorage.setItem('spotifyToken', results.data.access_token);
         this.setState({
           spotifyToken: results.data.access_token,
         })
-      }).catch( err => console.log(err))
+      }).catch(err => console.log(err))
     }
   }
 
@@ -102,14 +100,14 @@ class App extends Component {
       // send it to the back to be verified
       axios.post('/auth/me/from/token', {
         token
-      }).then( results => {
+      }).then(results => {
         // put the token in local storage
         localStorage.setItem('mernToken', results.data.token);
         this.setState({
           token: results.data.token,
           user: results.data.user
         })
-      }).catch( err => console.log(err))
+      }).catch(err => console.log(err))
     }
   }
 
@@ -125,9 +123,10 @@ class App extends Component {
     if (user) {
       return (
         <div className="App">
-          <UserProfile user={user} logout={this.logout}/>
+          <UserProfile user={user} logout={this.logout} />
           <a onClick={this.handleClick}> Test the protected route</a>
           <p>{this.state.lockedResult}</p>
+          <Result />
         </div>
       );
     } else {
@@ -135,6 +134,7 @@ class App extends Component {
         <div className="App">
           <Signup liftToken={this.liftTokenToState} />
           <Login liftToken={this.liftTokenToState} />
+
 
           <PhotoForm liftPlaylist={this.handlePlaylist} />
 
@@ -150,5 +150,7 @@ class App extends Component {
         }
       }
     }
+  }
+}
 
 export default App;
