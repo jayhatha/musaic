@@ -20,7 +20,8 @@ class App extends Component {
       user: null,
       lockedResult: '',
       playlist: [],
-      spotifyToken: ''
+      spotifyToken: '',
+      imgURL: ''
     }
     this.checkForLocalToken = this.checkForLocalToken.bind(this);
     this.logout = this.logout.bind(this);
@@ -116,7 +117,7 @@ class App extends Component {
   handlePlaylist(tracks) {
     this.setState({
       playlist: tracks
-    });
+    }, () => {console.log('########', this.state.playlist)});
   }
 
 
@@ -133,10 +134,15 @@ class App extends Component {
               <p>{this.state.lockedResult}</p>
             </div>
           </Router>
+
           <UserProfile user={user} logout={this.logout} />
+
           <a onClick={this.handleClick}> Test the protected route</a>
           <p>{this.state.lockedResult}</p>
-          <Result playlist={this.state.playlist} />
+
+          <PhotoForm liftPlaylist={this.handlePlaylist} />
+
+          <Result playlist={this.state.playlist} photo={this.state.imgURL} />
         </div>
       );
     } else {
@@ -157,22 +163,16 @@ class App extends Component {
               <Route path='/login' render={() =>
                 <Login liftToken={this.liftTokenToState} />
               } />
-
-              <PhotoForm />
-              <p><Playlist playlist={this.state.playlist}/></p>
             </div>
           </Router>
+          
+          <PhotoForm liftPlaylist={this.handlePlaylist} />
+          <Result playlist={this.state.playlist} />
+
           <Signup liftToken={this.liftTokenToState} />
           <Login liftToken={this.liftTokenToState} />
 
-          <PhotoForm liftPlaylist={this.handlePlaylist} />
-
         </div>
-          )
-        }
-        if (this.state.playlist) {
-          return (
-            <Result playlist={this.state.playlist} />
           )
         }
       }
