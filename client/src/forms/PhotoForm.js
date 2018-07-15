@@ -36,7 +36,7 @@ class PhotoForm extends Component {
 		console.log('change');
 		this.setState({[e.target.name]: e.target.value})
 	}
-	
+
 	// dooeess a lot of things
 	handleSubmit(e) {
 		e.preventDefault();
@@ -44,7 +44,7 @@ class PhotoForm extends Component {
 		console.log('IMGA', e.target);
 		console.log('stateCloudColors: ', this.state.cloudColors);
 
-		// first, calls spfyAtts function using the colors stored in state 
+		// first, calls spfyAtts function using the colors stored in state
 		// (which were set in cloudinaryResult function)
 		let attributes = this.spotifyAttributes(this.state.cloudColors);
 		// atts are set using the returned array
@@ -55,7 +55,7 @@ class PhotoForm extends Component {
 
 		// if more than one genre is selected, join array with comma
 		let genres = (this.state.genres.length > 1) ? this.state.genres.join(',') : this.state.genres[0];
-		
+
 		// make sure everything has a value!
 		console.log('valence ', valence);
 		console.log('mode ', mode);
@@ -63,10 +63,10 @@ class PhotoForm extends Component {
 		console.log('danceability ', danceability);
 		console.log('genres ', genres);
 
-		// SPOTIFY CALL GOES HERE
+		// Calling Spotify to get our playlist
 		var token = localStorage.getItem('spotifyToken');
 		console.log('###TOKEN', token)
-		// Jay Magic...
+		// Passing in our token from local storage, plus our mood parameters
 		axios.defaults.headers.common['Authorization'] = "Bearer " + token;
 		  axios.get(`https://api.spotify.com/v1/recommendations?limit=50&seed_genres=${genres}&max_danceability=${danceability}&max_valence=${valence}&max_energy=${energy}&mode=${mode}`)
 		  .then(response => {
@@ -80,9 +80,10 @@ class PhotoForm extends Component {
 	}
 
 	handleDrop(files) {
-	  const api_key = process.env.REACT_APP_CLOUDINARY_API;
+	  const api_key = process.env.REACT_APP_CLOUDINARY_API_KEY;
 	  const upload_preset = process.env.REACT_APP_UPLOAD_PRESET;
 	  let imgPublicId, imgURL;
+		// mapping all the uploaded files
 	  const uploaders = files.map(file => {
 
 	    var formData = new FormData();
@@ -90,7 +91,7 @@ class PhotoForm extends Component {
 	    formData.append("upload_preset", upload_preset);
 	    formData.append("api_key", api_key);
 	    formData.append("timestamp", (Date.now() / 1000) | 0);
-
+			// This is our upload — sending the image and our credentials to Cloudinary
 	    return axios.post("https://api.cloudinary.com/v1_1/dieaqkurh/image/upload", formData, {
 	      headers: { "X-Requested-With": "XMLHttpRequest" },
 	    }).then(response => {
@@ -99,11 +100,11 @@ class PhotoForm extends Component {
 	      imgURL = response.data.secure_url;
 	    })
 	   });
-		
 
-	    // Once all the files are uploaded
+
+	    // Axios.all will run the above API call for each image in the queue
 	    axios.all(uploaders).then(() => {
-	      // ... perform after upload is successful operation
+	      // ... sending the image url to the back end, waiting for color data.
 	      console.log('SHOULD BE GETTING COLORS NOW');
 	      axios.post('/cloudinary-data', {imgPublicId: imgPublicId}).then((result) => {
 	        // set colors in state
@@ -119,7 +120,7 @@ class PhotoForm extends Component {
 		let hue = hslColor[0];
 		let sat = hslColor[1];
 		let light = hslColor[2];
-		
+
 		// divide colors in to 8 ranges
 		let color;
 		if(hue <= 45) color = 'redOrange';
@@ -148,7 +149,7 @@ class PhotoForm extends Component {
 
 			colorsArr.push(colorRange);
 		});
-		
+
 		let valence = 0;
 		let mode = 0;
 		let energy = 0;
@@ -162,7 +163,7 @@ class PhotoForm extends Component {
 			energy += currColor.energy;
 			danceability += currColor.danceability;
 		});
-		
+
 		// then divide those values by the length of the cloudColors array,
 		// to return floats that can be used in spotify call
 		// (mode is always 1 or 0)
