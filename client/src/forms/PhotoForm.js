@@ -16,13 +16,14 @@ class PhotoForm extends Component {
 	constructor(props) {
 		super(props)
 		this.handleChange = this.handleChange.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.getCloudinaryResult = this.getCloudinaryResult.bind(this);
+		this.handleDrop = this.handleDrop.bind(this);
+		// this.handleSubmit = this.handleSubmit.bind(this);
 		this.state = {
 			playlist: [],
 			spotifyToken: '',
 			genres: [],
-			cloudColors: []
+			cloudColors: [],
+			currImgURL: ''
 		}
 	}
 
@@ -37,6 +38,7 @@ class PhotoForm extends Component {
 	handleSubmit(e) {
 		e.preventDefault();
 		console.log("SUBMIT");
+		console.log('IMGA', e.target);
 		console.log('stateCloudColors: ', this.state.cloudColors);
 
 		// first, calls spfyAtts function using the colors stored in state 
@@ -73,13 +75,38 @@ class PhotoForm extends Component {
 		  })
 	}
 
-	getCloudinaryResult() {
-	  axios.get('/cloudinary-test').then((result) => {
-	    console.log('here are colors: ', result.data.colors);
-	    // set colors in state
-	    this.setState({cloudColors: result.data.colors});
-	  });
-	}
+	handleDrop(files) {
+	  const api_key = process.env.REACT_APP_CLOUDINARY_API;
+	  const upload_preset = process.env.REACT_APP_UPLOAD_PRESET;
+	  let imgPublicId, imgURL;
+	  const uploaders = files.map(file => {
+
+	    var formData = new FormData();
+	    formData.append("file", file);
+	    formData.append("upload_preset", upload_preset);
+	    formData.append("api_key", api_key);
+	    formData.append("timestamp", (Date.now() / 1000) | 0);
+
+	    return axios.post("https://api.cloudinary.com/v1_1/dieaqkurh/image/upload", formData, {
+	      headers: { "X-Requested-With": "XMLHttpRequest" },
+	    }).then(response => {
+	      imgPublicId = response.data.public_id;
+	      // imgURL = response.data
+	      imgURL = response.data.secure_url;
+	    })
+	   });
+		
+
+	    // Once all the files are uploaded
+	    axios.all(uploaders).then(() => {
+	      // ... perform after upload is successful operation
+	      console.log('SHOULD BE GETTING COLORS NOW');
+	      axios.post('/cloudinary-data', {imgPublicId: imgPublicId}).then((result) => {
+	        // set colors in state
+	        this.setState({cloudColors: result.data.colors, currImgURL: imgURL});
+	      });
+	    });
+	  }
 
 	getColorRange(hexHash) {
 		// convert hex color to hsl
@@ -143,25 +170,24 @@ class PhotoForm extends Component {
 	}
 
 	render() {
-		console.log('GENRE ', this.state.genres);
-		console.log('Playlist ', this.state.playlist);
+		console.log('PHOTOFORM STATE: ', this.state);
+		let currImg = (this.state.currImgURL) ? <img src={this.state.currImgURL} width="200px" /> : '';
 		return (
 			<div>
 				<Dropzone
 				  onDrop={this.handleDrop}
-				  multiple
 				  accept="image/*"
-				  // style={styles.dropzone}
 				  >
 				  <p>Drop your files or click here to upload</p>
 				</Dropzone>
-      	<button onClick={this.getCloudinaryResult}>Click me to get sample Cloudinary result</button>
+
+				{currImg}
+
 				<form onSubmit={this.handleSubmit} autoComplete="off">
 					<FormControl required>
 					<InputLabel htmlFor="genre-select">Genre</InputLabel>
 						<Select value={this.state.genres}
 								onChange={this.handleChange}
-								multiple
 								inputProps={{name: 'genres', id: 'genre-select'}} >
 
 								<MenuItem value='blues'>blues</MenuItem>
