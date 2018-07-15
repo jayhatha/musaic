@@ -2,4 +2,23 @@
   text-align: center;
 }
 
+#page-title {
+  color: rgb(32, 145, 152) !important;
+  font-size: 3em;
+  text-align: left;
+  font-family: 'Monoton', cursive;
+}
 
+#nav-title {
+  color: white;
+  text-decoration: none;
+}
+
+#nav-title:hover{
+    background-color: rgb(32, 145, 152) !important;
+    color: yellow;
+}
+
+a, u {
+    text-decoration: none;
+}

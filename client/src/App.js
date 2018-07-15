@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import axios from 'axios';
 import './App.css';
 import Playlist from './Playlist'
@@ -6,8 +7,9 @@ import Login from './Login';
 import Signup from './Signup';
 import { UserProfile } from './UserProfile';
 import PhotoForm from './forms/PhotoForm';
+import Navbar from './Navbar';
+import Home from './Home';
 import Result from './Result';
-
 
 
 class App extends Component {
@@ -123,6 +125,14 @@ class App extends Component {
     if (user) {
       return (
         <div className="App">
+          <Router>
+            <div>
+              <Navbar />
+              <UserProfile user={user} logout={this.logout}/>
+              <a onClick={this.handleClick}> Test the protected route</a>
+              <p>{this.state.lockedResult}</p>
+            </div>
+          </Router>
           <UserProfile user={user} logout={this.logout} />
           <a onClick={this.handleClick}> Test the protected route</a>
           <p>{this.state.lockedResult}</p>
@@ -132,6 +142,26 @@ class App extends Component {
     } else {
       return (
         <div className="App">
+          <Router>
+            <div>
+              <Navbar />
+
+              <Route exact path='/' render={() =>
+                <Home />
+              } />
+
+              <Route path='/signup' render={() =>
+                <Signup liftToken={this.liftTokenToState} />
+              } />
+
+              <Route path='/login' render={() =>
+                <Login liftToken={this.liftTokenToState} />
+              } />
+
+              <PhotoForm />
+              <p><Playlist playlist={this.state.playlist}/></p>
+            </div>
+          </Router>
           <Signup liftToken={this.liftTokenToState} />
           <Login liftToken={this.liftTokenToState} />
 
@@ -150,7 +180,5 @@ class App extends Component {
         }
       }
     }
-  }
-}
 
 export default App;
