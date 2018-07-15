@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuButton from './MenuButton';
+import { Link } from 'react-router-dom';
 import './App.css';
 
 const styles = {
@@ -34,7 +35,19 @@ function Navbar(props) {
           <Typography id='page-title' variant="title" color="inherit" className={classes.flex}>
             Playlist
           </Typography>
-          <Button color="inherit">Login</Button>
+
+          <Link to='/'>
+            <Button color="inherit">Home</Button>
+          </Link>
+
+          <Link to='/signup'>
+            <Button color="inherit">Signup</Button>
+          </Link>
+
+          <Link to='/login'>
+            <Button color="inherit">Login</Button>
+          </Link>
+
         </Toolbar>
       </AppBar>
     </div>

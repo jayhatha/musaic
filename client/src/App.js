@@ -8,6 +8,7 @@ import Signup from './Signup';
 import { UserProfile } from './UserProfile';
 import PhotoForm from './forms/PhotoForm';
 import Navbar from './Navbar';
+import Home from './Home';
 // import Button from './@material-ui/core/button';
 
 
@@ -166,6 +167,10 @@ class App extends Component {
             <div>
               <Navbar />
 
+              <Route exact path='/' render={() =>
+                <Home />
+              } />
+
               <Route path='/signup' render={() =>
                 <Signup liftToken={this.liftTokenToState} />
               } />
@@ -173,7 +178,7 @@ class App extends Component {
               <Route path='/login' render={() =>
                 <Login liftToken={this.liftTokenToState} />
               } />
-              
+
               <PhotoForm />
               <p><Playlist playlist={this.state.playlist}/></p>
             </div>
