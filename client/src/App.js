@@ -132,7 +132,7 @@ class App extends Component {
               <p>{this.state.lockedResult}</p>
             </div>
           </Router>
-          
+
         </div>
       );
     } else {
@@ -156,25 +156,14 @@ class App extends Component {
               <PhotoForm liftPlaylist={this.handlePlaylist} />
             </div>
           </Router>
-          
+
         </div>
-<<<<<<< HEAD
-          )
-        }
-        if (this.state.playlist) {
-          return (
-            <Result playlist={this.state.playlist} />
-          )
-        }
-      }
-=======
       )
     }
     if (this.state.playlist) {
       return (
         <Result playlist={this.state.playlist} />
       )
->>>>>>> 8c7fbe76ccc5d826d5a914e33c170b88d065e431
     }
   }
 }
