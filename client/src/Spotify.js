@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 class Spotify extends Component {
   constructor(){
-  super(props);
+  super();
   const params = this.getHashParams();
   console.log(params);
 }
@@ -23,7 +23,6 @@ render() {
       <a href='http://localhost:3000'> Login to Spotify </a>
     </div>
   );
-}
 }
 }
 

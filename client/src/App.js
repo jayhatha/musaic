@@ -8,12 +8,12 @@ import { UserProfile } from './UserProfile';
 import Navbar from './Navbar';
 import Home from './Home';
 import Spotify from './Spotify';
+import PhotoForm from './forms/PhotoForm';
 import Result from './Result';
 import About from './About';
 import UploadPhoto from './UploadPhoto';
 import OpenIconSpeedDial from './OpenIconSpeedDial';
 import CssBaseline from '@material-ui/core/CssBaseline';
-
 
 
 class App extends Component {
@@ -136,74 +136,34 @@ class App extends Component {
   render() {
    let user = this.state.user;
    let results = (this.state.playlist.length) ? <Result playlist={this.state.playlist} imgURL={this.state.imgURL} /> : '';
-   if (user) {
+
      return (
        <div className="App">
          <Router>
            <div>
              <Navbar />
-          <Route exact path='/' render={() =>
-              <Home />
-            } />
-            <Route path='/profile' render={() =>
-              <UserProfile user={user} />
-            } />
+             <Route exact path='/' render={() =>
+                <Home />
+           } />
+           <Route path='/about' render={() =>
+                <About />
+              } />
 
-            <Route path='/about' render={() =>
-              <About />
-            } />
+              <Route path='/upload' render={() =>
+                <UploadPhoto />
+              } />
 
-            <Route path='/upload' render={() =>
-              <UploadPhoto />
-            } />
+              <Route path='/signup' render={() =>
+                <Signup liftToken={this.liftTokenToState} />
+              } />
 
+              <Route path='/login' render={() =>
+                <Login liftToken={this.liftTokenToState} />
+              } />
+                   <OpenIconSpeedDial />
+               </div>
+             </Router>
 
-            <a onClick={this.handleClick}> Test the protected route</a>
-            <p>{this.state.lockedResult}</p>
-            <OpenIconSpeedDial />
-             <UserProfile user={user} logout={this.logout}/>
-             <a onClick={this.handleClick}> Test the protected route</a>
-             <p>{this.state.lockedResult}</p>
-           </div>
-         </Router>
-
-
-         <UserProfile user={user} logout={this.logout} />
-
-         <a onClick={this.handleClick}> Test the protected route</a>
-         <p>{this.state.lockedResult}</p>
-
-         <PhotoForm liftPlaylist={this.handlePlaylist} liftPhoto={this.handlePhoto} refreshToken={this.checkForSpotifyToken} />
-         {results}
-       </div>
-     );
-   } else {
-     return (
-       <div className="App">
-         <Router>
-           <div>
-             <Navbar />
-         <Route exact path='/' render={() =>
-              <Home />
-            } />
-              <Route path='/about' render={() =>
-              <About />
-            } />
-
-            <Route path='/upload' render={() =>
-              <UploadPhoto />
-            } />
-
-            <Route path='/signup' render={() =>
-              <Signup liftToken={this.liftTokenToState} />
-            } />
-
-            <Route path='/login' render={() =>
-              <Login liftToken={this.liftTokenToState} />
-            } />
-                 <OpenIconSpeedDial />
-           </div>
-         </Router>
          <Spotify />
          <PhotoForm liftPlaylist={this.handlePlaylist} liftPhoto={this.handlePhoto} refreshToken={this.checkForSpotifyToken} />
          {results}
@@ -211,7 +171,6 @@ class App extends Component {
      )
    }
  }
-}
 
 
 export default App;
