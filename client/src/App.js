@@ -154,58 +154,50 @@ class App extends Component {
                                                          genres={this.state.genres}
                                                          colors={this.state.cloudColors}
                                                          user={user} /> : '';
-    if (user) {
-      return (
-        <div className="App">
-          <Router>
-            <div>
-              <Navbar />
-              <UserProfile user={user} logout={this.logout}/>
-              <a onClick={this.handleClick}> Test the protected route</a>
-              <p>{this.state.lockedResult}</p>
-            </div>
-          </Router>
-          
-          <PhotoForm liftPlaylist={this.handlePlaylist} 
-                     liftPhoto={this.handlePhoto}
-                     liftGenres={this.handleGenres}
-                     liftColors={this.handleColors}
-                     refreshToken={this.checkForSpotifyToken} />
-          {results}
-        </div>
-      );
-    } else {
-      return (
-        <div className="App">
-          <Router>
-            <div>
-              <Navbar />
+    return (
+     <React.Fragment>
+     <CssBaseline />
+      <div className="App">
+        <Router>
+          <div>
+            <Navbar />
 
-              <Route exact path='/' render={() =>
-                <Home />
+            <Route exact path='/' render={() =>
+               <Home />
+            } />
+            <Route path='/about' render={() =>
+                 <About />
               } />
 
-              <Route path='/signup' render={() =>
-                <Signup liftToken={this.liftTokenToState} />
-              } />
+             <Route path='/upload' render={() =>
+               <PhotoForm liftPlaylist={this.handlePlaylist} liftPhoto={this.handlePhoto} refreshToken={this.checkForSpotifyToken} />
+             } />
 
-              <Route path='/login' render={() =>
-                <Login liftToken={this.liftTokenToState} />
-              } />
-            </div>
-          </Router>
-          
-          <PhotoForm liftPlaylist={this.handlePlaylist} 
-                     liftPhoto={this.handlePhoto}
-                     liftGenres={this.handleGenres}
-                     liftColors={this.handleColors}
-                     refreshToken={this.checkForSpotifyToken} />
-          {results}
-        </div>
-      )
-    }
-  }
+             <Route path='/signup' render={() =>
+               <Signup liftToken={this.liftTokenToState} />
+             } />
+
+             <Route path='/login' render={() =>
+               <Login liftToken={this.liftTokenToState} />
+             } />
+                  <OpenIconSpeedDial />
+          </div>
+        </Router>
+
+        <Spotify />
+        <PhotoForm liftPlaylist={this.handlePlaylist} 
+                   liftPhoto={this.handlePhoto}
+                   liftGenres={this.handleGenres}
+                   liftColors={this.handleColors}
+                   refreshToken={this.checkForSpotifyToken} />
+
+        {results}
+      </div>
+    </React.Fragment>
+    )
+  }  
 }
 
+     
 
 export default App;

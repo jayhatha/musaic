@@ -54,14 +54,14 @@ class Login extends Component {
         <p>{this.state.response ? this.state.response.message : ''}</p>
         <form onSubmit={this.handleSubmit}>
           Email: <input type="email"
-            value={this.state.email}
-            onChange={this.handleEmailChange}
-          /> <br />
+                        value={this.state.email}
+                        onChange={this.handleEmailChange}
+                  /> <br />
           Password: <input type="password"
-            value={this.state.password}
-            onChange={this.handlePasswordChange}
-          />
-          <Button variant="contained" type="submit" value="Log In">Log In</Button>
+                           value={this.state.password}
+                           onChange={this.handlePasswordChange}
+                    /><br/>
+          <Button variant="contained" type="submit">Log In</Button>
         </form>
       </div>
     )
