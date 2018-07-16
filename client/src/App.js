@@ -120,6 +120,7 @@ class App extends Component {
 
 
   render() {
+    let results = (this.state.playlist.length) ? <Result playlist={this.state.playlist} /> : '';
     let user = this.state.user;
     if (user) {
       return (
@@ -127,12 +128,13 @@ class App extends Component {
           <Router>
             <div>
               <Navbar />
-              <UserProfile user={user} logout={this.logout}/>
+              <UserProfile user={user} logout={this.logout} />
               <a onClick={this.handleClick}> Test the protected route</a>
               <p>{this.state.lockedResult}</p>
+              {results}
             </div>
           </Router>
-          
+
         </div>
       );
     } else {
@@ -154,15 +156,11 @@ class App extends Component {
                 <Login liftToken={this.liftTokenToState} />
               } />
               <PhotoForm liftPlaylist={this.handlePlaylist} />
+              {results}
             </div>
           </Router>
-          
+
         </div>
-      )
-    }
-    if (this.state.playlist) {
-      return (
-        <Result playlist={this.state.playlist} />
       )
     }
   }
