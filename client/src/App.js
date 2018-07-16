@@ -8,8 +8,8 @@ import { UserProfile } from './UserProfile';
 import PhotoForm from './forms/PhotoForm';
 import Navbar from './Navbar';
 import Home from './Home';
+import Spotify from './Spotify';
 import Result from './Result';
-import CssBaseline from '@material-ui/core/CssBaseline';
 
 
 class App extends Component {
@@ -168,7 +168,7 @@ class App extends Component {
              } />
            </div>
          </Router>
-
+         <Spotify />
          <PhotoForm liftPlaylist={this.handlePlaylist} liftPhoto={this.handlePhoto} refreshToken={this.checkForSpotifyToken} />
          {results}
        </div>
