@@ -40,11 +40,11 @@ const Result = props => {
         </Grid>
         <Grid item xs={12} md={6}>
           <Paper className={classes.paper}>
-            <Playlist playlist={this.props.playlist} 
-                      genres={this.props.genres}
-                      imgURL={this.props.imgURL}
-                      colors={this.props.colors}
-                      user={this.props.user} />
+            <Playlist playlist={props.playlist} 
+                      genres={props.genres}
+                      imgURL={props.imgURL}
+                      colors={props.colors}
+                      user={props.user} />
           </Paper>
         </Grid>
        

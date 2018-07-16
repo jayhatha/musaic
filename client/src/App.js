@@ -148,7 +148,6 @@ class App extends Component {
 
 
   render() {
-<<<<<<< HEAD
     let user = this.state.user;
     let results = (this.state.playlist.length) ? <Result playlist={this.state.playlist} 
                                                          imgURL={this.state.imgURL}
@@ -176,7 +175,8 @@ class App extends Component {
           <PhotoForm liftPlaylist={this.handlePlaylist} 
                      liftPhoto={this.handlePhoto}
                      liftGenres={this.handleGenres}
-                     liftColors={this.handleColors} />
+                     liftColors={this.handleColors}
+                     refreshToken={this.checkForSpotifyToken} />
           {results}
         </div>
       );
@@ -204,7 +204,8 @@ class App extends Component {
           <PhotoForm liftPlaylist={this.handlePlaylist} 
                      liftPhoto={this.handlePhoto}
                      liftGenres={this.handleGenres}
-                     liftColors={this.handleColors} />
+                     liftColors={this.handleColors}
+                     refreshToken={this.checkForSpotifyToken} />
           {results}
         </div>
       )

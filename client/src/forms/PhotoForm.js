@@ -69,7 +69,6 @@ class PhotoForm extends Component {
 		e.preventDefault();
 		}
 		console.log("SUBMIT");
-		console.log('stateCloudColors: ', this.state.cloudColors);
 
 		// first, calls spfyAtts function using the colors stored in state
 		// (which were set in cloudinaryResult function)
@@ -83,13 +82,6 @@ class PhotoForm extends Component {
 		// if more than one genre is selected, join array with comma
 		// let genres = (this.state.genres.length > 1) ? this.state.genres.join(',') : this.state.genres[0];
 		let genres = this.state.genres;
-
-		// make sure everything has a value!
-		console.log('valence ', valence);
-		console.log('mode ', mode);
-		console.log('energy ', energy);
-		console.log('danceability ', danceability);
-		console.log('genres ', genres);
 
 		// Calling Spotify to get our playlist
 		var spotifyToken = localStorage.getItem('spotifyToken');
