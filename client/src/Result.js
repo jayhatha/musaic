@@ -58,6 +58,7 @@ class Result extends Component {
 
   render() {
     // const { classes } = props;
+    console.log('PLATLIST', this.props.playlist);
     return (
       <div className="root">
         <Grid container spacing={24}>
@@ -66,12 +67,12 @@ class Result extends Component {
           </Grid>
           <Grid item xs={12} md={6}>
             <Paper className="paper">
-              <img src="https://vancouver.ca/images/cov/feature/stanley-park-seawall-autumn-facebook.jpg" width="100%" ></img>
+              <img src={this.props.imgURL} width="100%" ></img>
             </Paper>
           </Grid>
           <Grid item xs={12} md={6}>
               <Paper className="paper">
-                <Playlist />
+                <Playlist playlist={this.props.playlist}/>
                 <p>Here's a song</p>
                 <p>Here's another song</p>
               </Paper>

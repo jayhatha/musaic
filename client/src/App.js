@@ -19,13 +19,15 @@ class App extends Component {
       user: null,
       lockedResult: '',
       playlist: [],
-      spotifyToken: ''
+      spotifyToken: '',
+      imgURL: ''
     }
     this.checkForLocalToken = this.checkForLocalToken.bind(this);
     this.logout = this.logout.bind(this);
     this.liftTokenToState = this.liftTokenToState.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handlePlaylist = this.handlePlaylist.bind(this);
+    this.handlePhoto = this.handlePhoto.bind(this);
   }
 
   liftTokenToState(data) {
@@ -115,57 +117,69 @@ class App extends Component {
   handlePlaylist(tracks) {
     this.setState({
       playlist: tracks
+    }, () => {console.log('########', this.state.playlist)});
+  }
+
+  handlePhoto(photo) {
+    this.setState({
+      imgURL: photo
     });
   }
 
 
   render() {
-    let user = this.state.user;
-    if (user) {
-      return (
-        <div className="App">
-          <Router>
-            <div>
-              <Navbar />
-              <UserProfile user={user} logout={this.logout}/>
-              <a onClick={this.handleClick}> Test the protected route</a>
-              <p>{this.state.lockedResult}</p>
-            </div>
-          </Router>
+   let user = this.state.user;
+   let results = (this.state.playlist.length) ? <Result playlist={this.state.playlist} imgURL={this.state.imgURL} /> : '';
+   if (user) {
+     return (
+       <div className="App">
+         <Router>
+           <div>
+             <Navbar />
+             <UserProfile user={user} logout={this.logout}/>
+             <a onClick={this.handleClick}> Test the protected route</a>
+             <p>{this.state.lockedResult}</p>
+           </div>
+         </Router>
 
-        </div>
-      );
-    } else {
-      return (
-        <div className="App">
-          <Router>
-            <div>
-              <Navbar />
 
-              <Route exact path='/' render={() =>
-                <Home />
-              } />
+         <UserProfile user={user} logout={this.logout} />
 
-              <Route path='/signup' render={() =>
-                <Signup liftToken={this.liftTokenToState} />
-              } />
+         <a onClick={this.handleClick}> Test the protected route</a>
+         <p>{this.state.lockedResult}</p>
 
-              <Route path='/login' render={() =>
-                <Login liftToken={this.liftTokenToState} />
-              } />
-              <PhotoForm liftPlaylist={this.handlePlaylist} />
-            </div>
-          </Router>
+         <PhotoForm liftPlaylist={this.handlePlaylist} liftPhoto={this.handlePhoto} />
+         {results}
+       </div>
+     );
+   } else {
+     return (
+       <div className="App">
+         <Router>
+           <div>
+             <Navbar />
 
-        </div>
-      )
-    }
-    if (this.state.playlist) {
-      return (
-        <Result playlist={this.state.playlist} />
-      )
-    }
-  }
+             <Route exact path='/' render={() =>
+               <Home />
+             } />
+
+             <Route path='/signup' render={() =>
+               <Signup liftToken={this.liftTokenToState} />
+             } />
+
+             <Route path='/login' render={() =>
+               <Login liftToken={this.liftTokenToState} />
+             } />
+           </div>
+         </Router>
+
+         <PhotoForm liftPlaylist={this.handlePlaylist} liftPhoto={this.handlePhoto} />
+         {results}
+       </div>
+     )
+   }
+ }
 }
+
 
 export default App;
