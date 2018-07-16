@@ -9,7 +9,6 @@ var request = require('request'); // "Request" library
 // post /playlist - creates new playlist
 router.post('/', (req, res) => {
 	console.log('HIT PLAYLIST POST ROUTE');
-	console.log(req.body);
 	Playlist.create({
 		name: '',
 		description: '',
@@ -24,6 +23,16 @@ router.post('/', (req, res) => {
 		}
 		else {
 			console.log('SUCCESS!', playlist._id)
+			User.findByIdAndUpdate(req.body.user, {
+				$push: {playlistIds: playlist._id}
+			}, function(err, user) {
+				if(err) {
+					console.log('User error', err)
+				}
+				else {
+					console.log('User success', user)
+				}
+			})
 		}
 	})
 

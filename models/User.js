@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema({
         minlength: [ 8, 'Password must be between 8 and 99 characters.' ],
         maxlength: [ 99, 'Name must be between 8 and 99 characters.' ]
     },
-    playlistsIds: {
+    playlistIds: {
         type: Array
     }
 });

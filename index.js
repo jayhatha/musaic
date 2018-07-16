@@ -15,8 +15,8 @@ const port = process.env.port || 3000;
 
 const app = express();
 
-app.use(bp.json());
-app.use(bp.urlencoded({ extended: false }));
+app.use(bp.json({ limit: '50mb' }));
+app.use(bp.urlencoded({ extended: false, limit: '50mb' }));
 
 mongoose.connect('mongodb://localhost/moodMusic');
 

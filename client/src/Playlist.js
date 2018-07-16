@@ -12,7 +12,7 @@ class Playlist extends Component {
     e.preventDefault();
     console.log("FAVE CLICK");
     axios.post('/playlist', {
-      user: this.props.user,
+      user: this.props.user._id,
       playlist: this.props.playlist,
       name: '',
       description: '',
