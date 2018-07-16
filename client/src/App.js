@@ -5,11 +5,15 @@ import './App.css';
 import Login from './Login';
 import Signup from './Signup';
 import { UserProfile } from './UserProfile';
-import PhotoForm from './forms/PhotoForm';
 import Navbar from './Navbar';
 import Home from './Home';
 import Spotify from './Spotify';
 import Result from './Result';
+import About from './About';
+import UploadPhoto from './UploadPhoto';
+import OpenIconSpeedDial from './OpenIconSpeedDial';
+import CssBaseline from '@material-ui/core/CssBaseline';
+
 
 
 class App extends Component {
@@ -138,11 +142,36 @@ class App extends Component {
          <Router>
            <div>
              <Navbar />
+          <Route exact path='/' render={() =>
+              <Home />
+            } />
+            <Route path='/profile' render={() =>
+              <UserProfile user={user} />
+            } />
+
+            <Route path='/about' render={() =>
+              <About />
+            } />
+
+            <Route path='/upload' render={() =>
+              <UploadPhoto />
+            } />
+
+
+            <a onClick={this.handleClick}> Test the protected route</a>
+            <p>{this.state.lockedResult}</p>
+            <OpenIconSpeedDial />
              <UserProfile user={user} logout={this.logout}/>
              <a onClick={this.handleClick}> Test the protected route</a>
              <p>{this.state.lockedResult}</p>
            </div>
          </Router>
+
+
+         <UserProfile user={user} logout={this.logout} />
+
+         <a onClick={this.handleClick}> Test the protected route</a>
+         <p>{this.state.lockedResult}</p>
 
          <PhotoForm liftPlaylist={this.handlePlaylist} liftPhoto={this.handlePhoto} refreshToken={this.checkForSpotifyToken} />
          {results}
@@ -154,18 +183,25 @@ class App extends Component {
          <Router>
            <div>
              <Navbar />
+         <Route exact path='/' render={() =>
+              <Home />
+            } />
+              <Route path='/about' render={() =>
+              <About />
+            } />
 
-             <Route exact path='/' render={() =>
-               <Home />
-             } />
+            <Route path='/upload' render={() =>
+              <UploadPhoto />
+            } />
 
-             <Route path='/signup' render={() =>
-               <Signup liftToken={this.liftTokenToState} />
-             } />
+            <Route path='/signup' render={() =>
+              <Signup liftToken={this.liftTokenToState} />
+            } />
 
-             <Route path='/login' render={() =>
-               <Login liftToken={this.liftTokenToState} />
-             } />
+            <Route path='/login' render={() =>
+              <Login liftToken={this.liftTokenToState} />
+            } />
+                 <OpenIconSpeedDial />
            </div>
          </Router>
          <Spotify />
