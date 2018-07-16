@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -19,26 +19,46 @@ const styles = theme => ({
   }
 });
 
-const handleBtnClick = (userID) => {
-	console.log('CLIKC');
-	const url = '/playlist/user/' + userID;
-	console.log(url)
-	axios.get(url).then((result) => {
-		console.log('AND WE BACK', result);
-	});
-}
 
-export const UserProfile = (props) => {
-	const classes = props;
-	return (
-		<div className={classes.root} >
-		  <p>Hello, {props.user.name}!</p>
-		  <a onClick={props.logout}>LOG OUT</a>
+class UserProfile extends Component {
 
-		  <Button onClick={() => {handleBtnClick(props.user._id)}} 
-		  		  className={classes.button} 
-		  		  variant="raised" 
-		  		  color="default">Your Playlists</Button>
-		</div>
-	)
+	constructor(props) {
+		super(props)
+		this.state = {
+			playlists: []
+		}
+	}
+
+	componentDidMount() {
+		const url = '/playlist/user/' + this.props.user._id;
+		axios.get(url).then((result) => {
+			console.log('AND WE BACK', result.data);
+			this.setState({
+				playlists: result.data
+			})
+		});
+	}
+
+	render() {
+		const playlistsMapped = this.state.playlists.map((playlist) => {
+			return (
+				<Paper className="paper">
+					<img src={playlist.imageUrl} alt="playlist-image" width="200px" />
+					<h3>Untitled Playlist</h3>
+				</Paper>
+			)	
+		});
+
+		return (
+			<div className="root">
+				<Paper className="paper">
+			  		<p>Hello, {this.props.user.name}!</p>
+			  		<a onClick={this.props.logout}>LOG OUT</a>
+			  	</Paper>
+			  	{playlistsMapped}
+			</div>
+		)
+	}
 };
+
+export default UserProfile;

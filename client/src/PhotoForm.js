@@ -88,7 +88,7 @@ class PhotoForm extends Component {
 		console.log('###TOKEN', spotifyToken)
 		// Jay Magic...
 		axios.defaults.headers.common['Authorization'] = "Bearer " + spotifyToken;
-		  axios.get(`https://api.spotify.com/v1/recommendations?limit=50&seed_genres=${genres}&max_danceability=${danceability}&max_valence=${valence}&max_energy=${energy}&mode=${mode}`)
+		  axios.get(`https://api.spotify.com/v1/recommendations?limit=50&market=US&seed_genres=${genres}&max_danceability=${danceability}&max_valence=${valence}&max_energy=${energy}&mode=${mode}`)
 		  .then(response => {
 				// FIXME: error handle the token here
 		  this.setState({
