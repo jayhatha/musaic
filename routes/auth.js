@@ -29,7 +29,10 @@ router.post('/signup', (req,res) => {
         if (err) {
           console.log("We got an error creating the user")
           console.log(err);
-          res.status(401).json(err);
+          res.status(401).json({
+            error: true,
+            message: 'There was an error creating the user!'
+          });
         } else {
           // log them in (sign a new token)
           console.log('><><>< JUST ABOUT TO SIGN THE TOKEN ><><><')
@@ -57,17 +60,22 @@ router.post('/login', (req, res) => {
         res.json({user, token});
       } else {
         // else send error to frontend
-        res.status(401).json({
+        res.json({
+          status: 401,
           error: true,
           message: 'Email of password is incorrect.'
         })
       }
     } else {
       // else send error to frontend
-      res.status(401).json(err);
+      res.json({
+        error: true,
+        status: 401,
+        message: 'Account not found'
+      });
     }
   })
-})
+});
 
 router.post('/me/from/token', (req,res) => {
   let token = req.body.token;

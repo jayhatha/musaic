@@ -138,6 +138,8 @@ class App extends Component {
    let results = (this.state.playlist.length) ? <Result playlist={this.state.playlist} imgURL={this.state.imgURL} /> : '';
 
      return (
+    <React.Fragment>
+          <CssBaseline />
        <div className="App">
          <Router>
            <div>
@@ -168,6 +170,7 @@ class App extends Component {
          <PhotoForm liftPlaylist={this.handlePlaylist} liftPhoto={this.handlePhoto} refreshToken={this.checkForSpotifyToken} />
          {results}
        </div>
+     </React.Fragment>
      )
    }
  }
