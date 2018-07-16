@@ -146,13 +146,13 @@ class App extends Component {
              <Navbar />
              <Route exact path='/' render={() =>
                 <Home />
-              } />
-              <Route path='/about' render={() =>
+           } />
+           <Route path='/about' render={() =>
                 <About />
               } />
 
               <Route path='/upload' render={() =>
-                <PhotoForm liftPlaylist={this.handlePlaylist} liftPhoto={this.handlePhoto} refreshToken={this.checkForSpotifyToken} />
+                <UploadPhoto />
               } />
 
               <Route path='/signup' render={() =>
