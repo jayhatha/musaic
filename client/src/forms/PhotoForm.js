@@ -4,15 +4,38 @@ import convert from 'color-convert';
 import {colors} from '../colors';
 import ColorChart from '../ColorChart';
 import AttsChart from '../AttsChart';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Dropzone from 'react-dropzone';
+import Paper from '@material-ui/core/Paper'
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
+import Grid from '@material-ui/core/Grid';
+
+const styles = theme => ({
+	root: {
+		textAlign: 'center',
+		flexGrow: 1,
+	},
+	paper: {
+		padding: theme.spacing.unit * 2,
+		margin: theme.spacing.unit * 2,
+		height: '100%',
+		color: theme.palette.text.secondary,
+		textAlign: 'center'
+	},
+	button: {
+		margin: theme.spacing.unit * 1
+	},
+	dropzone: {
+		padding: theme.spacing.unit * 4,
+		margin: theme.spacing.unit * 4
+	}
+})
+
 
 class PhotoForm extends Component {
 	constructor(props) {
@@ -29,6 +52,7 @@ class PhotoForm extends Component {
 			currImgURL: ''
 		}
 	}
+
 
 	// this handles the changes in the select form
 	// by updating the genres state with each selection
@@ -187,15 +211,18 @@ class PhotoForm extends Component {
 		console.log('PHOTOFORM STATE: ', this.state);
 		let currImg = (this.state.currImgURL) ? <img src={this.state.currImgURL} width="200px" /> : '';
 		return (
-			<div>
-				<Dropzone
-				  onDrop={this.handleDrop}
-				  accept="image/*"
-				  >
-				  <p>Drop your files or click here to upload</p>
-				</Dropzone>
-
-				{currImg}
+			<div className="root">
+				<Grid container spacing={12}>
+					<Grid item xs={12} >
+						<Paper className="paper">
+							<Dropzone className="dropzone" onDrop={this.handleDrop} accept="image/*">
+								<p className="dropzone">Drag and drop your files or click here to upload</p>
+								<PhotoCamera className="icon" style={{ fontSize: 100 }} />
+							</Dropzone>
+							{currImg}
+						</Paper>
+					</Grid>
+				</Grid>
 
 				<form onSubmit={this.handleSubmit} autoComplete="off">
 					<FormControl required>
@@ -248,4 +275,4 @@ class PhotoForm extends Component {
 	}
 }
 
-export default PhotoForm;
+export default withStyles(styles)(PhotoForm);
