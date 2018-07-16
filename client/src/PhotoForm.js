@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import convert from 'color-convert';
-import {colors} from '../colors';
-import ColorChart from '../ColorChart';
-import AttsChart from '../AttsChart';
+import {colors} from './colors';
+import ColorChart from './ColorChart';
+import AttsChart from './AttsChart';
 import { withStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';

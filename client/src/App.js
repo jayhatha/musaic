@@ -5,7 +5,7 @@ import './App.css';
 import Login from './Login';
 import Signup from './Signup';
 import { UserProfile } from './UserProfile';
-import PhotoForm from './forms/PhotoForm';
+import PhotoForm from './PhotoForm';
 import Navbar from './Navbar';
 import Home from './Home';
 import Result from './Result';
