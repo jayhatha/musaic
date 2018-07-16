@@ -83,9 +83,11 @@ class PhotoForm extends Component {
 		    })
 		  }).catch(error => {
 				console.log(error)
+				console.log('token is ' + spotifyToken + ' ... clearing token')
 				localStorage.removeItem('spotifyToken')
-				this.props.refreshToken();
 				console.log('oops, refreshing token. trying again.')
+				this.props.refreshToken();
+				console.log ('token is now ' + spotifyToken)
 			})
 	}
 
