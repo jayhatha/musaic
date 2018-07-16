@@ -23,6 +23,7 @@ class App extends Component {
       imgURL: ''
     }
     this.checkForLocalToken = this.checkForLocalToken.bind(this);
+    this.checkForSpotifyToken = this.checkForSpotifyToken.bind(this);
     this.logout = this.logout.bind(this);
     this.liftTokenToState = this.liftTokenToState.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -148,7 +149,7 @@ class App extends Component {
          <a onClick={this.handleClick}> Test the protected route</a>
          <p>{this.state.lockedResult}</p>
 
-         <PhotoForm liftPlaylist={this.handlePlaylist} liftPhoto={this.handlePhoto} />
+         <PhotoForm liftPlaylist={this.handlePlaylist} liftPhoto={this.handlePhoto} refreshToken={this.checkForSpotifyToken} />
          {results}
        </div>
      );
@@ -173,7 +174,7 @@ class App extends Component {
            </div>
          </Router>
 
-         <PhotoForm liftPlaylist={this.handlePlaylist} liftPhoto={this.handlePhoto} />
+         <PhotoForm liftPlaylist={this.handlePlaylist} liftPhoto={this.handlePhoto} refreshToken={this.checkForSpotifyToken} />
          {results}
        </div>
      )

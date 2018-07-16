@@ -39,9 +39,10 @@ class PhotoForm extends Component {
 
 	// dooeess a lot of things
 	handleSubmit(e) {
+		if (e) {
 		e.preventDefault();
+		}
 		console.log("SUBMIT");
-		console.log('IMGA', e.target);
 		console.log('stateCloudColors: ', this.state.cloudColors);
 
 		// first, calls spfyAtts function using the colors stored in state
@@ -65,19 +66,13 @@ class PhotoForm extends Component {
 		console.log('genres ', genres);
 
 		// Calling Spotify to get our playlist
-		var token = localStorage.getItem('spotifyToken');
-		console.log('###TOKEN', token)
-		// Passing in our token from local storage, plus our mood parameters
-		axios.defaults.headers.common['Authorization'] = "Bearer " + token;
-
-		// SPOTIFY CALL GOES HERE
 		var spotifyToken = localStorage.getItem('spotifyToken');
 		console.log('###TOKEN', spotifyToken)
 		// Jay Magic...
 		axios.defaults.headers.common['Authorization'] = "Bearer " + spotifyToken;
 		  axios.get(`https://api.spotify.com/v1/recommendations?limit=50&seed_genres=${genres}&max_danceability=${danceability}&max_valence=${valence}&max_energy=${energy}&mode=${mode}`)
 		  .then(response => {
-		  // console.log(response.data);
+				// FIXME: error handle the token here
 		  this.setState({
 				spotifyToken,
 		  	// we have a playlist in state!
@@ -86,7 +81,12 @@ class PhotoForm extends Component {
 		    }, () => {
 		    	this.props.liftPlaylist(this.state.playlist);
 		    })
-		  })
+		  }).catch(error => {
+				console.log(error)
+				localStorage.removeItem('spotifyToken')
+				this.props.refreshToken();
+				console.log('oops, refreshing token. trying again.')
+			})
 	}
 
 	handleDrop(files) {
@@ -119,7 +119,7 @@ class PhotoForm extends Component {
 	      axios.post('/cloudinary-data', {imgPublicId: imgPublicId}).then((result) => {
 	        // set colors in state
 	        this.setState({
-	        	cloudColors: result.data.colors, 
+	        	cloudColors: result.data.colors,
 	        	currImgURL: imgURL
 	        }, () => {
 	        	this.props.liftPhoto(this.state.currImgURL);
@@ -186,6 +186,17 @@ class PhotoForm extends Component {
 		mode = (mode >= (cloudColors.length / 2)) ? 1 : 0;
 		energy = energy / cloudColors.length;
 		danceability = danceability / cloudColors.length;
+
+		if (valence < 0.2) {
+			valence = 0.2
+		}
+		if (energy < 0.2) {
+			energy = 0.2
+		}
+		if (danceability < 0.2) {
+			danceability = 0.2
+		}
+
 
 		return [valence, mode, energy, danceability];
 	}
