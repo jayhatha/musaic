@@ -8,7 +8,9 @@ import { UserProfile } from './UserProfile';
 import PhotoForm from './forms/PhotoForm';
 import Navbar from './Navbar';
 import Home from './Home';
+import About from './About';
 import Result from './Result';
+import UploadPhoto from './UploadPhoto';
 
 
 class App extends Component {
@@ -130,54 +132,45 @@ class App extends Component {
   render() {
     let user = this.state.user;
     let results = (this.state.playlist.length) ? <Result playlist={this.state.playlist} imgURL={this.state.imgURL} /> : '';
-    if (user) {
-      return (
-        <div className="App">
-          <Router>
-            <div>
-              <Navbar />
-              <UserProfile user={user} logout={this.logout}/>
-              <a onClick={this.handleClick}> Test the protected route</a>
-              <p>{this.state.lockedResult}</p>
-            </div>
-          </Router>
 
+    return (
+      <div className="App">
+        <Router>
+          <div>
+            <Navbar user={user} logout={this.logout} />
+            <Route exact path='/' render={() =>
+              <Home />
+            } />
+            <Route path='/profile' render={() =>
+              <UserProfile user={user} />
+            } />
 
-          <UserProfile user={user} logout={this.logout} />
+            <Route path='/about' render={() =>
+              <About />
+            } />
 
-          <a onClick={this.handleClick}> Test the protected route</a>
-          <p>{this.state.lockedResult}</p>
+            <Route path='/upload' render={() =>
+              <UploadPhoto />
+            } />
 
-          <PhotoForm liftPlaylist={this.handlePlaylist} liftPhoto={this.handlePhoto} />
-          {results}
-        </div>
-      );
-    } else {
-      return (
-        <div className="App">
-          <Router>
-            <div>
-              <Navbar />
+            <Route path='/signup' render={() =>
+              <Signup liftToken={this.liftTokenToState} />
+            } />
 
-              <Route exact path='/' render={() =>
-                <Home />
-              } />
+            <Route path='/login' render={() =>
+              <Login liftToken={this.liftTokenToState} />
+            } />
 
-              <Route path='/signup' render={() =>
-                <Signup liftToken={this.liftTokenToState} />
-              } />
+            <a onClick={this.handleClick}> Test the protected route</a>
+            <p>{this.state.lockedResult}</p>
+          </div>
 
-              <Route path='/login' render={() =>
-                <Login liftToken={this.liftTokenToState} />
-              } />
-            </div>
-          </Router>
-          
-          <PhotoForm liftPlaylist={this.handlePlaylist} liftPhoto={this.handlePhoto} />
-          {results}
-        </div>
-      )
-    }
+        </Router>
+
+        <PhotoForm liftPlaylist={this.handlePlaylist} liftPhoto={this.handlePhoto} />
+        {results}
+      </div>
+    )
   }
 }
 
