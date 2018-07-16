@@ -111,7 +111,12 @@ class PhotoForm extends Component {
 	      console.log('SHOULD BE GETTING COLORS NOW');
 	      axios.post('/cloudinary-data', {imgPublicId: imgPublicId}).then((result) => {
 	        // set colors in state
-	        this.setState({cloudColors: result.data.colors, currImgURL: imgURL});
+	        this.setState({
+	        	cloudColors: result.data.colors, 
+	        	currImgURL: imgURL
+	        }, () => {
+	        	this.props.liftPhoto(this.state.currImgURL);
+	        });
 	      });
 	    });
 	  }
