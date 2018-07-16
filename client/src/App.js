@@ -24,6 +24,7 @@ class App extends Component {
       imgURL: ''
     }
     this.checkForLocalToken = this.checkForLocalToken.bind(this);
+    this.checkForSpotifyToken = this.checkForSpotifyToken.bind(this);
     this.logout = this.logout.bind(this);
     this.liftTokenToState = this.liftTokenToState.bind(this);
     this.handleClick = this.handleClick.bind(this);
