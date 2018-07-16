@@ -9,6 +9,7 @@ import PhotoForm from './forms/PhotoForm';
 import Navbar from './Navbar';
 import Home from './Home';
 import Result from './Result';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 
 class App extends Component {
@@ -25,6 +26,7 @@ class App extends Component {
       cloudColors: []
     }
     this.checkForLocalToken = this.checkForLocalToken.bind(this);
+    this.checkForSpotifyToken = this.checkForSpotifyToken.bind(this);
     this.logout = this.logout.bind(this);
     this.liftTokenToState = this.liftTokenToState.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -122,7 +124,7 @@ class App extends Component {
   handlePlaylist(tracks) {
     this.setState({
       playlist: tracks
-    }, () => {console.log('########', this.state.playlist)});
+    }, () => { console.log('The Playlist:', this.state.playlist) });
   }
 
   handlePhoto(photo) {
@@ -146,6 +148,7 @@ class App extends Component {
 
 
   render() {
+<<<<<<< HEAD
     let user = this.state.user;
     let results = (this.state.playlist.length) ? <Result playlist={this.state.playlist} 
                                                          imgURL={this.state.imgURL}
@@ -208,5 +211,6 @@ class App extends Component {
     }
   }
 }
+
 
 export default App;

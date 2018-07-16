@@ -4,15 +4,38 @@ import convert from 'color-convert';
 import {colors} from '../colors';
 import ColorChart from '../ColorChart';
 import AttsChart from '../AttsChart';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Dropzone from 'react-dropzone';
+import Paper from '@material-ui/core/Paper'
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
+import Grid from '@material-ui/core/Grid';
+
+const styles = theme => ({
+	root: {
+		textAlign: 'center',
+		flexGrow: 1,
+	},
+	paper: {
+		padding: theme.spacing.unit * 2,
+		margin: theme.spacing.unit * 2,
+		height: '100%',
+		color: theme.palette.text.secondary,
+		textAlign: 'center'
+	},
+	button: {
+		margin: theme.spacing.unit * 1
+	},
+	dropzone: {
+		padding: theme.spacing.unit * 4,
+		margin: theme.spacing.unit * 4
+	}
+})
+
 
 class PhotoForm extends Component {
 	constructor(props) {
@@ -30,6 +53,7 @@ class PhotoForm extends Component {
 		}
 	}
 
+
 	// this handles the changes in the select form
 	// by updating the genres state with each selection
 	handleChange(e) {
@@ -41,9 +65,10 @@ class PhotoForm extends Component {
 
 	// dooeess a lot of things
 	handleSubmit(e) {
+		if (e) {
 		e.preventDefault();
+		}
 		console.log("SUBMIT");
-		console.log('IMGA', e.target);
 		console.log('stateCloudColors: ', this.state.cloudColors);
 
 		// first, calls spfyAtts function using the colors stored in state
@@ -58,7 +83,7 @@ class PhotoForm extends Component {
 		// if more than one genre is selected, join array with comma
 		// let genres = (this.state.genres.length > 1) ? this.state.genres.join(',') : this.state.genres[0];
 		let genres = this.state.genres;
-		
+
 		// make sure everything has a value!
 		console.log('valence ', valence);
 		console.log('mode ', mode);
@@ -66,14 +91,14 @@ class PhotoForm extends Component {
 		console.log('danceability ', danceability);
 		console.log('genres ', genres);
 
-		// SPOTIFY CALL GOES HERE
+		// Calling Spotify to get our playlist
 		var spotifyToken = localStorage.getItem('spotifyToken');
 		console.log('###TOKEN', spotifyToken)
 		// Jay Magic...
 		axios.defaults.headers.common['Authorization'] = "Bearer " + spotifyToken;
 		  axios.get(`https://api.spotify.com/v1/recommendations?limit=50&seed_genres=${genres}&max_danceability=${danceability}&max_valence=${valence}&max_energy=${energy}&mode=${mode}`)
 		  .then(response => {
-		  // console.log(response.data);
+				// FIXME: error handle the token here
 		  this.setState({
 				spotifyToken,
 		  	// we have a playlist in state!
@@ -82,13 +107,21 @@ class PhotoForm extends Component {
 		    }, () => {
 		    	this.props.liftPlaylist(this.state.playlist);
 		    })
-		  })
+		  }).catch(error => {
+				console.log(error)
+				console.log('token is ' + spotifyToken + ' ... clearing token')
+				localStorage.removeItem('spotifyToken')
+				console.log('oops, refreshing token. trying again.')
+				this.props.refreshToken();
+				console.log ('token is now ' + spotifyToken)
+			})
 	}
 
 	handleDrop(files) {
-	  const api_key = process.env.REACT_APP_CLOUDINARY_API;
+	  const api_key = process.env.REACT_APP_CLOUDINARY_API_KEY;
 	  const upload_preset = process.env.REACT_APP_UPLOAD_PRESET;
 	  let imgPublicId, imgURL;
+		// mapping all the uploaded files
 	  const uploaders = files.map(file => {
 
 	    var formData = new FormData();
@@ -96,7 +129,7 @@ class PhotoForm extends Component {
 	    formData.append("upload_preset", upload_preset);
 	    formData.append("api_key", api_key);
 	    formData.append("timestamp", (Date.now() / 1000) | 0);
-
+			// This is our upload — sending the image and our credentials to Cloudinary
 	    return axios.post("https://api.cloudinary.com/v1_1/dieaqkurh/image/upload", formData, {
 	      headers: { "X-Requested-With": "XMLHttpRequest" },
 	    }).then(response => {
@@ -105,16 +138,16 @@ class PhotoForm extends Component {
 	      imgURL = response.data.secure_url;
 	    })
 	   });
-		
 
-	    // Once all the files are uploaded
+
+	    // Axios.all will run the above API call for each image in the queue
 	    axios.all(uploaders).then(() => {
-	      // ... perform after upload is successful operation
+	      // ... sending the image url to the back end, waiting for color data.
 	      console.log('SHOULD BE GETTING COLORS NOW');
 	      axios.post('/cloudinary-data', {imgPublicId: imgPublicId}).then((result) => {
 	        // set colors in state
 	        this.setState({
-	        	cloudColors: result.data.colors, 
+	        	cloudColors: result.data.colors,
 	        	currImgURL: imgURL
 	        }, () => {
 	        	this.props.liftPhoto(this.state.currImgURL);
@@ -183,6 +216,17 @@ class PhotoForm extends Component {
 		energy = energy / cloudColors.length;
 		danceability = danceability / cloudColors.length;
 
+		if (valence < 0.2) {
+			valence = 0.2
+		}
+		if (energy < 0.2) {
+			energy = 0.2
+		}
+		if (danceability < 0.2) {
+			danceability = 0.2
+		}
+
+
 		return [valence, mode, energy, danceability];
 	}
 
@@ -190,15 +234,18 @@ class PhotoForm extends Component {
 		console.log('PHOTOFORM STATE: ', this.state);
 		let currImg = (this.state.currImgURL) ? <img src={this.state.currImgURL} width="200px" /> : '';
 		return (
-			<div>
-				<Dropzone
-				  onDrop={this.handleDrop}
-				  accept="image/*"
-				  >
-				  <p>Drop your files or click here to upload</p>
-				</Dropzone>
-
-				{currImg}
+			<div className="root">
+				<Grid container spacing={12}>
+					<Grid item xs={12} >
+						<Paper className="paper">
+							<Dropzone className="dropzone" onDrop={this.handleDrop} accept="image/*">
+								<p className="dropzone">Drag and drop your files or click here to upload</p>
+								<PhotoCamera className="icon" style={{ fontSize: 100 }} />
+							</Dropzone>
+							{currImg}
+						</Paper>
+					</Grid>
+				</Grid>
 
 				<form onSubmit={this.handleSubmit} autoComplete="off">
 					<FormControl required>
@@ -251,4 +298,4 @@ class PhotoForm extends Component {
 	}
 }
 
-export default PhotoForm;
+export default withStyles(styles)(PhotoForm);
