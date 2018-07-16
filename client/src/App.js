@@ -5,11 +5,14 @@ import './App.css';
 import Login from './Login';
 import Signup from './Signup';
 import { UserProfile } from './UserProfile';
-import PhotoForm from './PhotoForm';
 import Navbar from './Navbar';
+import PhotoForm from './PhotoForm';
 import Home from './Home';
 import Result from './Result';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import Spotify from './Spotify';
+import OpenIconSpeedDial from './OpenIconSpeedDial';
+import About from './About';
 
 
 class App extends Component {
@@ -154,6 +157,7 @@ class App extends Component {
                                                          genres={this.state.genres}
                                                          colors={this.state.cloudColors}
                                                          user={user} /> : '';
+    let userProfile = (user) ? <UserProfile user={user} /> : '';
     return (
      <React.Fragment>
      <CssBaseline />
@@ -170,7 +174,11 @@ class App extends Component {
               } />
 
              <Route path='/upload' render={() =>
-               <PhotoForm liftPlaylist={this.handlePlaylist} liftPhoto={this.handlePhoto} refreshToken={this.checkForSpotifyToken} />
+               <PhotoForm liftPlaylist={this.handlePlaylist} 
+                          liftPhoto={this.handlePhoto} 
+                          liftGenres={this.handleGenres}
+                          liftColors={this.handleColors}
+                          refreshToken={this.checkForSpotifyToken} />
              } />
 
              <Route path='/signup' render={() =>
@@ -180,17 +188,13 @@ class App extends Component {
              <Route path='/login' render={() =>
                <Login liftToken={this.liftTokenToState} />
              } />
-                  <OpenIconSpeedDial />
+
+              <OpenIconSpeedDial />
           </div>
         </Router>
 
         <Spotify />
-        <PhotoForm liftPlaylist={this.handlePlaylist} 
-                   liftPhoto={this.handlePhoto}
-                   liftGenres={this.handleGenres}
-                   liftColors={this.handleColors}
-                   refreshToken={this.checkForSpotifyToken} />
-
+        {userProfile}
         {results}
       </div>
     </React.Fragment>
