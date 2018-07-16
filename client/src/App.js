@@ -117,7 +117,7 @@ class App extends Component {
   handlePlaylist(tracks) {
     this.setState({
       playlist: tracks
-    }, () => { console.log('########', this.state.playlist) });
+    }, () => { console.log('The Playlist:', this.state.playlist) });
   }
 
   handlePhoto(photo) {

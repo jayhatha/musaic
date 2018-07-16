@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '@material-ui/core/Button';
 
 const Playlist = (props) => {
       if (props.playlist) {
@@ -6,8 +7,9 @@ const Playlist = (props) => {
       <p>{track.name} - {track.artists[0].name}</p>)
       return (
         <div>
-          <h1>THESE ARE SOME SONGS</h1>
+          <h1>Your Spotify-Generated Playlist:</h1>
           {playlistMap}
+          <Button variant="contained" color="secondary">Save this Playlist</Button>
         </div>
       );
       }
