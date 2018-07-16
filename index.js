@@ -4,6 +4,7 @@ const bp = require('body-parser');
 const mongoose = require('mongoose');
 const expressJWT = require('express-jwt');
 const auth = require('./routes/auth');
+const playlist = require('./routes/playlist');
 const locked = require('./routes/locked');
 const spotify = require('./routes/spotify');
 var cors = require('cors');
@@ -15,8 +16,8 @@ const port = process.env.port || 3000;
 
 const app = express();
 
-app.use(bp.json());
-app.use(bp.urlencoded({ extended: false }));
+app.use(bp.json({ limit: '50mb' }));
+app.use(bp.urlencoded({ extended: false, limit: '50mb' }));
 
 mongoose.connect('mongodb://localhost/moodMusic');
 
@@ -32,6 +33,7 @@ app.use(express.static(`${__dirname}/client/build`))
    .use(cookieParser());
 
 app.use('/auth', auth);
+app.use('/playlist', playlist);
 app.use('/spotify', spotify);
 app.use('/locked', expressJWT({ secret: process.env.JWT_SECRET }).unless({ method: 'POST' }), locked);
 
@@ -41,7 +43,6 @@ app.post('/cloudinary-data', function (req, res) {
     //NEED name delete 'something'
     cloudinary.v2.api.resource(req.body.imgPublicId, { colors: true },
         function (error, result) {
-            console.log(result);
             res.json(result);
         });
 });
