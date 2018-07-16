@@ -23,17 +23,7 @@ router.post('/', (req, res) => {
 			console.log('Error creating playlist', err)
 		}
 		else {
-			console.log('SUCCESS!', playlist._id)
-			User.findByIdAndUpdate(req.body.user, {
-				$push: {playlistIds: playlist._id}
-			}, (err, user) => {
-				if(err) {
-					console.log('Error finding user', err)
-				}
-				else {
-					console.log('User success', user)
-				}
-			})
+			console.log('SUCCESS!', playlist.userID)
 		}
 	})
 }); 
