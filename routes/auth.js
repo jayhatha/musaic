@@ -6,7 +6,7 @@ const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 var request = require('request'); // "Request" library
 var axios = require('axios');
-const spotify_key = process.env.BASE_KEY
+const spotify_key = (new Buffer(process.env.REACT_APP_SPOTIFY_KEY + ':' + process.env.REACT_APP_SPOTIFY_SECRET).toString('base64'))
 
 
 router.post('/signup', (req,res) => {
