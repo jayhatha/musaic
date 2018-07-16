@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import convert from 'color-convert';
-import {colors} from '../colors';
-import ColorChart from '../ColorChart';
-import AttsChart from '../AttsChart';
+import {colors} from './colors';
+import ColorChart from './ColorChart';
+import AttsChart from './AttsChart';
 import { withStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -58,7 +58,9 @@ class PhotoForm extends Component {
 	// by updating the genres state with each selection
 	handleChange(e) {
 		console.log('change');
-		this.setState({[e.target.name]: e.target.value})
+		this.setState({genres: e.target.value}, () => {
+			this.props.liftGenres(this.state.genres);
+		})
 	}
 
 	// dooeess a lot of things
@@ -67,7 +69,6 @@ class PhotoForm extends Component {
 		e.preventDefault();
 		}
 		console.log("SUBMIT");
-		console.log('stateCloudColors: ', this.state.cloudColors);
 
 		// first, calls spfyAtts function using the colors stored in state
 		// (which were set in cloudinaryResult function)
@@ -82,19 +83,12 @@ class PhotoForm extends Component {
 		// let genres = (this.state.genres.length > 1) ? this.state.genres.join(',') : this.state.genres[0];
 		let genres = this.state.genres;
 
-		// make sure everything has a value!
-		console.log('valence ', valence);
-		console.log('mode ', mode);
-		console.log('energy ', energy);
-		console.log('danceability ', danceability);
-		console.log('genres ', genres);
-
 		// Calling Spotify to get our playlist
 		var spotifyToken = localStorage.getItem('spotifyToken');
 		console.log('###TOKEN', spotifyToken)
 		// Jay Magic...
 		axios.defaults.headers.common['Authorization'] = "Bearer " + spotifyToken;
-		  axios.get(`https://api.spotify.com/v1/recommendations?limit=50&seed_genres=${genres}&max_danceability=${danceability}&max_valence=${valence}&max_energy=${energy}&mode=${mode}`)
+		  axios.get(`https://api.spotify.com/v1/recommendations?limit=50&market=US&seed_genres=${genres}&max_danceability=${danceability}&max_valence=${valence}&max_energy=${energy}&mode=${mode}`)
 		  .then(response => {
 				// FIXME: error handle the token here
 		  this.setState({
@@ -149,6 +143,7 @@ class PhotoForm extends Component {
 	        	currImgURL: imgURL
 	        }, () => {
 	        	this.props.liftPhoto(this.state.currImgURL);
+	        	this.props.liftColors(this.state.cloudColors);
 	        });
 	      });
 	    });
