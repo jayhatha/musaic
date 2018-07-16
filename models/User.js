@@ -20,9 +20,6 @@ const userSchema = new mongoose.Schema({
         required: [ true, 'A password is required.' ],
         minlength: [ 8, 'Password must be between 8 and 99 characters.' ],
         maxlength: [ 99, 'Name must be between 8 and 99 characters.' ]
-    },
-    playlistIds: {
-        type: Array
     }
 });
 

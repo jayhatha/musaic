@@ -165,13 +165,7 @@ class App extends Component {
               <p>{this.state.lockedResult}</p>
             </div>
           </Router>
-
-
-          <UserProfile user={user} logout={this.logout} />
-
-          <a onClick={this.handleClick}> Test the protected route</a>
-          <p>{this.state.lockedResult}</p>
-
+          
           <PhotoForm liftPlaylist={this.handlePlaylist} 
                      liftPhoto={this.handlePhoto}
                      liftGenres={this.handleGenres}

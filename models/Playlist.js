@@ -8,7 +8,8 @@ const playlistSchema = new mongoose.Schema({
     genres: Array,
     imageUrl: String,
     songs: Array,
-    colorData: Array
+    colorData: Array,
+    userID: String
 });
 
 // make a new model from that Schema
