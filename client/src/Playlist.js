@@ -9,7 +9,7 @@ const Playlist = (props) => {
         <div>
           <h1>Your Spotify-Generated Playlist:</h1>
           {playlistMap}
-          <Button variant="contained" color="secondary">Save this Playlist</Button>
+          <Button variant="contained" color="primary">Save this Playlist</Button>
         </div>
       );
       }
