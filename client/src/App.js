@@ -19,13 +19,15 @@ class App extends Component {
       user: null,
       lockedResult: '',
       playlist: [],
-      spotifyToken: ''
+      spotifyToken: '',
+      imgURL: ''
     }
     this.checkForLocalToken = this.checkForLocalToken.bind(this);
     this.logout = this.logout.bind(this);
     this.liftTokenToState = this.liftTokenToState.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handlePlaylist = this.handlePlaylist.bind(this);
+    this.handlePhoto = this.handlePhoto.bind(this);
   }
 
   liftTokenToState(data) {
@@ -115,6 +117,12 @@ class App extends Component {
   handlePlaylist(tracks) {
     this.setState({
       playlist: tracks
+    }, () => { console.log('########', this.state.playlist) });
+  }
+
+  handlePhoto(photo) {
+    this.setState({
+      imgURL: photo
     });
   }
 
@@ -122,6 +130,7 @@ class App extends Component {
   render() {
     let results = (this.state.playlist.length) ? <Result playlist={this.state.playlist} /> : '';
     let user = this.state.user;
+    let results = (this.state.playlist.length) ? <Result playlist={this.state.playlist} imgURL={this.state.imgURL} /> : '';
     if (user) {
       return (
         <div className="App">
@@ -134,7 +143,11 @@ class App extends Component {
               {results}
             </div>
           </Router>
-
+          <UserProfile user={user} logout={this.logout} />
+          <a onClick={this.handleClick}> Test the protected route</a>
+          <p>{this.state.lockedResult}</p>
+          <PhotoForm liftPlaylist={this.handlePlaylist} liftPhoto={this.handlePhoto} />
+          {results}
         </div>
       );
     } else {
@@ -143,23 +156,19 @@ class App extends Component {
           <Router>
             <div>
               <Navbar />
-
               <Route exact path='/' render={() =>
                 <Home />
               } />
-
               <Route path='/signup' render={() =>
                 <Signup liftToken={this.liftTokenToState} />
               } />
-
               <Route path='/login' render={() =>
                 <Login liftToken={this.liftTokenToState} />
               } />
-              <PhotoForm liftPlaylist={this.handlePlaylist} />
-              {results}
             </div>
           </Router>
-
+          <PhotoForm liftPlaylist={this.handlePlaylist} liftPhoto={this.handlePhoto} />
+          {results}
         </div>
       )
     }
