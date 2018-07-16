@@ -11,7 +11,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Dropzone from 'react-dropzone';
-import Paper from '@material-ui/core/Paper'
+import Paper from '@material-ui/core/Paper';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import Grid from '@material-ui/core/Grid';
 

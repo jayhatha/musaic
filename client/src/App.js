@@ -4,7 +4,6 @@ import axios from 'axios';
 import './App.css';
 import Login from './Login';
 import Signup from './Signup';
-import { UserProfile } from './UserProfile';
 import Navbar from './Navbar';
 import Home from './Home';
 import Spotify from './Spotify';
