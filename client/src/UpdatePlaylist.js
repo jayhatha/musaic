@@ -2,6 +2,7 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
+import { TextField } from '../node_modules/@material-ui/core';
 
 const styles = theme => ({
   root: {
@@ -27,8 +28,15 @@ const UpdatePlaylist = props => {
       <Grid container spacing={12}>
         <Grid item >
           <Paper className={classes.paper} >
-            <form >
-              
+            <form onSubmit={this.handleSubmit} >
+              <TextField 
+                id="name"
+                label="Name"
+                className={classes.TextField}
+                value={this.state.name}
+                onChange={this.handleChange('name')}
+                margin="normal"
+              />
             </form>
           </Paper>
         </Grid>
