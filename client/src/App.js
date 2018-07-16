@@ -9,6 +9,7 @@ import PhotoForm from './forms/PhotoForm';
 import Navbar from './Navbar';
 import Home from './Home';
 import Result from './Result';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 
 class App extends Component {
@@ -118,7 +119,7 @@ class App extends Component {
   handlePlaylist(tracks) {
     this.setState({
       playlist: tracks
-    }, () => {console.log('########', this.state.playlist)});
+    }, () => { console.log('The Playlist:', this.state.playlist) });
   }
 
   handlePhoto(photo) {
@@ -142,12 +143,6 @@ class App extends Component {
              <p>{this.state.lockedResult}</p>
            </div>
          </Router>
-
-
-         <UserProfile user={user} logout={this.logout} />
-
-         <a onClick={this.handleClick}> Test the protected route</a>
-         <p>{this.state.lockedResult}</p>
 
          <PhotoForm liftPlaylist={this.handlePlaylist} liftPhoto={this.handlePhoto} refreshToken={this.checkForSpotifyToken} />
          {results}
