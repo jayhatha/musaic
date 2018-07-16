@@ -12,8 +12,7 @@ import Result from './Result';
 import UploadPhoto from './UploadPhoto';
 import OpenIconSpeedDial from './OpenIconSpeedDial';
 import CssBaseline from '@material-ui/core/CssBaseline';
-
-
+import PhotoForm from './forms/PhotoForm';
 
 class App extends Component {
   constructor(props) {
@@ -133,83 +132,89 @@ class App extends Component {
 
 
   render() {
-   let user = this.state.user;
-   let results = (this.state.playlist.length) ? <Result playlist={this.state.playlist} imgURL={this.state.imgURL} /> : '';
-   if (user) {
-     return (
-       <div className="App">
-         <Router>
-           <div>
-             <Navbar />
-          <Route exact path='/' render={() =>
-              <Home />
-            } />
-            <Route path='/profile' render={() =>
-              <UserProfile user={user} />
-            } />
+    let user = this.state.user;
+    let results = (this.state.playlist.length) ? <Result playlist={this.state.playlist} imgURL={this.state.imgURL} /> : '';
+    if (user) {
+      return (
+        <React.Fragment>
+          <CssBaseline />
+          <div className="App">
+            <Router>
+              <div>
+                <Navbar />
+                <Route exact path='/' render={() =>
+                  <Home />
+                } />
+                <Route path='/profile' render={() =>
+                  <UserProfile user={user} />
+                } />
 
-            <Route path='/about' render={() =>
-              <About />
-            } />
+                <Route path='/about' render={() =>
+                  <About />
+                } />
 
-            <Route path='/upload' render={() =>
-              <UploadPhoto />
-            } />
+                <Route path='/upload' render={() =>
+                  <UploadPhoto />
+                } />
 
+
+                <a onClick={this.handleClick}> Test the protected route</a>
+                <p>{this.state.lockedResult}</p>
+                <OpenIconSpeedDial />
+                <UserProfile user={user} logout={this.logout} />
+                <a onClick={this.handleClick}> Test the protected route</a>
+                <p>{this.state.lockedResult}</p>
+              </div>
+            </Router>
+
+
+            <UserProfile user={user} logout={this.logout} />
 
             <a onClick={this.handleClick}> Test the protected route</a>
             <p>{this.state.lockedResult}</p>
-            <OpenIconSpeedDial />
-             <UserProfile user={user} logout={this.logout}/>
-             <a onClick={this.handleClick}> Test the protected route</a>
-             <p>{this.state.lockedResult}</p>
-           </div>
-         </Router>
 
+            <PhotoForm liftPlaylist={this.handlePlaylist} liftPhoto={this.handlePhoto} refreshToken={this.checkForSpotifyToken} />
+            {results}
+          </div>
+        </React.Fragment>
+      );
+    } else {
+      return (
+        <React.Fragment>
+          <CssBaseline />
+          <div className="App">
+            <Router>
+              <div>
+                <Navbar />
+                <Route exact path='/' render={() =>
+                  <Home />
+                } />
+                <Route path='/about' render={() =>
+                  <About />
+                } />
 
-         <UserProfile user={user} logout={this.logout} />
+                <Route path='/upload' render={() =>
+                  <UploadPhoto />
+                } />
 
-         <a onClick={this.handleClick}> Test the protected route</a>
-         <p>{this.state.lockedResult}</p>
+                <Route path='/signup' render={() =>
+                  <Signup liftToken={this.liftTokenToState} />
+                } />
 
-         <PhotoForm liftPlaylist={this.handlePlaylist} liftPhoto={this.handlePhoto} refreshToken={this.checkForSpotifyToken} />
-         {results}
-       </div>
-     );
-   } else {
-     return (
-       <div className="App">
-         <Router>
-           <div>
-             <Navbar />
-         <Route exact path='/' render={() =>
-              <Home />
-            } />
-              <Route path='/about' render={() =>
-              <About />
-            } />
+                <Route path='/login' render={() =>
+                  <Login liftToken={this.liftTokenToState} />
+                } />
+                <OpenIconSpeedDial />
+              </div>
+            </Router>
 
-            <Route path='/upload' render={() =>
-              <UploadPhoto />
-            } />
-
-            <Route path='/signup' render={() =>
-              <Signup liftToken={this.liftTokenToState} />
-            } />
-
-            <Route path='/login' render={() =>
-              <Login liftToken={this.liftTokenToState} />
-            } />
-                 <OpenIconSpeedDial />
-           </div>
-         </Router>
-
-         <PhotoForm liftPlaylist={this.handlePlaylist} liftPhoto={this.handlePhoto} refreshToken={this.checkForSpotifyToken} />
-         {results}
-       </div>
-     )
-   }
- }
+            <PhotoForm liftPlaylist={this.handlePlaylist} liftPhoto={this.handlePhoto} refreshToken={this.checkForSpotifyToken} />
+            {results}
+          </div>
+        </React.Fragment>
+      )
+    }
+  }
 }
 
 
