@@ -5,7 +5,6 @@ import './App.css';
 import Login from './Login';
 import Signup from './Signup';
 import { UserProfile } from './UserProfile';
-import PhotoForm from './forms/PhotoForm';
 import Navbar from './Navbar';
 import Home from './Home';
 import About from './About';
@@ -167,7 +166,6 @@ class App extends Component {
 
         </Router>
 
-        <PhotoForm liftPlaylist={this.handlePlaylist} liftPhoto={this.handlePhoto} />
         {results}
       </div>
     )
