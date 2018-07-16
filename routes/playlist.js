@@ -16,26 +16,29 @@ router.post('/', (req, res) => {
 		genres: req.body.genres,
 		imageUrl: req.body.imageURL,
 		songs: req.body.playlist,
-		colorData: req.body.colorData
+		colorData: req.body.colorData,
+		userID: req.body.user._id
 	}, function(err, playlist) {
 		if(err) {
-			console.log('FAILURE!', err)
+			console.log('Error creating playlist', err)
 		}
 		else {
-			console.log('SUCCESS!', playlist._id)
-			User.findByIdAndUpdate(req.body.user, {
-				$push: {playlistIds: playlist._id}
-			}, function(err, user) {
-				if(err) {
-					console.log('User error', err)
-				}
-				else {
-					console.log('User success', user)
-				}
-			})
+			console.log('SUCCESS!', playlist.userID)
 		}
 	})
+}); 
 
+// get /playlist/user/:userID - gets users playlists
+router.get('/user/:userID', (req, res) => {
+	console.log('HIT GET USER PLAYLISTS ROUTE')
+	User.findById(req.params.userID, (err, user) => {
+		if (err) {
+			console.log('Error finding user', err)
+		}
+		else {
+
+		}
+	})
 }); 
 
 

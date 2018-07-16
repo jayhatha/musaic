@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import Button from '@material-ui/core/Button';
 
 class Playlist extends Component {
 
@@ -12,7 +13,7 @@ class Playlist extends Component {
     e.preventDefault();
     console.log("FAVE CLICK");
     axios.post('/playlist', {
-      user: this.props.user._id,
+      user: this.props.user,
       playlist: this.props.playlist,
       name: '',
       description: '',
@@ -34,11 +35,10 @@ class Playlist extends Component {
       <p>{track.name} - {track.artists[0].name}</p>)
       return (
         <div>
-          <h1>THESE ARE SOME SONGS</h1>
+          <h1>Your Spotify-Generated Playlist:</h1>
           {playlistMap}
           
-          <button onClick={this.handleFaveClick}>Add Playlist to Favorites</button>
-
+          <Button onClick={this.handleFaveClick} variant="contained" color="primary">Save this Playlist</Button>
         </div>
       );
     }

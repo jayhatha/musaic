@@ -5,10 +5,11 @@ import './App.css';
 import Login from './Login';
 import Signup from './Signup';
 import { UserProfile } from './UserProfile';
-import PhotoForm from './forms/PhotoForm';
+import PhotoForm from './PhotoForm';
 import Navbar from './Navbar';
 import Home from './Home';
 import Result from './Result';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 
 class App extends Component {
@@ -25,6 +26,7 @@ class App extends Component {
       cloudColors: []
     }
     this.checkForLocalToken = this.checkForLocalToken.bind(this);
+    this.checkForSpotifyToken = this.checkForSpotifyToken.bind(this);
     this.logout = this.logout.bind(this);
     this.liftTokenToState = this.liftTokenToState.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -122,7 +124,7 @@ class App extends Component {
   handlePlaylist(tracks) {
     this.setState({
       playlist: tracks
-    }, () => {console.log('########', this.state.playlist)});
+    }, () => { console.log('The Playlist:', this.state.playlist) });
   }
 
   handlePhoto(photo) {
@@ -163,17 +165,12 @@ class App extends Component {
               <p>{this.state.lockedResult}</p>
             </div>
           </Router>
-
-
-          <UserProfile user={user} logout={this.logout} />
-
-          <a onClick={this.handleClick}> Test the protected route</a>
-          <p>{this.state.lockedResult}</p>
-
+          
           <PhotoForm liftPlaylist={this.handlePlaylist} 
                      liftPhoto={this.handlePhoto}
                      liftGenres={this.handleGenres}
-                     liftColors={this.handleColors} />
+                     liftColors={this.handleColors}
+                     refreshToken={this.checkForSpotifyToken} />
           {results}
         </div>
       );
@@ -201,12 +198,14 @@ class App extends Component {
           <PhotoForm liftPlaylist={this.handlePlaylist} 
                      liftPhoto={this.handlePhoto}
                      liftGenres={this.handleGenres}
-                     liftColors={this.handleColors} />
+                     liftColors={this.handleColors}
+                     refreshToken={this.checkForSpotifyToken} />
           {results}
         </div>
       )
     }
   }
 }
+
 
 export default App;
