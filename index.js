@@ -4,6 +4,7 @@ const bp = require('body-parser');
 const mongoose = require('mongoose');
 const expressJWT = require('express-jwt');
 const auth = require('./routes/auth');
+const playlist = require('./routes/playlist');
 const locked = require('./routes/locked');
 var cloudinary = require('cloudinary');
 var multer = require('multer');
@@ -28,6 +29,7 @@ cloudinary.config({
 
 app.use(express.static(`${__dirname}/client/build`));
 app.use('/auth', auth);
+app.use('/playlist', playlist);
 app.use('/locked', expressJWT({ secret: process.env.JWT_SECRET }).unless({ method: 'POST' }), locked);
 
 //creating the test route
@@ -36,7 +38,6 @@ app.post('/cloudinary-data', function (req, res) {
     //NEED name delete 'something'
     cloudinary.v2.api.resource(req.body.imgPublicId, { colors: true },
         function (error, result) {
-            console.log(result);
             res.json(result);
         });
 });

@@ -20,7 +20,9 @@ class App extends Component {
       lockedResult: '',
       playlist: [],
       spotifyToken: '',
-      imgURL: ''
+      imgURL: '',
+      genres: [],
+      cloudColors: []
     }
     this.checkForLocalToken = this.checkForLocalToken.bind(this);
     this.logout = this.logout.bind(this);
@@ -28,6 +30,8 @@ class App extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.handlePlaylist = this.handlePlaylist.bind(this);
     this.handlePhoto = this.handlePhoto.bind(this);
+    this.handleColors = this.handleColors.bind(this);
+    this.handleGenres = this.handleGenres.bind(this);
   }
 
   liftTokenToState(data) {
@@ -113,7 +117,8 @@ class App extends Component {
       }).catch(err => console.log(err))
     }
   }
-
+  
+  // ******** THESE HANDLE THE THINGS THAT NEED TO BE PASSED FROM PHOTOFORM TO RESULTS/PLAYLIST
   handlePlaylist(tracks) {
     this.setState({
       playlist: tracks
@@ -126,10 +131,27 @@ class App extends Component {
     });
   }
 
+  handleGenres(genres) {
+    this.setState({
+      genres: genres
+    });
+  }
+
+  handleColors(colors) {
+    this.setState({
+      cloudColors: colors
+    });
+  }
+  // **********************
+
 
   render() {
     let user = this.state.user;
-    let results = (this.state.playlist.length) ? <Result playlist={this.state.playlist} imgURL={this.state.imgURL} /> : '';
+    let results = (this.state.playlist.length) ? <Result playlist={this.state.playlist} 
+                                                         imgURL={this.state.imgURL}
+                                                         genres={this.state.genres}
+                                                         colors={this.state.cloudColors}
+                                                         user={user} /> : '';
     if (user) {
       return (
         <div className="App">
@@ -148,7 +170,10 @@ class App extends Component {
           <a onClick={this.handleClick}> Test the protected route</a>
           <p>{this.state.lockedResult}</p>
 
-          <PhotoForm liftPlaylist={this.handlePlaylist} liftPhoto={this.handlePhoto} />
+          <PhotoForm liftPlaylist={this.handlePlaylist} 
+                     liftPhoto={this.handlePhoto}
+                     liftGenres={this.handleGenres}
+                     liftColors={this.handleColors} />
           {results}
         </div>
       );
@@ -173,7 +198,10 @@ class App extends Component {
             </div>
           </Router>
           
-          <PhotoForm liftPlaylist={this.handlePlaylist} liftPhoto={this.handlePhoto} />
+          <PhotoForm liftPlaylist={this.handlePlaylist} 
+                     liftPhoto={this.handlePhoto}
+                     liftGenres={this.handleGenres}
+                     liftColors={this.handleColors} />
           {results}
         </div>
       )

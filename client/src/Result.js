@@ -73,9 +73,11 @@ class Result extends Component {
           </Grid>
           <Grid item xs={12} md={6}>
               <Paper className="paper">
-                <Playlist playlist={this.props.playlist}/>
-                <p>Here's a song</p>
-                <p>Here's another song</p>
+                <Playlist playlist={this.props.playlist} 
+                          genres={this.props.genres}
+                          imgURL={this.props.imgURL}
+                          colors={this.props.colors}
+                          user={this.props.user} />
               </Paper>
           </Grid>
         </Grid>

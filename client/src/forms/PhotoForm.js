@@ -34,7 +34,9 @@ class PhotoForm extends Component {
 	// by updating the genres state with each selection
 	handleChange(e) {
 		console.log('change');
-		this.setState({[e.target.name]: e.target.value})
+		this.setState({genres: e.target.value}, () => {
+			this.props.liftGenres(this.state.genres);
+		})
 	}
 
 	// dooeess a lot of things
@@ -116,6 +118,7 @@ class PhotoForm extends Component {
 	        	currImgURL: imgURL
 	        }, () => {
 	        	this.props.liftPhoto(this.state.currImgURL);
+	        	this.props.liftColors(this.state.cloudColors);
 	        });
 	      });
 	    });
