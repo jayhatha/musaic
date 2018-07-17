@@ -24,8 +24,7 @@ class AttsChart extends Component {
 		}
 
 		return (
-			<div>
-				<h1>HIE</h1>
+			<div className="atts-chart">
 				<Doughnut data={data} />
 			</div>
 		);
