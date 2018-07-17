@@ -14,11 +14,19 @@
   text-decoration: none;
 }
 
-#nav-title:hover{
-    background-color: rgb(32, 145, 152) !important;
-    color: yellow;
+#nav-title:hover {
+  background-color: rgb(32, 145, 152) !important;
+  color: yellow;
 }
 
-a, u {
-    text-decoration: none;
+a,
+u {
+  text-decoration: none;
+}
+
+.text-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 500px;
 }

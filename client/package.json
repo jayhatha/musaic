@@ -9,6 +9,7 @@
     "chart.js": "^2.7.2",
     "color-convert": "^1.9.2",
     "prop-types": "^15.6.2",
+    "querystring": "^0.2.0",
     "react": "^16.4.1",
     "react-chartjs-2": "^2.7.3",
     "react-dom": "^16.4.1",
