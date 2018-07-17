@@ -44,18 +44,17 @@ class UpdatePlaylist extends Component {
     axios.put('/playlist/user/userID', {
       user: this.props.user,
       playlist: this.props.playlist,
-      name: '',
-      description: '',
-      tags: [],
+      name: this.props.name,
+      description: this.props.description,
+      tags: this.props.tags,
       genres: this.props.genres,
       imageURL: this.props.imgURL,
       songs: this.props.playlist,
       colorData: this.props.colors
     }).then(result => {
-    }).then((data) => {
-      console.log(data);
-
-      res.json(data);
+      console.log(result);
+    }).catch( err => {
+      console.log('We caught an error: ' + err);
     })
   }
   render(){
@@ -64,7 +63,7 @@ class UpdatePlaylist extends Component {
         <Grid container spacing={12}>
           <Grid item >
             <Paper className="paper" >
-              <form onSubmit={this.handleSubmit} method="POST" action={"/playlist/user/" + userID}>
+              <form onSubmit={this.handleSubmit} method="POST" action={"/playlist/" + userID}>
                 <TextField
                   id="name"
                   label="Name"
