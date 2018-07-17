@@ -6,10 +6,7 @@ const expressJWT = require('express-jwt');
 const auth = require('./routes/auth');
 const playlist = require('./routes/playlist');
 const locked = require('./routes/locked');
-const spotify = require('./routes/spotify');
-var cors = require('cors');
 var querystring = require('querystring');
-var cookieParser = require('cookie-parser');
 var cloudinary = require('cloudinary');
 
 const port = process.env.port || 3000;
@@ -29,13 +26,12 @@ cloudinary.config({
 });
 
 app.use(express.static(`${__dirname}/client/build`))
-   .use(cors())
-   .use(cookieParser());
+
 
 app.use('/auth', auth);
 app.use('/playlist', playlist);
-app.use('/spotify', spotify);
 app.use('/locked', expressJWT({ secret: process.env.JWT_SECRET }).unless({ method: 'POST' }), locked);
+
 
 //creating the test route
 app.post('/cloudinary-data', function (req, res) {

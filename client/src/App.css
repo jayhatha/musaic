@@ -9,24 +9,36 @@
   font-family: 'Monoton', cursive;
 }
 
-#home-button, #login-button, #logout-button, #signup-button, #profile-button {
+#home-button,
+#login-button,
+#logout-button,
+#profile-button,
+#signup-button {
   color: white;
   text-decoration: none;
 }
 
-#nav-title:hover{
-    background-color: rgb(32, 145, 152) !important;
-    color: yellow;
+#nav-title:hover {
+  background-color: rgb(32, 145, 152) !important;
+  color: yellow;
 }
 
-a, u {
-    text-decoration: none;
+a,
+u {
+  text-decoration: none;
+}
+
+.text-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 500px;
 }
 
 #description {
   background: rgba(124, 123, 185, .5);
 }
 
-/* #home-page {
-  background-image: url(https://unsplash.com/photos/8e0EHPUx3Mo);
-} */
+#home-page {
+  background-image: url("https://unsplash.com/photos/8e0EHPUx3Mo");
+}
