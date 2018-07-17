@@ -186,6 +186,10 @@ class App extends Component {
                <Login user={user} liftToken={this.liftTokenToState} />
              } />
 
+             <Route path='/playlist/:id' render={(props) =>
+               <Playlist user={user} {...props} />
+             } />
+
 
               <OpenIconSpeedDial />
 

@@ -40,13 +40,9 @@ class UserProfile extends Component {
 	}
 
 	render() {
-			return (
-				<Paper className="paper">
-					<img src={playlist.imageUrl} alt="playlist-image" width="200px" />
-					<h3>Untitled Playlist</h3>
-				</Paper>
-			)
-		});
+		const playlistsMapped = this.state.playlists.map((playlist) => {
+			return <PlaylistCard playlist={playlist} />
+		})
 
 		return (
 			<div className="root">

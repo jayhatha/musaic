@@ -2,12 +2,24 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import {Link} from 'react-router-dom';
 
 class Playlist extends Component {
 
   constructor(props) {
     super(props)
     this.handleFaveClick = this.handleFaveClick.bind(this);
+    this.state = {
+      playlist: null
+    }
+  }
+
+  componentWillMount() {
+    const url = '/playlist/' + this.props.match.params.id;
+    axios.get(url).then((playlist) => {
+      console.log('got the playlist, here ya go', playlist.data);
+      this.setState({playlist: playlist.data});
+    });
   }
 
   handleFaveClick(e) {
@@ -30,27 +42,22 @@ class Playlist extends Component {
   }
 
   render() {
-    return(
-      <h1>HI</h1>
+    let tracks = (this.state.playlist) ? this.state.playlist.songs.map((track) => {
+      return <p>{track.name} - {track.artists[0].name}</p>
+    }) : '';
+
+    return (
+      <div className="root">
+        <Paper className="paper">
+          <h1>Your Spotify-Generated Playlist:</h1>
+          {tracks}
+          
+          <Button onClick={this.handleFaveClick} variant="contained" color="primary">Save this Playlist</Button>
+          <Link to="/profile"><Button variant="contained" color="primary">Back to Profile</Button></Link>
+        </Paper>
+      </div>
     );
   }
-
-//   render() {
-//     if (this.props.playlist) {
-//       let playlistMap = this.props.playlist.map((track) =>
-//       <p>{track.name} - {track.artists[0].name}</p>)
-//       return (
-//         <div className="root">
-//           <Paper className="paper">
-//             <h1>Your Spotify-Generated Playlist:</h1>
-//             {playlistMap}
-            
-//             <Button onClick={this.handleFaveClick} variant="contained" color="primary">Save this Playlist</Button>
-//           </Paper>
-//         </div>
-//       );
-//     }
-//   }
 }
 
 

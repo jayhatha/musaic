@@ -14,6 +14,10 @@ import Dropzone from 'react-dropzone';
 import Paper from '@material-ui/core/Paper'
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import Grid from '@material-ui/core/Grid';
+import createHistory from 'history/createBrowserHistory';
+import {withRouter} from 'react-router-dom';
+
+const history = createHistory();
 
 const styles = theme => ({
 	root: {
@@ -65,10 +69,7 @@ class PhotoForm extends Component {
 
 	// dooeess a lot of things
 	handleSubmit(e) {
-		if (e) {
-		e.preventDefault();
-		}
-		console.log("SUBMIT");
+		if (e) e.preventDefault();
 
 		// first, calls spfyAtts function using the colors stored in state
 		// (which were set in cloudinaryResult function)
@@ -97,7 +98,8 @@ class PhotoForm extends Component {
 		  	playlist: response.data.tracks,
 		  	spfyAtts: [valence, mode, energy, danceability]
 		    }, () => {
-		    	this.props.liftPlaylist(this.state.playlist);
+		    	// this.props.liftPlaylist(this.state.playlist);
+		    	this.props.history.push('/')
 		    })
 		  }).catch(error => {
 				console.log(error)
@@ -290,4 +292,4 @@ class PhotoForm extends Component {
 	}
 }
 
-export default withStyles(styles)(PhotoForm);
+export default withRouter(PhotoForm);
