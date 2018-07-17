@@ -11,8 +11,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Dropzone from 'react-dropzone';
-import Paper from '@material-ui/core/Paper'
-import PhotoCamera from '@material-ui/icons/PhotoCamera';
+import Paper from '@material-ui/core/Paper';
+import AddAPhoto from '@material-ui/icons/AddAPhoto';
 import Grid from '@material-ui/core/Grid';
 import createHistory from 'history/createBrowserHistory';
 import {withRouter} from 'react-router-dom';
@@ -234,7 +234,7 @@ class PhotoForm extends Component {
 						<Paper className="paper">
 							<Dropzone className="dropzone" onDrop={this.handleDrop} accept="image/*">
 								<p className="dropzone">Drag and drop your files or click here to upload</p>
-								<PhotoCamera className="icon" style={{ fontSize: 100 }} />
+								<AddAPhoto className="icon" style={{ fontSize: 100 }} />
 							</Dropzone>
 							{currImg}
 						</Paper>
