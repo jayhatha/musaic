@@ -28,15 +28,27 @@ router.post('/', (req, res) => {
 	})
 }); 
 
+// get /playlist/:id - gets specific playlist
+router.get('/:id', (req, res) => {
+	Playlist.findOne({_id: req.params.id}, (err, playlist) => {
+		if(err) {
+			console.log('Error finding playlist', err);
+		}
+		else {
+			res.json(playlist);
+		}
+	})
+});
+
 // get /playlist/user/:userID - gets users playlists
 router.get('/user/:userID', (req, res) => {
 	console.log('HIT GET USER PLAYLISTS ROUTE')
 	Playlist.find({userID: req.params.userID}, (err, playlist) => {
 		if (err) {
-			console.log('Error finding user', err)
+			console.log('Error finding playlist', err)
 		}
 		else {
-			res.json(playlist)
+			res.json(playlist);
 		}
 	})
 }); 
