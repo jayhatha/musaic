@@ -49,8 +49,8 @@ router.put('/user/:userID', (req, res) => {
 		description: req.body.description, 
 		tags: req.body.tags, 
 		genres: req.body.genres, 
-		songs: req.body.songs
-	}, (err, playlist) => {
+		songs: req.body.playlist
+	},{new: true}, (err, playlist) => {
 		if (err) {
 			console.log("Error finding playlist", err);
 		} else {
