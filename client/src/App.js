@@ -12,6 +12,7 @@ import Result from './Result';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import OpenIconSpeedDial from './OpenIconSpeedDial';
 import About from './About';
+import Playlist from './Playlist';
 
 
 class App extends Component {
@@ -125,27 +126,19 @@ class App extends Component {
 
   // ******** THESE HANDLE THE THINGS THAT NEED TO BE PASSED FROM PHOTOFORM TO RESULTS/PLAYLIST
   handlePlaylist(tracks) {
-    this.setState({
-      playlist: tracks
-    }, () => { console.log('The Playlist:', this.state.playlist) });
+    this.setState({playlist: tracks});
   }
 
   handlePhoto(photo) {
-    this.setState({
-      imgURL: photo
-    });
+    this.setState({imgURL: photo});
   }
 
   handleGenres(genres) {
-    this.setState({
-      genres: genres
-    });
+    this.setState({genres: genres});
   }
 
   handleColors(colors) {
-    this.setState({
-      cloudColors: colors
-    });
+    this.setState({cloudColors: colors});
   }
   // **********************
 
@@ -157,7 +150,7 @@ class App extends Component {
                                                          genres={this.state.genres}
                                                          colors={this.state.cloudColors}
                                                          user={user} /> : '';
-    let userProfile = (user) ? <UserProfile user={user} /> : '';
+    let userProfile = (user) ? <UserProfile user={user} logout={this.logout} /> : '';
     return (
      <React.Fragment>
      <CssBaseline />
@@ -193,7 +186,15 @@ class App extends Component {
                <Login user={user} liftToken={this.liftTokenToState} />
              } />
 
+             <Route path='/playlist/:id' render={(props) =>
+               <Playlist user={user} {...props} />
+             } />
+
+
+              <OpenIconSpeedDial />
+
               <OpenIconSpeedDial user={this.state.user} logout={this.logout} />
+
           </div>
         </Router>
         {/* {userProfile} */}
