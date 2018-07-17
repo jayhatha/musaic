@@ -54,9 +54,9 @@ router.get('/user/:userID', (req, res) => {
 }); 
 
 // put /playlist/user/:userID - update a user's playlist
-router.put('/user/:userID', (req, res) => {
+router.put('/:id', (req, res) => {
 	console.log('Hit the PUT user playlist route');
-	Playlist.findByIdAndUpdate({id: req.params._id}, {
+	Playlist.findByIdAndUpdate({_id: req.params.id}, {
 		name: req.body.name, 
 		description: req.body.description, 
 		tags: req.body.tags, 
