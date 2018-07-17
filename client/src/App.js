@@ -10,7 +10,6 @@ import PhotoForm from './PhotoForm';
 import Home from './Home';
 import Result from './Result';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Spotify from './Spotify';
 import OpenIconSpeedDial from './OpenIconSpeedDial';
 import About from './About';
 import Playlist from './Playlist';
@@ -96,6 +95,7 @@ class App extends Component {
       }).catch(err => console.log(err))
     }
   }
+
 
   checkForLocalToken() {
     //Look for token in local storage
@@ -197,8 +197,6 @@ class App extends Component {
 
           </div>
         </Router>
-
-        <Spotify />
         {/* {userProfile} */}
         {results}
       </div>
