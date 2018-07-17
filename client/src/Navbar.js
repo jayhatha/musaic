@@ -33,30 +33,9 @@ function Navbar(props) {
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
-            {/* Option 2 menu bar - hamburger */}
-            {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-              <MenuButton />
-            </IconButton> */}
             <Typography id='page-title' variant="title" color="inherit" className={classes.flex}>
               Moodsic
             </Typography>
-
-            {/* <Link to='/'>
-              <Button id='home-button' color="inherit">Home</Button>
-            </Link>
-
-            <Link to='/profile'>
-              <Button id='profile-button' color="inherit">Profile</Button>
-            </Link>
-
-            <Link to='/login'>
-              <Button id='login-button' color="inherit">Login</Button>
-            </Link> */}
-
-            {/* <Link to='/'>
-              <Button onClick={props.logout} id='logout-button' color="inherit">Logout</Button>
-            </Link> */}
-
           </Toolbar>
         </AppBar>
       </div>
@@ -71,27 +50,6 @@ function Navbar(props) {
             <Typography id='page-title' variant="title" color="inherit" className={classes.flex}>
               Moodsic
             </Typography>
-
-            {/* <Link to='/about'>
-              <Button id='nav-title' color="inherit">About</Button>
-            </Link>
-
-            <Link to='/'>
-              <Button id='nav-title' color="inherit">Home</Button>
-            </Link>
-
-            <Link to='/signup'>
-              <Button id='nav-title' color="inherit">Signup</Button>
-            </Link>
-
-            <Link to='/login'>
-              <Button id='nav-title' color="inherit">Login</Button>
-            </Link>
-
-            <Link to='/upload'>
-              <Button id='nav-title' color="inherit">Upload Your Photo</Button>
-            </Link> */}
-
           </Toolbar>
         </AppBar>
       </div>
