@@ -22,3 +22,11 @@
 a, u {
     text-decoration: none;
 }
+
+#description {
+  background: rgba(124, 123, 185, .5);
+}
+
+/* #home-page {
+  background-image: url(https://unsplash.com/photos/8e0EHPUx3Mo);
+} */

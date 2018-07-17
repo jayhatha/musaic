@@ -10,6 +10,8 @@ import MenuButton from './MenuButton';
 import { Link } from 'react-router-dom';
 import './App.css';
 
+// Navbar holding heading, title...need to refactor
+
 const styles = {
   root: {
     flexGrow: 1,
