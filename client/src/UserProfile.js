@@ -40,14 +40,19 @@ class UserProfile extends Component {
 	}
 
 	render() {
-		const playlistsMapped = this.state.playlists.map((playlist) => {
-			return <PlaylistCard playlist={playlist} />
-		})
+			return (
+				<Paper className="paper">
+					<img src={playlist.imageUrl} alt="playlist-image" width="200px" />
+					<h3>Untitled Playlist</h3>
+				</Paper>
+			)
+		});
+
 		return (
 			<div className="root">
 				<Paper className="paper">
 			  		<p>Hello, {this.props.user.name}!</p>
-			  		<a onClick={this.props.logout}>LOG OUT</a>
+			  		{/* <a onClick={this.props.logout}>LOG OUT</a> */}
 			  	</Paper>
 			  	{playlistsMapped}
 			</div>

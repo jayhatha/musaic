@@ -9,7 +9,7 @@
   font-family: 'Monoton', cursive;
 }
 
-#home-button, #login-button, #logout-button, #signup-button, #profile-button {
+#nav-title {
   color: white;
   text-decoration: none;
 }
@@ -22,11 +22,3 @@
 a, u {
     text-decoration: none;
 }
-
-#description {
-  background: rgba(124, 123, 185, .5);
-}
-
-/* #home-page {
-  background-image: url(https://unsplash.com/photos/8e0EHPUx3Mo);
-} */

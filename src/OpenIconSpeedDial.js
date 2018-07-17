@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { withStyles, Button} from '@material-ui/core';
 import {SpeedDial, SpeedDialAction, SpeedDialIcon} from '@material-ui/lab/';
@@ -8,14 +7,6 @@ import PrintIcon from '@material-ui/icons/Print';
 import ShareIcon from '@material-ui/icons/Share';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-import Android from '@material-ui/icons/Android';
-import VpnKey from '@material-ui/icons/VpnKey';
-import Home from '@material-ui/icons/Home';
-import Create from '@material-ui/icons/Create';
-import PanTool from '@material-ui/icons/PanTool';
-import Portrait from '@material-ui/icons/Portrait';
-import InsertPhoto from '@material-ui/icons/InsertPhoto';
-
 
 const styles = theme => ({
   root: {
@@ -23,22 +14,16 @@ const styles = theme => ({
   },
   speedDial: {
     position: 'absolute',
-    bottom: theme.spacing.unit * 2,
+    top: theme.spacing.unit * 2,
     right: theme.spacing.unit * 3,
   },
 });
 
-const actionsLoggedOut = [
-  { icon: <Link to='/'><Home /></Link>, name: 'Home' },
-  { icon: <Link to='/signup'><Create /></Link>, name: 'Signup' },
-  { icon: <Link to='/login'><VpnKey /></Link>, name: 'Login' }
-];
-
-const actionsLoggedIn = [
-  { icon: <Link to='/'><Home /></Link>, name: 'Home' },
-  { icon: <Link to='/profile'><Portrait /></Link>, name: 'Profile' },
-  { icon: <Link to='/'><PanTool /></Link>, name: 'LogOut' },
-  { icon: <Link to='/upload'><InsertPhoto /></Link>, name: 'Upload Photo' }
+const actions = [
+  { icon: <SaveIcon />, name: 'Save' },
+  { icon: <PrintIcon />, name: 'Print' },
+  { icon: <ShareIcon />, name: 'Share' },
+  { icon: <DeleteIcon />, name: 'Delete' },
 ];
 
 class OpenIconSpeedDial extends React.Component {
@@ -60,13 +45,6 @@ class OpenIconSpeedDial extends React.Component {
     }));
   };
 
-  handleLogout = () => {
-    this.setState(state => ({
-      open: !state.open,
-    }));
-    this.props.logout();
-  };
-
   handleOpen = () => {
     if (!this.state.hidden) {
       this.setState({
@@ -85,10 +63,9 @@ class OpenIconSpeedDial extends React.Component {
     const { classes } = this.props;
     const { hidden, open } = this.state;
 
-    let buttons = this.props.user ? actionsLoggedIn : actionsLoggedOut;
-
     return (
       <div className={classes.root}>
+        <Button onClick={this.handleVisibility}>Toggle Speed Dial</Button>
         <SpeedDial
           ariaLabel="SpeedDial openIcon example"
           className={classes.speedDial}
@@ -101,27 +78,14 @@ class OpenIconSpeedDial extends React.Component {
           onMouseLeave={this.handleClose}
           open={open}
         >
-          {buttons.map((action) => {
-            if (action.name !== 'LogOut') {
-                return (
-                  <SpeedDialAction
-                    key={action.name}
-                    icon={action.icon}
-                    tooltipTitle={action.name}
-                    onClick={this.handleClick}
-                  />
-                )
-            } else {
-              return (
-                <SpeedDialAction
-                  key={action.name}
-                  icon={action.icon}
-                  tooltipTitle={action.name}
-                  onClick={this.handleLogout}
-                />
-              )
-            }
-          })}
+          {actions.map((action) => (
+            <SpeedDialAction
+              key={action.name}
+              icon={action.icon}
+              tooltipTitle={action.name}
+              onClick={this.handleClick}
+            />
+          ))}
         </SpeedDial>
       </div>
     );
