@@ -40,7 +40,19 @@ class UpdatePlaylist extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    axios.put('/playlist/user/userID').then((data) => {
+    console.log("Updating Playlist!");
+    axios.put('/playlist/user/userID', {
+      user: this.props.user,
+      playlist: this.props.playlist,
+      name: '',
+      description: '',
+      tags: [],
+      genres: this.props.genres,
+      imageURL: this.props.imgURL,
+      songs: this.props.playlist,
+      colorData: this.props.colors
+    }).then(result => {
+    }).then((data) => {
       console.log(data);
 
       res.json(data);

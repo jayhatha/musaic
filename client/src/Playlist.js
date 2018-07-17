@@ -13,16 +13,16 @@ class Playlist extends Component {
     e.preventDefault();
     console.log("FAVE CLICK");
     axios.post('/playlist', {
-      user: this.props.user,
-      playlist: this.props.playlist,
-      name: '',
-      description: '',
-      tags: [],
-      genres: this.props.genres,
-      imageURL: this.props.imgURL,
-      songs: this.props.playlist,
-      colorData: this.props.colors
-    }).then(result => {
+        user: this.props.user,
+        playlist: this.props.playlist,
+        name: '',
+        description: '',
+        tags: [],
+        genres: this.props.genres,
+        imageURL: this.props.imgURL,
+        songs: this.props.playlist,
+        colorData: this.props.colors
+      }).then(result => {
       console.log('AND WE BACK', result);
     }).catch(err => {
       console.log('UH OH', err);
