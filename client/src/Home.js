@@ -40,7 +40,7 @@ const Home = props => {
           <button className='try-button' >Learn More</button>
         </Grid>
       </Grid>
-      {/* Need to add screen shot of example */}
+    {/* <img src="./PhotoPlaylistSample.png" alt="Playlist-image"></img> */}
     </div>
   )
 }
