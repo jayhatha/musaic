@@ -46,14 +46,14 @@ class UserProfile extends Component {
 					<img src={playlist.imageUrl} alt="playlist-image" width="200px" />
 					<h3>Untitled Playlist</h3>
 				</Paper>
-			)	
+			)
 		});
 
 		return (
 			<div className="root">
 				<Paper className="paper">
 			  		<p>Hello, {this.props.user.name}!</p>
-			  		<a onClick={this.props.logout}>LOG OUT</a>
+			  		{/* <a onClick={this.props.logout}>LOG OUT</a> */}
 			  	</Paper>
 			  	{playlistsMapped}
 			</div>
