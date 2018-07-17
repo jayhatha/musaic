@@ -91,6 +91,7 @@ class PhotoForm extends Component {
 		axios.defaults.headers.common['Authorization'] = "Bearer " + spotifyToken;
 		  axios.get(`https://api.spotify.com/v1/recommendations?limit=50&market=US&seed_genres=${genres}&max_danceability=${danceability}&max_valence=${valence}&max_energy=${energy}&mode=${mode}`)
 		  .then(response => {
+		  	console.log('GOT SPOTIFY STUFF')
 				// FIXME: error handle the token here
 		  this.setState({
 			spotifyToken,
@@ -98,8 +99,19 @@ class PhotoForm extends Component {
 		  	playlist: response.data.tracks,
 		  	spfyAtts: [valence, mode, energy, danceability]
 		    }, () => {
-		    	// this.props.liftPlaylist(this.state.playlist);
-		    	this.props.history.push('/')
+		    	console.log("STATE IS SET")
+		    	this.props.liftPlaylist(this.state.playlist);
+		    	this.props.history.push({
+		    		pathname: '/results',
+		    		state: {
+		    			playlist: this.state.playlist,
+		    			spotifyToken: this.state.spotifyToken,
+		    			genres: this.state.genres,
+		    			cloudColors: this.state.cloudColors,
+		    			spfyAtts: this.state.spfyAtts,
+		    			currImgURL: this.state.currImgURL
+		    		}
+		    	})
 		    })
 		  }).catch(error => {
 				console.log(error)
@@ -128,7 +140,6 @@ class PhotoForm extends Component {
 	      headers: { "X-Requested-With": "XMLHttpRequest" },
 	    }).then(response => {
 	      imgPublicId = response.data.public_id;
-	      // imgURL = response.data
 	      imgURL = response.data.secure_url;
 	    })
 	   });
@@ -226,6 +237,8 @@ class PhotoForm extends Component {
 
 	render() {
 		console.log('PHOTOFORM STATE: ', this.state);
+		let colorChart = (this.state.cloudColors) ? <ColorChart colors={this.state.cloudColors} /> : '';
+		let attsChart = (this.state.spfyAtts) ? <AttsChart spfyAtts={this.state.spfyAtts} /> : '';
 		let currImg = (this.state.currImgURL) ? <img src={this.state.currImgURL} width="200px" /> : '';
 		return (
 			<div className="root">
@@ -283,9 +296,9 @@ class PhotoForm extends Component {
 					</FormControl>
 					<Input value="Get Playlist" type="submit"></Input>
 				</form>
-
-				<ColorChart colors={this.state.cloudColors} />
-				<AttsChart spfyAtts={this.state.spfyAtts} />
+				
+				{colorChart}
+				{attsChart}
 
 			</div>
 		);

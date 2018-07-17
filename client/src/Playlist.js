@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import ColorChart from './ColorChart';
 import {Link} from 'react-router-dom';
 
 class Playlist extends Component {
@@ -10,16 +11,45 @@ class Playlist extends Component {
     super(props)
     this.handleFaveClick = this.handleFaveClick.bind(this);
     this.state = {
-      playlist: null
+      user: this.props.user,
+      playlist: null,
+      name: '',
+      description: '',
+      tags: [],
+      genres: [],
+      imageURL: '',
+      colorData: []
     }
   }
 
   componentWillMount() {
-    const url = '/playlist/' + this.props.match.params.id;
-    axios.get(url).then((playlist) => {
-      console.log('got the playlist, here ya go', playlist.data);
-      this.setState({playlist: playlist.data});
-    });
+    if(this.props.isFave === 'true') {
+      const url = '/playlist/' + this.props.match.params.id;
+      axios.get(url).then((playlist) => {
+        console.log('got the playlist, here ya go', playlist.data);
+        this.setState({
+          playlist: playlist.data,
+          name: playlist.data.name,
+          description: playlist.data.description,
+          tags: playlist.data.tags,
+          genres: playlist.data.genres,
+          imageURL: playlist.data.imageUrl,
+          colorData: playlist.data.colorData,
+          songs: playlist.data.songs
+        });
+      });
+    }
+    else {
+      this.setState({
+        playlist: this.props.playlist,
+        name: '',
+        description: '',
+        genres: this.props.genres,
+        imageURL: this.props.imgURL,
+        colorData: this.props.colors,
+        songs: this.props.playlist
+      });
+    }
   }
 
   handleFaveClick(e) {
@@ -32,7 +62,6 @@ class Playlist extends Component {
       tags: [],
       genres: this.props.genres,
       imageURL: this.props.imgURL,
-      songs: this.props.playlist,
       colorData: this.props.colors
     }).then(result => {
       console.log('AND WE BACK', result);
@@ -42,14 +71,16 @@ class Playlist extends Component {
   }
 
   render() {
-    let tracks = (this.state.playlist) ? this.state.playlist.songs.map((track) => {
+    let tracks, name, genres, description, imgUrl, colors;
+    let faveBtn = (this.props.isFave === 'true') ? '' : <Button onClick={this.handleFaveClick} variant="contained" color="primary">Add Playlist to Favorites</Button>;
+    tracks = (this.state.playlist) ? this.state.songs.map((track) => {
       return <p>{track.name} - {track.artists[0].name}</p>
     }) : '';
-    
-    let name = (this.state.playlist) ? this.state.playlist.name : '';
-    let genres = (this.state.playlist) ? this.state.playlist.genres : '';
-    let description = (this.state.playlist) ? this.state.playlist.description : '';
-    let imgURL = (this.state.playlist) ? this.state.playlist.imageUrl : '';
+    name = (this.state.playlist) ? this.state.name : '';
+    genres = (this.state.playlist) ? this.state.genres : '';
+    description = (this.state.playlist) ? this.state.description : '';
+    imgUrl = (this.state.playlist) ? this.state.imageURL : '';
+    colors = (this.state.playlist) ? this.state.colorData : '';
 
     return (
       <div className="root">
@@ -58,10 +89,10 @@ class Playlist extends Component {
           <h3>{name}</h3>
           <p>Genres: {genres}</p>
           <p>Description: {description}</p>
-          <img src={imgURL} alt="playlist-image" width="100%" />
+          <img src={imgUrl} width="300px" alt="playlist-image" />
           {tracks}
-          
-          <Button onClick={this.handleFaveClick} variant="contained" color="primary">Save this Playlist</Button>
+          <ColorChart colors={colors} />
+          {faveBtn}
           <Link to="/profile"><Button variant="contained" color="primary">Back to Profile</Button></Link>
         </Paper>
       </div>
