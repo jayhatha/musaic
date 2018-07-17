@@ -1,15 +1,17 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import ColorChart from './ColorChart';
 import {Link} from 'react-router-dom';
+import UpdatePlaylist from './UpdatePlaylist';
 
 class Playlist extends Component {
 
   constructor(props) {
     super(props)
     this.handleFaveClick = this.handleFaveClick.bind(this);
+    this.toggleUpdateForm = this.toggleUpdateForm.bind(this);
     this.state = {
       user: this.props.user,
       playlist: null,
@@ -18,7 +20,8 @@ class Playlist extends Component {
       tags: [],
       genres: [],
       imageURL: '',
-      colorData: []
+      colorData: [],
+      updateForm: false
     }
   }
 
@@ -70,36 +73,54 @@ class Playlist extends Component {
     })
   }
 
+  toggleUpdateForm(e) {
+    e.preventDefault();
+    console.log("You clicked the update form button!");
+    this.setState({ updateForm: !this.state.updateForm }, console.log(this.state.updateForm));
+  }
+
   render() {
     let tracks, name, genres, description, imgUrl, colors;
-    let faveBtn = (this.props.isFave === 'true') ? '' : <Button onClick={this.handleFaveClick} variant="contained" color="primary">Add Playlist to Favorites</Button>;
+    let faveBtn = (this.props.isFave === 'true') ? '' : 
+    <Button onClick={this.handleFaveClick} variant="contained" color="primary">Add Playlist to Favorites</Button>;
+    
     tracks = (this.state.playlist) ? this.state.songs.map((track) => {
       return <p>{track.name} - {track.artists[0].name}</p>
     }) : '';
+
     name = (this.state.playlist) ? this.state.name : '';
     genres = (this.state.playlist) ? this.state.genres : '';
     description = (this.state.playlist) ? this.state.description : '';
     imgUrl = (this.state.playlist) ? this.state.imageURL : '';
     colors = (this.state.playlist) ? this.state.colorData : '';
 
-    return (
-      <div className="root">
-        <Paper className="paper">
-          <h1>Your Spotify-Generated Playlist:</h1>
-          <h3>{name}</h3>
-          <p>Genres: {genres}</p>
-          <p>Description: {description}</p>
-          <img src={imgUrl} width="300px" alt="playlist-image" />
-          {tracks}
-          <ColorChart colors={colors} />
-          {faveBtn}
-          <Link to="/profile"><Button variant="contained" color="primary">Back to Profile</Button></Link>
-        </Paper>
-      </div>
-    );
+    if (this.state.updateForm == true) {
+      return (
+        <div className="root">
+          <Paper className="paper">
+            <UpdatePlaylist />
+          </Paper>
+        </div>
+      )
+    } else {
+      return (
+        <div className="root">
+          <Paper className="paper">
+            <h1>Your Spotify-Generated Playlist:</h1>
+            <h3>{name}</h3>
+            <p>Genres: {genres}</p>
+            <p>Description: {description}</p>
+            <img src={imgUrl} width="300px" alt="playlist-image" />
+            {tracks}
+            <ColorChart colors={colors} />
+            {faveBtn}
+            <Button variant="text" onClick={this.toggleUpdateForm} >Edit Playlist</Button>
+            <Link to="/profile"><Button variant="contained" color="primary">Back to Profile</Button></Link>
+          </Paper>
+        </div>
+      ); 
+    }   
   }
 }
-
-
 
 export default Playlist;

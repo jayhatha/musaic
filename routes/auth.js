@@ -57,13 +57,17 @@ router.post('/login', (req, res) => {
         var token = jwt.sign(user.toObject(), process.env.JWT_SECRET, {
           expiresIn: 60 * 60 * 24
         })
-        res.json({user, token});
+        res.json({
+          user, 
+          token,
+          message: 'You have logged in!'
+        });
       } else {
         // else send error to frontend
         res.json({
           status: 401,
           error: true,
-          message: 'Email of password is incorrect.'
+          message: 'Email or password is incorrect.'
         })
       }
     } else {
