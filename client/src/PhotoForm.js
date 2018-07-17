@@ -47,6 +47,7 @@ class PhotoForm extends Component {
 		this.handleChange = this.handleChange.bind(this);
 		this.handleDrop = this.handleDrop.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.spotifyAttributes = this.spotifyAttributes.bind(this);
 		this.state = {
 			playlist: [],
 			spotifyToken: '',
@@ -67,22 +68,15 @@ class PhotoForm extends Component {
 		})
 	}
 
-	// dooeess a lot of things
 	handleSubmit(e) {
 		if (e) e.preventDefault();
 
-		// first, calls spfyAtts function using the colors stored in state
-		// (which were set in cloudinaryResult function)
-		let attributes = this.spotifyAttributes(this.state.cloudColors);
-		// atts are set using the returned array
-		const valence = attributes[0];
-		const mode = attributes[1];
-		const energy = attributes[2];
-		const danceability = attributes[3];
-
+		const valence = this.state.spfyAtts[0];
+		const mode = this.state.spfyAtts[1];
+		const energy = this.state.spfyAtts[2];
+		const danceability = this.state.spfyAtts[3];
 		// if more than one genre is selected, join array with comma
-		// let genres = (this.state.genres.length > 1) ? this.state.genres.join(',') : this.state.genres[0];
-		let genres = this.state.genres;
+		let genres = (this.state.genres.length > 1) ? this.state.genres.join(',') : this.state.genres[0];
 
 		// Calling Spotify to get our playlist
 		var spotifyToken = localStorage.getItem('spotifyToken');
@@ -91,15 +85,12 @@ class PhotoForm extends Component {
 		axios.defaults.headers.common['Authorization'] = "Bearer " + spotifyToken;
 		  axios.get(`https://api.spotify.com/v1/recommendations?limit=50&market=US&seed_genres=${genres}&max_danceability=${danceability}&max_valence=${valence}&max_energy=${energy}&mode=${mode}`)
 		  .then(response => {
-		  	console.log('GOT SPOTIFY STUFF')
 				// FIXME: error handle the token here
 		  this.setState({
 			spotifyToken,
 		  	// we have a playlist in state!
 		  	playlist: response.data.tracks,
-		  	spfyAtts: [valence, mode, energy, danceability]
 		    }, () => {
-		    	console.log("STATE IS SET")
 		    	this.props.liftPlaylist(this.state.playlist);
 		    	this.props.history.push({
 		    		pathname: '/results',
@@ -127,9 +118,9 @@ class PhotoForm extends Component {
 	  const api_key = process.env.REACT_APP_CLOUDINARY_API_KEY;
 	  const upload_preset = process.env.REACT_APP_UPLOAD_PRESET;
 	  let imgPublicId, imgURL;
+
 		// mapping all the uploaded files
 	  const uploaders = files.map(file => {
-
 	    var formData = new FormData();
 	    formData.append("file", file);
 	    formData.append("upload_preset", upload_preset);
@@ -155,6 +146,8 @@ class PhotoForm extends Component {
 	        	cloudColors: result.data.colors,
 	        	currImgURL: imgURL
 	        }, () => {
+	        	// calls spfyAtts function using the colors stored in state
+	        	this.spotifyAttributes(this.state.cloudColors);
 	        	this.props.liftPhoto(this.state.currImgURL);
 	        	this.props.liftColors(this.state.cloudColors);
 	        });
@@ -231,8 +224,7 @@ class PhotoForm extends Component {
 			danceability = 0.2
 		}
 
-
-		return [valence, mode, energy, danceability];
+		this.setState({spfyAtts: [valence, mode, energy, danceability]});
 	}
 
 	render() {
