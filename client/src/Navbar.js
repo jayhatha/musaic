@@ -40,19 +40,19 @@ function Navbar(props) {
             </Typography>
 
             <Link to='/'>
-              <Button id='nav-title' color="inherit">Home</Button>
+              <Button id='home-button' color="inherit">Home</Button>
             </Link>
 
             <Link to='/profile'>
-              <Button id='nav-title' color="inherit">Profile</Button>
+              <Button id='profile-button' color="inherit">Profile</Button>
             </Link>
 
             <Link to='/login'>
-              <Button id='nav-title' color="inherit">Login</Button>
+              <Button id='login-button' color="inherit">Login</Button>
             </Link>
 
             <Link to='/'>
-              <Button onClick={props.logout} id='nav-title' color="inherit">Logout</Button>
+              <Button onClick={props.logout} id='logout-button' color="inherit">Logout</Button>
             </Link>
 
           </Toolbar>
