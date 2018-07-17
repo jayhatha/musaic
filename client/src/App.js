@@ -189,7 +189,7 @@ class App extends Component {
                <Login liftToken={this.liftTokenToState} />
              } />
 
-              <OpenIconSpeedDial />
+              <OpenIconSpeedDial user={this.state.user} logout={this.logout} />
           </div>
         </Router>
 

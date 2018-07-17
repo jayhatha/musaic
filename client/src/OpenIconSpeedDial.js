@@ -15,7 +15,6 @@ import Create from '@material-ui/icons/Create';
 import PanTool from '@material-ui/icons/PanTool';
 import Portrait from '@material-ui/icons/Portrait';
 
-
 const styles = theme => ({
   root: {
     height: 380,
@@ -27,16 +26,16 @@ const styles = theme => ({
   },
 });
 
-const actions = [
-  // { icon: <HomeIcon />, name: 'Bottom' },
-  // { icon: <MenuIcon />, name: 'Print' },
-  // { icon: <ShareIcon />, name: 'Share' },
+const actionsLoggedOut = [
   { icon: <Link to='/'><Home /></Link>, name: 'Home' },
   { icon: <Link to='/signup'><Create /></Link>, name: 'Signup' },
   { icon: <Link to='/login'><VpnKey /></Link>, name: 'Login' },
-  { icon: <Link to='/home'><PanTool /></Link>, name: 'LogOut' },
-  { icon: <Link to='/profile'><Portrait /></Link>, name: 'Profile' },
+];
 
+const actionsLoggedIn = [
+  { icon: <Link to='/'><Home /></Link>, name: 'Home' },
+  { icon: <Link to='/profile'><Portrait /></Link>, name: 'Profile' },
+  { icon: <Link to='/'><PanTool /></Link>, name: 'LogOut' }
 ];
 
 class OpenIconSpeedDial extends React.Component {
@@ -58,6 +57,13 @@ class OpenIconSpeedDial extends React.Component {
     }));
   };
 
+  handleLogout = () => {
+    this.setState(state => ({
+      open: !state.open,
+    }));
+    this.props.logout();
+  };
+
   handleOpen = () => {
     if (!this.state.hidden) {
       this.setState({
@@ -76,6 +82,8 @@ class OpenIconSpeedDial extends React.Component {
     const { classes } = this.props;
     const { hidden, open } = this.state;
 
+    let buttons = this.props.user ? actionsLoggedIn : actionsLoggedOut;
+
     return (
       <div className={classes.root}>
         <Button onClick={this.handleVisibility}>Toggle Speed Dial</Button>
@@ -91,14 +99,27 @@ class OpenIconSpeedDial extends React.Component {
           onMouseLeave={this.handleClose}
           open={open}
         >
-          {actions.map((action) => (
-            <SpeedDialAction
-              key={action.name}
-              icon={action.icon}
-              tooltipTitle={action.name}
-              onClick={this.handleClick}
-            />
-          ))}
+          {buttons.map((action) => {
+            if (action.name !== 'LogOut') {
+                return (
+                  <SpeedDialAction
+                    key={action.name}
+                    icon={action.icon}
+                    tooltipTitle={action.name}
+                    onClick={this.handleClick}
+                  />
+                )
+            } else {
+              return (
+                <SpeedDialAction
+                  key={action.name}
+                  icon={action.icon}
+                  tooltipTitle={action.name}
+                  onClick={this.handleLogout}
+                />
+              )
+            }
+          })}
         </SpeedDial>
       </div>
     );
