@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background: rgba(158, 163, 163, .5)
 }
 
 #page-title {
@@ -18,13 +19,7 @@
   text-decoration: none;
 }
 
-#nav-title:hover {
-  background-color: rgb(32, 145, 152) !important;
-  color: yellow;
-}
-
-a,
-u {
+a, u {
   text-decoration: none;
 }
 
@@ -37,7 +32,8 @@ u {
 
 #home-page {
   min-height: 100vh;
-  background: rgba(158, 163, 163, .5);
+  /* background: rgba(158, 163, 163, .5); */
+  margin-bottom: 0em;
 }
 
 #description {
@@ -48,7 +44,9 @@ u {
   font-family: 'Monoton', cursive;
   color: rgb(21, 23, 22);
   font-size: 5em;
-  background: rgb(48, 93, 121)
+  background: rgb(48, 93, 121);
+  margin-top: 0em;
+  margin-bottom: 0em;
 }
 
 
