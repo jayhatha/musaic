@@ -9,7 +9,7 @@
   font-family: 'Monoton', cursive;
 }
 
-#nav-title {
+#home-button, #login-button, #logout-button, #signup-button, #profile-button {
   color: white;
   text-decoration: none;
 }
@@ -24,9 +24,19 @@ u {
   text-decoration: none;
 }
 
+<<<<<<< HEAD
 .text-overflow {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   width: 500px;
 }
+=======
+#description {
+  background: rgba(124, 123, 185, .5);
+}
+
+/* #home-page {
+  background-image: url(https://unsplash.com/photos/8e0EHPUx3Mo);
+} */
+>>>>>>> 338a7b94f19d7445dd1150f92cf5cddee554e61e
