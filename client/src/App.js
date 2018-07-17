@@ -157,7 +157,7 @@ class App extends Component {
                                                          genres={this.state.genres}
                                                          colors={this.state.cloudColors}
                                                          user={user} /> : '';
-    let userProfile = (user) ? <UserProfile user={user} /> : '';
+    let userProfile = (user) ? <UserProfile user={user} logout={this.logout} /> : '';
     return (
      <React.Fragment>
      <CssBaseline />
