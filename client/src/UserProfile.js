@@ -56,4 +56,4 @@ class UserProfile extends Component {
 	}
 };
 
-export default UserProfile;
+export default withStyles(styles)(UserProfile);
