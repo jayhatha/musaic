@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import Button from '@material-ui/core/Button';
+import './App.css';
 
 
 class Login extends Component {
@@ -50,26 +51,22 @@ class Login extends Component {
   }
 
   render() {
-    if (this.props.user) {
-      return <Redirect to='/profile' />
-    } else {
-      return (
-        <div>
-          <p>{this.state.response ? this.state.response.message : ''}</p>
-          <form onSubmit={this.handleSubmit}>
-            Email: <input type="email"
-                          value={this.state.email}
-                          onChange={this.handleEmailChange}
-                    /> <br />
-            Password: <input type="password"
-                             value={this.state.password}
-                             onChange={this.handlePasswordChange}
-                      /><br/>
-            <Button variant="contained" type="submit">Log In</Button>
-          </form>
-        </div>
-      )
-    }
+    return (
+      <div>
+        <p>{this.state.response ? this.state.response.message : ''}</p>
+        <form onSubmit={this.handleSubmit}>
+          Email: <input type="email"
+                        value={this.state.email}
+                        onChange={this.handleEmailChange}
+                  /> <br />
+          Password: <input type="password"
+                           value={this.state.password}
+                           onChange={this.handlePasswordChange}
+                    /><br/>
+          <Button variant="contained" type="submit">Log In</Button>
+        </form>
+      </div>
+    )
   }
 }
 

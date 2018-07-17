@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import axios from 'axios';
 import './App.css';
-import Login from './Login';
-import Signup from './Signup';
+// import Login from './Login';
+// import Signup from './Signup';
 import UserProfile from './UserProfile';
 import TitleBar from './TitleBar';
 import PhotoForm from './PhotoForm';
@@ -13,6 +13,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import OpenIconSpeedDial from './OpenIconSpeedDial';
 import About from './About';
 import Playlist from './Playlist';
+import LoginSignup from './LoginSignup';
 
 
 class App extends Component {
@@ -182,17 +183,23 @@ class App extends Component {
                           refreshToken={this.checkForSpotifyToken} />
              } />
 
-             <Route path='/signup' render={() =>
-               <Signup user={user} liftToken={this.liftTokenToState} />
-             } />
+
 
              <Route path='/profile' render={() =>
                userProfile
              } />
 
+             <Route path='/loginsignup' render={() =>
+               <LoginSignup user={user} liftToken={this.liftTokenToState} />
+             } />
+
+             {/* <Route path='/signup' render={() =>
+               <Signup user={user} liftToken={this.liftTokenToState} />
+             } />
+
              <Route path='/login' render={() =>
                <Login user={user} liftToken={this.liftTokenToState} />
-             } />
+             } /> */}
 
              <Route path='/playlist/:id' render={(props) =>
                <Playlist user={user} {...props} isFave="true" />

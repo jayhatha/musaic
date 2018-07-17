@@ -6,7 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import './App.css';
 import {Link} from 'react-router-dom';
-
+import PhotoPlaylistSample from './PhotoPlaylistSample.png';
 
 const styles = theme => ({
   root: {
@@ -39,14 +39,14 @@ const Home = props => {
               Want to select the genre of music where this playlist will generate from? Go ahead!
               Click the link below to get started. Enjoy the Moodsic.</p>
           </Paper>
-          <Link to='/signup'>
+          <Link to='/loginsignup'>
             <button className='try-button' >Try</button>
           </Link>
           <button className='try-button' >Learn More</button>
         </Grid>
       </Grid>
       <div>
-        <img src="./PhotoPlaylistSample.png"></img>
+        <img src={PhotoPlaylistSample}></img>
       </div>
     </div>
   )

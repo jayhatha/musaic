@@ -31,8 +31,8 @@ const styles = theme => ({
 // can use font size to make icons bigger <PhotoCamera style={{fonSize: 100}} />
 const actionsLoggedOut = [
   { icon: <Link to='/'><Home /></Link>, name: 'Home' },
-  { icon: <Link to='/signup'><Create /></Link>, name: 'Signup' },
-  { icon: <Link to='/login'><VpnKey /></Link>, name: 'Login' }
+  { icon: <Link to='/loginsignup'><Create /></Link>, name: 'Signup' },
+  { icon: <Link to='/loginsignup'><VpnKey /></Link>, name: 'Login' }
 ];
 
 const actionsLoggedIn = [
