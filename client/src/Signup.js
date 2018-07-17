@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import Button from '@material-ui/core/Button';
 
@@ -60,26 +61,30 @@ class Signup extends Component {
   }
 
   render() {
-    return (
-      <div>
-        <p>{this.state.error ? this.state.error.message : ''}</p>
-        <form onSubmit={this.handleSubmit}>
-          Name: <input type='text' 
-                       value={this.state.name} 
-                       onChange={this.handleNameChange} 
-                /><br />
-          Email: <input type='email' 
-                        value={this.state.email} 
-                        onChange={this.handleEmailChange} 
+    if (this.props.user) {
+      return <Redirect to='/profile' />
+    } else {
+      return (
+        <div>
+          <p>{this.state.error ? this.state.error.message : ''}</p>
+          <form onSubmit={this.handleSubmit}>
+            Name: <input type='text'
+                         value={this.state.name}
+                         onChange={this.handleNameChange}
                   /><br />
-          Password: <input type='password' 
-                           value={this.state.password} 
-                           onChange={this.handlePasswordChange} 
+            Email: <input type='email'
+                          value={this.state.email}
+                          onChange={this.handleEmailChange}
                     /><br />
-          <Button variant="contained" type="submit">Sign Up</Button>
-        </form>
-      </div>
-    )
+            Password: <input type='password'
+                             value={this.state.password}
+                             onChange={this.handlePasswordChange}
+                      /><br />
+            <Button variant="contained" type="submit">Sign Up</Button>
+          </form>
+        </div>
+      )
+    }
   }
 }
 

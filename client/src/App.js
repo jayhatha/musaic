@@ -182,11 +182,15 @@ class App extends Component {
              } />
 
              <Route path='/signup' render={() =>
-               <Signup liftToken={this.liftTokenToState} />
+               <Signup user={user} liftToken={this.liftTokenToState} />
+             } />
+
+             <Route path='/profile' render={() =>
+               userProfile
              } />
 
              <Route path='/login' render={() =>
-               <Login liftToken={this.liftTokenToState} />
+               <Login user={user} liftToken={this.liftTokenToState} />
              } />
 
               <OpenIconSpeedDial user={this.state.user} logout={this.logout} />
@@ -194,7 +198,7 @@ class App extends Component {
         </Router>
 
         <Spotify />
-        {userProfile}
+        {/* {userProfile} */}
         {results}
       </div>
     </React.Fragment>
