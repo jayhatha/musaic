@@ -28,7 +28,8 @@ class App extends Component {
       spotifyToken: '',
       imgURL: '',
       genres: [],
-      cloudColors: []
+      cloudColors: [],
+      spfyAtts: []
     }
     this.checkForLocalToken = this.checkForLocalToken.bind(this);
     this.checkForSpotifyToken = this.checkForSpotifyToken.bind(this);
@@ -39,6 +40,7 @@ class App extends Component {
     this.handlePhoto = this.handlePhoto.bind(this);
     this.handleColors = this.handleColors.bind(this);
     this.handleGenres = this.handleGenres.bind(this);
+    this.handleAtts = this.handleAtts.bind(this);
   }
 
   liftTokenToState(data) {
@@ -159,7 +161,12 @@ class App extends Component {
   }
 
   handleColors(colors) {
+    console.log('PHOTO LIFT')
     this.setState({cloudColors: colors});
+  }
+
+  handleAtts(atts) {
+    this.setState({spfyAtts: atts});
   }
   // **********************
 
@@ -192,6 +199,7 @@ class App extends Component {
                           liftPhoto={this.handlePhoto}
                           liftGenres={this.handleGenres}
                           liftColors={this.handleColors}
+                          liftAtts={this.handleAtts}
                           refreshToken={this.checkForSpotifyToken} />
              } />
 
@@ -208,19 +216,34 @@ class App extends Component {
              } />
 
              <Route path='/playlist/:id' render={(props) =>
-               <Playlist user={user} {...props} />
+               <Playlist user={user} {...props} isFave="true" />
+             } />
+
+             <Route path='/results' render={(props) =>
+               <Playlist user={user} 
+                         {...props} 
+                         isFave="false"
+                         playlist={this.state.playlist}
+                         spotifyToken={this.state.spotifyToken}
+                         imgURL={this.state.imgURL}
+                         genres={this.state.genres}
+                         colors={this.state.cloudColors}
+                         spfyAtts={this.state.spfyAtts}
+                      />
              } />
 
 
               <OpenIconSpeedDial />
-
               <OpenIconSpeedDial user={this.state.user} logout={this.logout} />
 
           </div>
         </Router>
+<<<<<<< HEAD
         {/* {userProfile} */}
         <button onClick={this.sendPlaylistToSpotify}>make a test playlist</button>
         {results}
+=======
+>>>>>>> 6c0708bb205bc7d2aee41ef51860827a45dfc65d
       </div>
     </React.Fragment>
     )

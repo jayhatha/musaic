@@ -6,11 +6,6 @@ class ColorChart extends Component {
 		const colors = [];
 		const colorPcts = [];
 
-		this.props.colors.map((color) => {
-			colors.push(color[0]);
-			colorPcts.push(color[1]);
-		})
-
 		const data = {
 			labels: colors,
 			datasets: [
@@ -24,13 +19,22 @@ class ColorChart extends Component {
 		const legendOpts = {
 			display: false
 		}
-
-		return (
-			<div>
-				<h1>HIE</h1>
-				<Pie data={data} legend={legendOpts} />
-			</div>
-		);
+		
+		if(this.props.colors.length) {
+			this.props.colors.map((color) => {
+				colors.push(color[0]);
+				colorPcts.push(color[1]);
+			})
+			
+			return (
+				<div className="color-chart">
+					<Pie data={data} legend={legendOpts} />
+				</div>
+			);
+		}
+		else {
+			return '';
+		}
 	}
 }
 
