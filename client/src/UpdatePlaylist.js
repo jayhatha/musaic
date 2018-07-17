@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import { TextField } from '../node_modules/@material-ui/core';
 import axios from 'axios';
+import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
   root: {
@@ -21,7 +22,7 @@ const styles = theme => ({
     margin: theme.spacing.unit * 1
   },
   input: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing.unit * 1,
   }
 })
 
@@ -65,7 +66,7 @@ class UpdatePlaylist extends Component {
     return (
       <div className="root" >
         <Grid container spacing={12}>
-          <Grid item >
+          <Grid item xs={12}>
             <Paper className="paper" >
               <form onSubmit={this.handleSubmit} method="POST">
                 <TextField
@@ -109,6 +110,7 @@ class UpdatePlaylist extends Component {
                   // onChange={this.handleChange('playlist')}
                   margin="normal"
                 />
+                <Button variant="outlined" type="submit">Update</Button>
               </form>
             </Paper>
           </Grid>
