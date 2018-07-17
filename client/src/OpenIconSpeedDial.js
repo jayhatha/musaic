@@ -15,15 +15,16 @@ import Create from '@material-ui/icons/Create';
 import ArrowForward from '@material-ui/icons/ArrowForward';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import AddAPhoto from '@material-ui/icons/AddAPhoto';
-
+import './App.css';
 
 const styles = theme => ({
   root: {
     height: 380,
   },
   speedDial: {
-    position: 'absolute',
+    position: 'fixed',
     bottom: theme.spacing.unit * 2,
+    // bottom: 0,
     right: theme.spacing.unit * 3,
   },
 });

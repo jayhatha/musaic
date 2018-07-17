@@ -35,10 +35,25 @@ u {
   width: 500px;
 }
 
+#home-page {
+  min-height: 100vh;
+  background: rgba(158, 163, 163, .5);
+}
+
 #description {
   background: rgba(124, 123, 185, .5);
 }
 
-#home-page {
-  background-image: url("https://unsplash.com/photos/8e0EHPUx3Mo");
+.title-bar {
+  font-family: 'Monoton', cursive;
+  color: rgb(21, 23, 22);
+  font-size: 5em;
+  background: rgb(48, 93, 121)
 }
+
+
+/* imgURL
+backgroun-image: url
+background-repeat: no repeat;
+backgroun-size: cover;
+footer copyright moodsic */
