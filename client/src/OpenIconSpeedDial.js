@@ -14,6 +14,8 @@ import Home from '@material-ui/icons/Home';
 import Create from '@material-ui/icons/Create';
 import PanTool from '@material-ui/icons/PanTool';
 import Portrait from '@material-ui/icons/Portrait';
+import InsertPhoto from '@material-ui/icons/InsertPhoto';
+
 
 const styles = theme => ({
   root: {
@@ -29,13 +31,14 @@ const styles = theme => ({
 const actionsLoggedOut = [
   { icon: <Link to='/'><Home /></Link>, name: 'Home' },
   { icon: <Link to='/signup'><Create /></Link>, name: 'Signup' },
-  { icon: <Link to='/login'><VpnKey /></Link>, name: 'Login' },
+  { icon: <Link to='/login'><VpnKey /></Link>, name: 'Login' }
 ];
 
 const actionsLoggedIn = [
   { icon: <Link to='/'><Home /></Link>, name: 'Home' },
   { icon: <Link to='/profile'><Portrait /></Link>, name: 'Profile' },
-  { icon: <Link to='/'><PanTool /></Link>, name: 'LogOut' }
+  { icon: <Link to='/'><PanTool /></Link>, name: 'LogOut' },
+  { icon: <Link to='/upload'><InsertPhoto /></Link>, name: 'Upload Photo' }
 ];
 
 class OpenIconSpeedDial extends React.Component {
