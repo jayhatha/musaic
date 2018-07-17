@@ -292,4 +292,4 @@ class PhotoForm extends Component {
 	}
 }
 
-export default withRouter(PhotoForm);
+export default withRouter(withStyles(styles)(PhotoForm)); 
