@@ -45,11 +45,20 @@ class Playlist extends Component {
     let tracks = (this.state.playlist) ? this.state.playlist.songs.map((track) => {
       return <p>{track.name} - {track.artists[0].name}</p>
     }) : '';
+    
+    let name = (this.state.playlist) ? this.state.playlist.name : '';
+    let genres = (this.state.playlist) ? this.state.playlist.genres : '';
+    let description = (this.state.playlist) ? this.state.playlist.description : '';
+    let imgURL = (this.state.playlist) ? this.state.playlist.imageUrl : '';
 
     return (
       <div className="root">
         <Paper className="paper">
           <h1>Your Spotify-Generated Playlist:</h1>
+          <h3>{name}</h3>
+          <p>Genres: {genres}</p>
+          <p>Description: {description}</p>
+          <img src={imgURL} alt="playlist-image" width="100%" />
           {tracks}
           
           <Button onClick={this.handleFaveClick} variant="contained" color="primary">Save this Playlist</Button>
