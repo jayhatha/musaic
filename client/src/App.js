@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import axios from 'axios';
+import qs from 'qs';
 import './App.css';
 import Login from './Login';
 import Signup from './Signup';
 import UserProfile from './UserProfile';
 import Navbar from './Navbar';
 import PhotoForm from './PhotoForm';
+
 import Home from './Home';
 import Result from './Result';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -55,6 +57,25 @@ class App extends Component {
       })
     })
   }
+
+  sendPlaylistToSpotify(e) {
+    let parsed = qs.parse(window.location.search);
+    let accessToken = parsed['?access_token'];
+    console.log(parsed, accessToken)
+    let sfyUserId;
+    axios.defaults.headers.common['Authorization'] = "Bearer " + accessToken;
+    axios.get('https://api.spotify.com/v1/me').then(results => {
+      let sfyUserId = results.data.id;
+      axios.defaults.headers.common['Authorization'] = "Bearer " + accessToken;
+      axios.post('https://api.spotify.com/v1/users/' +  sfyUserId + '/playlists', {
+        name: 'test playlist',
+        public: true,
+      }).then((response) => {
+        console.log(response)
+      })
+      })
+    }
+
 
   componentDidMount() {
     this.checkForLocalToken();
@@ -198,6 +219,7 @@ class App extends Component {
           </div>
         </Router>
         {/* {userProfile} */}
+        <button onClick={this.sendPlaylistToSpotify}>make a test playlist</button>
         {results}
       </div>
     </React.Fragment>
