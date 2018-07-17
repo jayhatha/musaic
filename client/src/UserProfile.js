@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import axios from 'axios';
+import PlaylistCard from './PlaylistCard';
 
 const styles = theme => ({
   root: {
@@ -29,25 +30,19 @@ class UserProfile extends Component {
 		}
 	}
 
-	componentDidMount() {
-		const url = '/playlist/user/' + this.props.user._id;
-		axios.get(url).then((result) => {
-			console.log('AND WE BACK', result.data);
-			this.setState({
-				playlists: result.data
-			})
-		});
+	componentWillMount() {
+		if(this.props.user) {
+			const url = '/playlist/user/' + this.props.user._id;
+			axios.get(url).then((result) => {
+				this.setState({playlists: result.data});
+			});
+		}
 	}
 
 	render() {
 		const playlistsMapped = this.state.playlists.map((playlist) => {
-			return (
-				<Paper className="paper">
-					<img src={playlist.imageUrl} alt="playlist-image" width="200px" />
-					<h3>Untitled Playlist</h3>
-				</Paper>
-			)
-		});
+			return <PlaylistCard playlist={playlist} />
+		})
 
 		return (
 			<div className="root">
