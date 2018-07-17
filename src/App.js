@@ -4,15 +4,16 @@ import axios from 'axios';
 import './App.css';
 import Login from './Login';
 import Signup from './Signup';
-import UserProfile from './UserProfile';
+import { UserProfile } from './UserProfile';
 import Navbar from './Navbar';
-import PhotoForm from './PhotoForm';
 import Home from './Home';
-import Result from './Result';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Spotify from './Spotify';
-import OpenIconSpeedDial from './OpenIconSpeedDial';
+import PhotoForm from './forms/PhotoForm';
+import Result from './Result';
 import About from './About';
+import UploadPhoto from './UploadPhoto';
+import OpenIconSpeedDial from './OpenIconSpeedDial';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 
 class App extends Component {
@@ -24,9 +25,7 @@ class App extends Component {
       lockedResult: '',
       playlist: [],
       spotifyToken: '',
-      imgURL: '',
-      genres: [],
-      cloudColors: []
+      imgURL: ''
     }
     this.checkForLocalToken = this.checkForLocalToken.bind(this);
     this.checkForSpotifyToken = this.checkForSpotifyToken.bind(this);
@@ -35,8 +34,6 @@ class App extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.handlePlaylist = this.handlePlaylist.bind(this);
     this.handlePhoto = this.handlePhoto.bind(this);
-    this.handleColors = this.handleColors.bind(this);
-    this.handleGenres = this.handleGenres.bind(this);
   }
 
   liftTokenToState(data) {
@@ -123,7 +120,6 @@ class App extends Component {
     }
   }
 
-  // ******** THESE HANDLE THE THINGS THAT NEED TO BE PASSED FROM PHOTOFORM TO RESULTS/PLAYLIST
   handlePlaylist(tracks) {
     this.setState({
       playlist: tracks
@@ -136,76 +132,48 @@ class App extends Component {
     });
   }
 
-  handleGenres(genres) {
-    this.setState({
-      genres: genres
-    });
-  }
-
-  handleColors(colors) {
-    this.setState({
-      cloudColors: colors
-    });
-  }
-  // **********************
-
 
   render() {
-    let user = this.state.user;
-    let results = (this.state.playlist.length) ? <Result playlist={this.state.playlist}
-                                                         imgURL={this.state.imgURL}
-                                                         genres={this.state.genres}
-                                                         colors={this.state.cloudColors}
-                                                         user={user} /> : '';
-    let userProfile = (user) ? <UserProfile user={user} /> : '';
-    return (
-     <React.Fragment>
-     <CssBaseline />
-      <div className="App">
-        <Router>
-          <div>
-            <Navbar user={this.state.user} logout={this.logout} />
+   let user = this.state.user;
+   let results = (this.state.playlist.length) ? <Result playlist={this.state.playlist} imgURL={this.state.imgURL} /> : '';
 
-            <Route exact path='/' render={() =>
-               <Home />
-            } />
-            <Route path='/about' render={() =>
-                 <About />
+     return (
+    <React.Fragment>
+          <CssBaseline />
+       <div className="App">
+         <Router>
+           <div>
+             <Navbar />
+             <Route exact path='/' render={() =>
+                <Home />
+           } />
+           <Route path='/about' render={() =>
+                <About />
               } />
 
-             <Route path='/upload' render={() =>
-               <PhotoForm liftPlaylist={this.handlePlaylist}
-                          liftPhoto={this.handlePhoto}
-                          liftGenres={this.handleGenres}
-                          liftColors={this.handleColors}
-                          refreshToken={this.checkForSpotifyToken} />
-             } />
+              <Route path='/upload' render={() =>
+                <UploadPhoto />
+              } />
 
-             <Route path='/signup' render={() =>
-               <Signup user={user} liftToken={this.liftTokenToState} />
-             } />
+              <Route path='/signup' render={() =>
+                <Signup liftToken={this.liftTokenToState} />
+              } />
 
-             <Route path='/profile' render={() =>
-               userProfile
-             } />
+              <Route path='/login' render={() =>
+                <Login liftToken={this.liftTokenToState} />
+              } />
+                   <OpenIconSpeedDial />
+               </div>
+             </Router>
 
-             <Route path='/login' render={() =>
-               <Login user={user} liftToken={this.liftTokenToState} />
-             } />
-
-              <OpenIconSpeedDial user={this.state.user} logout={this.logout} />
-          </div>
-        </Router>
-
-        <Spotify />
-        {/* {userProfile} */}
-        {results}
-      </div>
-    </React.Fragment>
-    )
-  }
-}
-
+         <Spotify />
+         <PhotoForm liftPlaylist={this.handlePlaylist} liftPhoto={this.handlePhoto} refreshToken={this.checkForSpotifyToken} />
+         {results}
+       </div>
+     </React.Fragment>
+     )
+   }
+ }
 
 
 export default App;

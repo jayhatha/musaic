@@ -10,6 +10,8 @@ import MenuButton from './MenuButton';
 import { Link } from 'react-router-dom';
 import './App.css';
 
+// Navbar holding heading, title...need to refactor
+
 const styles = {
   root: {
     flexGrow: 1,
@@ -39,17 +41,21 @@ function Navbar(props) {
               Moodsic
             </Typography>
 
-            <Link to='/'>
-              <Button id='nav-title' color="inherit">Home</Button>
+            {/* <Link to='/'>
+              <Button id='home-button' color="inherit">Home</Button>
             </Link>
 
             <Link to='/profile'>
-              <Button id='nav-title' color="inherit">Profile</Button>
+              <Button id='profile-button' color="inherit">Profile</Button>
             </Link>
 
-            <Link to='/'>
-              <Button onClick={props.logout} id='nav-title' color="inherit">Logout</Button>
-            </Link>
+            <Link to='/login'>
+              <Button id='login-button' color="inherit">Login</Button>
+            </Link> */}
+
+            {/* <Link to='/'>
+              <Button onClick={props.logout} id='logout-button' color="inherit">Logout</Button>
+            </Link> */}
 
           </Toolbar>
         </AppBar>
@@ -62,15 +68,11 @@ function Navbar(props) {
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
-            {/* Option 2 menu bar - hamburger */}
-            {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-              <MenuButton />
-            </IconButton> */}
             <Typography id='page-title' variant="title" color="inherit" className={classes.flex}>
               Moodsic
             </Typography>
 
-            <Link to='/about'>
+            {/* <Link to='/about'>
               <Button id='nav-title' color="inherit">About</Button>
             </Link>
 
@@ -88,7 +90,7 @@ function Navbar(props) {
 
             <Link to='/upload'>
               <Button id='nav-title' color="inherit">Upload Your Photo</Button>
-            </Link>
+            </Link> */}
 
           </Toolbar>
         </AppBar>
