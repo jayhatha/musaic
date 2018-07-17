@@ -6,10 +6,11 @@ const expressJWT = require('express-jwt');
 const auth = require('./routes/auth');
 const playlist = require('./routes/playlist');
 const locked = require('./routes/locked');
+const spotify = require('./routes/spotify');
+var cors = require('cors');
+var querystring = require('querystring');
+var cookieParser = require('cookie-parser');
 var cloudinary = require('cloudinary');
-var multer = require('multer');
-var upload = multer({ dest: './uploads/' });
-const axios = require('axios');
 
 const port = process.env.port || 3000;
 
@@ -27,9 +28,13 @@ cloudinary.config({
     api_secret: process.env.REACT_APP_CLOUDINARY_API_SECRET
 });
 
-app.use(express.static(`${__dirname}/client/build`));
+app.use(express.static(`${__dirname}/client/build`))
+   .use(cors())
+   .use(cookieParser());
+
 app.use('/auth', auth);
 app.use('/playlist', playlist);
+app.use('/spotify', spotify);
 app.use('/locked', expressJWT({ secret: process.env.JWT_SECRET }).unless({ method: 'POST' }), locked);
 
 //creating the test route

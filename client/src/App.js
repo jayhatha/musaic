@@ -4,12 +4,15 @@ import axios from 'axios';
 import './App.css';
 import Login from './Login';
 import Signup from './Signup';
-import { UserProfile } from './UserProfile';
-import PhotoForm from './PhotoForm';
+import UserProfile from './UserProfile';
 import Navbar from './Navbar';
+import PhotoForm from './PhotoForm';
 import Home from './Home';
 import Result from './Result';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import Spotify from './Spotify';
+import OpenIconSpeedDial from './OpenIconSpeedDial';
+import About from './About';
 
 
 class App extends Component {
@@ -154,58 +157,51 @@ class App extends Component {
                                                          genres={this.state.genres}
                                                          colors={this.state.cloudColors}
                                                          user={user} /> : '';
-    if (user) {
-      return (
-        <div className="App">
-          <Router>
-            <div>
-              <Navbar />
-              <UserProfile user={user} logout={this.logout}/>
-              <a onClick={this.handleClick}> Test the protected route</a>
-              <p>{this.state.lockedResult}</p>
-            </div>
-          </Router>
-          
-          <PhotoForm liftPlaylist={this.handlePlaylist} 
-                     liftPhoto={this.handlePhoto}
-                     liftGenres={this.handleGenres}
-                     liftColors={this.handleColors}
-                     refreshToken={this.checkForSpotifyToken} />
-          {results}
-        </div>
-      );
-    } else {
-      return (
-        <div className="App">
-          <Router>
-            <div>
-              <Navbar />
+    let userProfile = (user) ? <UserProfile user={user} logout={this.logout} /> : '';
+    return (
+     <React.Fragment>
+     <CssBaseline />
+      <div className="App">
+        <Router>
+          <div>
+            <Navbar />
 
-              <Route exact path='/' render={() =>
-                <Home />
+            <Route exact path='/' render={() =>
+               <Home />
+            } />
+            <Route path='/about' render={() =>
+                 <About />
               } />
 
-              <Route path='/signup' render={() =>
-                <Signup liftToken={this.liftTokenToState} />
-              } />
+             <Route path='/upload' render={() =>
+               <PhotoForm liftPlaylist={this.handlePlaylist} 
+                          liftPhoto={this.handlePhoto} 
+                          liftGenres={this.handleGenres}
+                          liftColors={this.handleColors}
+                          refreshToken={this.checkForSpotifyToken} />
+             } />
 
-              <Route path='/login' render={() =>
-                <Login liftToken={this.liftTokenToState} />
-              } />
-            </div>
-          </Router>
-          
-          <PhotoForm liftPlaylist={this.handlePlaylist} 
-                     liftPhoto={this.handlePhoto}
-                     liftGenres={this.handleGenres}
-                     liftColors={this.handleColors}
-                     refreshToken={this.checkForSpotifyToken} />
-          {results}
-        </div>
-      )
-    }
-  }
+             <Route path='/signup' render={() =>
+               <Signup liftToken={this.liftTokenToState} />
+             } />
+
+             <Route path='/login' render={() =>
+               <Login liftToken={this.liftTokenToState} />
+             } />
+
+              <OpenIconSpeedDial />
+          </div>
+        </Router>
+
+        <Spotify />
+        {userProfile}
+        {results}
+      </div>
+    </React.Fragment>
+    )
+  }  
 }
 
+     
 
 export default App;

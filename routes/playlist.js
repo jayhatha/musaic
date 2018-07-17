@@ -23,7 +23,7 @@ router.post('/', (req, res) => {
 			console.log('Error creating playlist', err)
 		}
 		else {
-			console.log('SUCCESS!', playlist.userID)
+			console.log('SUCCESS creating playlist!', playlist.userID)
 		}
 	})
 }); 
@@ -31,12 +31,12 @@ router.post('/', (req, res) => {
 // get /playlist/user/:userID - gets users playlists
 router.get('/user/:userID', (req, res) => {
 	console.log('HIT GET USER PLAYLISTS ROUTE')
-	User.findById(req.params.userID, (err, user) => {
+	Playlist.find({userID: req.params.userID}, (err, playlist) => {
 		if (err) {
 			console.log('Error finding user', err)
 		}
 		else {
-
+			res.json(playlist)
 		}
 	})
 }); 
