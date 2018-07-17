@@ -194,6 +194,10 @@ function Navbar(props) {
               <Button id='nav-title' color="inherit">Login</Button>
             </Link>
 
+            <Link to='/profile'>
+              <Button id='nav-title' color="inherit">Profile</Button>
+            </Link>
+
             <Link to='/upload'>
               <Button id='nav-title' color="inherit">Upload Your Photo</Button>
             </Link>

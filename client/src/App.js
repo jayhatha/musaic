@@ -13,6 +13,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Spotify from './Spotify';
 import OpenIconSpeedDial from './OpenIconSpeedDial';
 import About from './About';
+import Playlist from './Playlist';
 
 
 class App extends Component {
@@ -125,27 +126,19 @@ class App extends Component {
   
   // ******** THESE HANDLE THE THINGS THAT NEED TO BE PASSED FROM PHOTOFORM TO RESULTS/PLAYLIST
   handlePlaylist(tracks) {
-    this.setState({
-      playlist: tracks
-    }, () => { console.log('The Playlist:', this.state.playlist) });
+    this.setState({playlist: tracks});
   }
 
   handlePhoto(photo) {
-    this.setState({
-      imgURL: photo
-    });
+    this.setState({imgURL: photo});
   }
 
   handleGenres(genres) {
-    this.setState({
-      genres: genres
-    });
+    this.setState({genres: genres});
   }
 
   handleColors(colors) {
-    this.setState({
-      cloudColors: colors
-    });
+    this.setState({cloudColors: colors});
   }
   // **********************
 
@@ -188,6 +181,8 @@ class App extends Component {
              <Route path='/login' render={() =>
                <Login liftToken={this.liftTokenToState} />
              } />
+
+             <Route path='/playlist/:id' component={Playlist} />
 
               <OpenIconSpeedDial />
           </div>

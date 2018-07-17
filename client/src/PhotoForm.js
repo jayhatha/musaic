@@ -92,7 +92,7 @@ class PhotoForm extends Component {
 		  .then(response => {
 				// FIXME: error handle the token here
 		  this.setState({
-				spotifyToken,
+			spotifyToken,
 		  	// we have a playlist in state!
 		  	playlist: response.data.tracks,
 		  	spfyAtts: [valence, mode, energy, danceability]
