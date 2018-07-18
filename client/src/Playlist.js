@@ -55,15 +55,16 @@ class Playlist extends Component {
     let sfyUserToken = cookie.load('ACCESS_TOKEN');
     if (!sfyUserToken) {
       // change this URL in production
-      () => {window.location = 'http://localhost:8888/login/'}
-      let sfyUserToken = cookie.load('ACCESS_TOKEN');
-    }
+      console.log('no spotify cookie found');
+      window.location = 'http://localhost:8888/login/';
+      console.log('at least we\'re hitting the window-loc')
+      }
+    sfyUserToken = cookie.load('ACCESS_TOKEN');
     if (this.state.playlist) {
     let sfyUserId;
     let playlistId;
-    console.log(this.state.playlist.songs, this.state.playlist.songs[0].uri);
     var playlistTest = [];
-    let playlistTracks = this.state.playlist.songs.map((song) => playlistTest.push(song.uri));
+    let playlistTracks = this.state.songs.map((song) => playlistTest.push(song.uri));
     playlistTracks = playlistTest;
 
     console.log(playlistTracks)
