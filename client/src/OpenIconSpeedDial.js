@@ -30,16 +30,17 @@ const styles = theme => ({
 
 // can use font size to make icons bigger <PhotoCamera style={{fonSize: 100}} />
 const actionsLoggedOut = [
-  { icon: <Link to='/'><Home /></Link>, name: 'Home' },
+  { icon: <Link to='/loginsignup'><VpnKey /></Link>, name: 'Login' },
   { icon: <Link to='/loginsignup'><Create /></Link>, name: 'Signup' },
-  { icon: <Link to='/loginsignup'><VpnKey /></Link>, name: 'Login' }
+  { icon: <Link to='/'><Home /></Link>, name: 'Home' }
 ];
 
 const actionsLoggedIn = [
-  { icon: <Link to='/'><Home /></Link>, name: 'Home' },
-  { icon: <Link to='/profile'><AccountCircle /></Link>, name: 'Profile' },
   { icon: <Link to='/'><ArrowForward /></Link>, name: 'LogOut' },
-  { icon: <Link to='/upload'><AddAPhoto /></Link>, name: 'Upload Photo' }
+  { icon: <Link to='/upload'><AddAPhoto /></Link>, name: 'Upload Photo' },
+  { icon: <Link to='/profile'><AccountCircle /></Link>, name: 'Profile' },
+  { icon: <Link to='/'><Home /></Link>, name: 'Home' }
+
 ];
 
 class OpenIconSpeedDial extends React.Component {
@@ -91,9 +92,10 @@ class OpenIconSpeedDial extends React.Component {
     return (
       <div className={classes.root}>
         <SpeedDial
-          ariaLabel="SpeedDial openIcon example"
+          ariaLabel="SpeedDial example"
           className={classes.speedDial}
           hidden={hidden}
+          icon={<SpeedDialIcon />}
           onBlur={this.handleClose}
           onClick={this.handleClick}
           onClose={this.handleClose}

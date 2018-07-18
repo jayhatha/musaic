@@ -27,7 +27,7 @@ const Home = props => {
   const { classes } = props;
   let tryButton = (
     <Link to='/loginsignup'>
-      <button className='try-button' >Try</button>
+      <button className='home-button try-button' >Try</button>
     </Link>
   );
   if (props.user) {
@@ -41,18 +41,18 @@ const Home = props => {
         </Grid>
         <Grid item xs={12} md={12}>
           <Paper id="description" className={classes.paper}>
-            <p>What a playlist generated for you based on what you are doing? Yes? Then check this out!
+            <p>Want a playlist generated for you based on what you are doing? Yes? Then check this out!
               Moodsic is an application that will generate a playlist from a photo you upload.
               Out with friends, take a selfie and upload to see what songs will generate for you.
               Want to select the genre of music where this playlist will generate from? Go ahead!
               Click the link below to get started. Enjoy the Moodsic.</p>
           </Paper>
           {tryButton}
-          <button className='try-button' >Learn More</button>
+          <button className='home-button try-button' >Learn More</button>
         </Grid>
       </Grid>
       <div>
-        <img src={PhotoPlaylistSample}></img>
+        <img id='sample-photo' src={PhotoPlaylistSample}></img>
       </div>
     </div>
   )

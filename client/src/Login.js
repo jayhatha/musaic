@@ -53,7 +53,7 @@ class Login extends Component {
     return (
       <div>
         <p>{this.state.response ? this.state.response.message : ''}</p>
-        <form onSubmit={this.handleSubmit}>
+        <form className="auth" onSubmit={this.handleSubmit}>
           Email: <input type="email"
                         value={this.state.email}
                         onChange={this.handleEmailChange}

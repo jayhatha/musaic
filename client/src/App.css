@@ -1,6 +1,58 @@
+a, u {
+  text-decoration: none;
+}
+
 .App {
   text-align: center;
   background: rgba(158, 163, 163, .5)
+}
+
+.text-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 500px;
+}
+
+.home-button {
+  margin-left: .5em;
+  padding: .05em .3em;
+  font-size: 1.4em;
+  border-radius: .5em;
+  transition: all .5s;
+}
+
+.home-button:hover {
+  box-shadow: 0 0 0.3em rgba(0, 0, 0, .3);
+  border-radius: 0;
+}
+
+.title-bar {
+  font-family: 'Monoton', cursive;
+  color: rgb(21, 23, 22);
+  font-size: 5em;
+  background: rgb(48, 93, 121);
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+
+.auth input {
+  margin-bottom: 1.3em;
+}
+
+#home-page {
+  min-height: 100vh;
+  /* background: rgba(158, 163, 163, .5); */
+  margin-bottom: 0em;
+}
+
+#description {
+  background: rgba(124, 123, 185, .5);
+}
+
+#sample-photo {
+  max-width: 60vw;
+  margin-top: 3em;
 }
 
 #page-title {
@@ -19,38 +71,9 @@
   text-decoration: none;
 }
 
-a, u {
-  text-decoration: none;
+#auth-wrapper {
+  background-image: url('./musicphoto.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 80vh;
 }
-
-.text-overflow {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 500px;
-}
-
-#home-page {
-  min-height: 100vh;
-  /* background: rgba(158, 163, 163, .5); */
-  margin-bottom: 0em;
-}
-
-#description {
-  background: rgba(124, 123, 185, .5);
-}
-
-.title-bar {
-  font-family: 'Monoton', cursive;
-  color: rgb(21, 23, 22);
-  font-size: 5em;
-  background: rgb(48, 93, 121);
-  margin-top: 0em;
-  margin-bottom: 0em;
-}
-
-/* imgURL
-backgroun-image: url
-background-repeat: no repeat;
-backgroun-size: cover;
-footer copyright moodsic */

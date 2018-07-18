@@ -63,7 +63,7 @@ class Signup extends Component {
     return (
       <div>
         <p>{this.state.error ? this.state.error.message : ''}</p>
-        <form onSubmit={this.handleSubmit}>
+        <form className="auth" onSubmit={this.handleSubmit}>
           Name: <input type='text'
                        value={this.state.name}
                        onChange={this.handleNameChange}
