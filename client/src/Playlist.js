@@ -154,6 +154,7 @@ class Playlist extends Component {
                             description={this.state.description}
                             tags={this.state.tags}
                             genres={this.state.genres}
+                            updateForm={this.state.updateForm}
             />
           </Paper>
         </div>
