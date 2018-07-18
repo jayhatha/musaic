@@ -31,11 +31,16 @@ class UpdatePlaylist extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      playlist: this.props.playlist,
       name: this.props.name,
       description: this.props.description,
       tags: this.props.tags,
       genres: this.props.genres
     }
+    console.log(this.state.name);
+    console.log(this.state.playlist);
+    
+    
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleNameChange = this.handleNameChange.bind(this)
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this)
@@ -44,15 +49,14 @@ class UpdatePlaylist extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const url = '/playlist/' + //playlist id
-    console.log("Updating Playlist!");
-    axios.put('/playlist', {
+    const url = '/playlist/' + this.state.playlistId;
+    console.log("Updating Playlist for " + url);
+    axios.put(url, {
       name: this.state.name,
       description: this.state.description,
-      tags: this.state.tags,
-      genres: this.state.genres
+      tags: this.state.tags
     }).then(result => {
-      console.log(result + " of updating playlist");
+      console.log(result + "is the result of updating playlist");
     }).catch(err => {
       console.log('We caught an error: ' + err);
     })
@@ -86,7 +90,7 @@ class UpdatePlaylist extends Component {
       <div className={classes.root} >
         <Grid container spacing={12}>
           <Grid item xs={12}>
-            <Paper className={classes.paper} >
+            <Paper >
               <form onSubmit={this.handleSubmit}>
                 <TextField
                   id="name"

@@ -137,11 +137,11 @@ class Playlist extends Component {
       return (
         <div>
           <Paper>
-            <UpdatePlaylist name={this.state.name} 
+            <UpdatePlaylist playlist={this.state.playlist}
+                            name={this.state.name} 
                             description={this.state.description}
                             tags={this.state.tags}
                             genres={this.state.genres}
-                            songs={this.state.songs}
             />
           </Paper>
         </div>
