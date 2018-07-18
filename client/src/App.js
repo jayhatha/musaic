@@ -1,21 +1,17 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import axios from 'axios';
-import qs from 'qs';
 import './App.css';
 import Login from './Login';
 import Signup from './Signup';
 import UserProfile from './UserProfile';
-import TitleBar from './TitleBar';
 import PhotoForm from './PhotoForm';
-
+import TitleBar from './TitleBar'
 import Home from './Home';
-import Result from './Result';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import OpenIconSpeedDial from './OpenIconSpeedDial';
 import About from './About';
 import Playlist from './Playlist';
-
 
 class App extends Component {
   constructor(props) {
@@ -59,24 +55,6 @@ class App extends Component {
       })
     })
   }
-
-  sendPlaylistToSpotify(e) {
-    let parsed = qs.parse(window.location.search);
-    let accessToken = parsed['?access_token'];
-    console.log(parsed, accessToken)
-    let sfyUserId;
-    axios.defaults.headers.common['Authorization'] = "Bearer " + accessToken;
-    axios.get('https://api.spotify.com/v1/me').then(results => {
-      let sfyUserId = results.data.id;
-      axios.defaults.headers.common['Authorization'] = "Bearer " + accessToken;
-      axios.post('https://api.spotify.com/v1/users/' +  sfyUserId + '/playlists', {
-        name: 'test playlist',
-        public: true,
-      }).then((response) => {
-        console.log(response)
-      })
-      })
-    }
 
 
   componentDidMount() {
@@ -173,7 +151,7 @@ class App extends Component {
 
   render() {
     let user = this.state.user;
-    let results = (this.state.playlist.length) ? <Result playlist={this.state.playlist}
+    let results = (this.state.playlist.length) ? <Playlist playlist={this.state.playlist}
                                                          imgURL={this.state.imgURL}
                                                          genres={this.state.genres}
                                                          colors={this.state.cloudColors}
@@ -234,12 +212,6 @@ class App extends Component {
               <OpenIconSpeedDial user={this.state.user} logout={this.logout} />
           </div>
         </Router>
-<<<<<<< HEAD
-        {/* {userProfile} */}
-        <button onClick={this.sendPlaylistToSpotify}>make a test playlist</button>
-        {results}
-=======
->>>>>>> 6c0708bb205bc7d2aee41ef51860827a45dfc65d
       </div>
     </React.Fragment>
     )
