@@ -66,8 +66,6 @@ class Playlist extends Component {
     })
   }
 
-<<<<<<< HEAD
-=======
   handleRemoveFaveClick(e) {
     e.preventDefault();
     const url = '/playlist/' + this.state.playlist._id;
@@ -76,7 +74,6 @@ class Playlist extends Component {
     })
   }
 
->>>>>>> ca8ad02c20c29474fd685f9fc6ee053ebe6bf137
   sendPlaylistToSpotify(e) {
     let sfyUserToken = cookie.load('ACCESS_TOKEN');
     if (!sfyUserToken) {
@@ -87,9 +84,9 @@ class Playlist extends Component {
     if (this.state.playlist) {
     let sfyUserId;
     let playlistId;
-    console.log(this.state.playlist.songs, this.state.playlist.songs[0].uri);
+    console.log(this.state.songs, this.state.songs[0].uri);
     var playlistTest = [];
-    let playlistTracks = this.state.playlist.songs.map((song) => playlistTest.push(song.uri));
+    let playlistTracks = this.state.songs.map((song) => playlistTest.push(song.uri));
     playlistTracks = playlistTest;
 
     console.log(playlistTracks)
@@ -111,7 +108,6 @@ class Playlist extends Component {
       })
       }
     }
-<<<<<<< HEAD
 
   handleRemoveFaveClick(e) {
     e.preventDefault();
@@ -120,8 +116,6 @@ class Playlist extends Component {
       this.props.history.push({pathname: '/profile'});
     })
   }
-=======
->>>>>>> ca8ad02c20c29474fd685f9fc6ee053ebe6bf137
 
   toggleUpdateForm(e) {
     e.preventDefault();
@@ -130,10 +124,7 @@ class Playlist extends Component {
   }
 
   render() {
-<<<<<<< HEAD
-=======
     const {classes} = this.props;
->>>>>>> ca8ad02c20c29474fd685f9fc6ee053ebe6bf137
     let addOrRemoveBtn = (this.state.isFave === 'true') ? <Button onClick={this.handleRemoveFaveClick} variant="contained" color="primary">Remove Playlist from Favorites</Button> :
     <Button onClick={this.handleFaveClick} variant="contained" color="primary">Add Playlist to Favorites</Button>;
 
@@ -155,7 +146,7 @@ class Playlist extends Component {
         <div>
           <Paper>
             <UpdatePlaylist playlist={this.state.playlist}
-                            name={this.state.name} 
+                            name={this.state.name}
                             description={this.state.description}
                             tags={this.state.tags}
                             genres={this.state.genres}
