@@ -13,10 +13,10 @@ const styles = theme => ({
   },
   paper: {
     padding: theme.spacing.unit * 2,
-      margin: theme.spacing.unit * 2,
-        height: '100%',
-          color: theme.palette.text.secondary,
-            textAlign: 'center'
+    margin: theme.spacing.unit * 2,
+    height: '100%',
+    color: theme.palette.text.secondary,
+    textAlign: 'center'
   },
   button: {
     margin: theme.spacing.unit * 1
@@ -53,25 +53,33 @@ class UpdatePlaylist extends Component {
       songs: this.state.playlist
     }).then(result => {
       console.log(result + " of updating playlist");
-    }).catch( err => {
+    }).catch(err => {
       console.log('We caught an error: ' + err);
     })
   }
 
-  handleChange = (e) => {
-    console.log("things are a-changing");
-    this.setState({
-      name: e.target.value,
-      description: e.target.value,
-      tags: e.target.value,
-      genres: e.target.value,
-      songs: e.target.value
-    }), () => {
+  handleNameChange = (e) => {
+    console.log("the name is a-changing");
+    this.setState({ name: e.target.value }), () => {
       console.log("changes lifted to state");
     }
   }
 
-  render(){
+  handleDescriptionChange = (e) => {
+    console.log("the description is a-changing");
+    this.setState({ description: e.target.value }), () => {
+      console.log("changes lifted to state");
+    }
+  }
+
+  handleTagChange = (e) => {
+    console.log("the tag is a-changing");
+    this.setState({ tags: e.target.value }), () => {
+      console.log("changes lifted to state");
+    }
+  }
+
+  render() {
     const { classes } = this.props;
     return (
       <div className="root" >
@@ -84,7 +92,7 @@ class UpdatePlaylist extends Component {
                   label="Name"
                   className="textField"
                   value={this.state.name}
-                  onChange={this.handleChange(name)}
+                  onChange={this.handleNameChange}
                   margin="normal"
                 />
                 <TextField
@@ -92,7 +100,7 @@ class UpdatePlaylist extends Component {
                   label="Description"
                   className="textField"
                   value={this.state.description}
-                  onChange={this.handleChange(description)}
+                  onChange={this.handleDescriptionChange}
                   margin="normal"
                 />
                 <TextField
@@ -100,7 +108,7 @@ class UpdatePlaylist extends Component {
                   label="Tag"
                   className="textField"
                   value={this.state.tags}
-                  onChange={this.handleChange(tags)}
+                  onChange={this.handleTagChange}
                   margin="normal"
                 />
                 <TextField
@@ -127,7 +135,7 @@ class UpdatePlaylist extends Component {
       </div>
     )
   }
-  
+
 }
 
 export default withStyles(styles)(UpdatePlaylist);
