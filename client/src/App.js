@@ -139,7 +139,6 @@ class App extends Component {
   }
 
   handleColors(colors) {
-    console.log('PHOTO LIFT')
     this.setState({cloudColors: colors});
   }
 
@@ -156,7 +155,9 @@ class App extends Component {
                                                          genres={this.state.genres}
                                                          colors={this.state.cloudColors}
                                                          user={user} /> : '';
-    let userProfile = (user) ? <UserProfile user={user} logout={this.logout} /> : '';
+    let userProfile = (user) ? <UserProfile user={user} 
+                                            logout={this.logout}
+                                            spfyAtts={this.state.spfyAtts} /> : 'Must Log in to view profile';
     return (
      <React.Fragment>
      <CssBaseline />
