@@ -149,9 +149,13 @@ class App extends Component {
 
   render() {
     let user = this.state.user;
+<<<<<<< HEAD
     let userProfile = (user) ? <UserProfile user={user}
                                             logout={this.logout}
                                             spfyAtts={this.state.spfyAtts} /> : 'Must Log in to view profile';
+=======
+    let userProfile = (user) ? <UserProfile user={user} logout={this.logout} /> : 'Must Log in to view profile';
+>>>>>>> dba58afc49909846f8b3357873736774c47dac38
     return (
      <React.Fragment>
      <CssBaseline />
