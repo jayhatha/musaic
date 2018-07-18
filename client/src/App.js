@@ -24,7 +24,8 @@ class App extends Component {
       imgURL: '',
       genres: [],
       cloudColors: [],
-      spfyAtts: []
+      spfyAtts: [],
+      savedLocation: ''
     }
     this.checkForLocalToken = this.checkForLocalToken.bind(this);
     this.checkForSpotifyToken = this.checkForSpotifyToken.bind(this);
@@ -36,6 +37,7 @@ class App extends Component {
     this.handleColors = this.handleColors.bind(this);
     this.handleGenres = this.handleGenres.bind(this);
     this.handleAtts = this.handleAtts.bind(this);
+    this.handleLocation = this.handleLocation.bind(this);
   }
 
   liftTokenToState(data) {
@@ -59,6 +61,9 @@ class App extends Component {
   componentDidMount() {
     this.checkForLocalToken();
     this.checkForSpotifyToken()
+    if (this.state.savedLocation){
+      this.props.history.push(this.state.savedLocation);
+    }
   }
 
   logout() {
@@ -144,6 +149,10 @@ class App extends Component {
   handleAtts(atts) {
     this.setState({spfyAtts: atts});
   }
+
+  handleLocation(location) {
+    this.setState({savedLocation: location});
+  }
   // **********************
 
 
@@ -187,7 +196,7 @@ class App extends Component {
              } />
 
              <Route path='/playlist/:id' render={(props) =>
-               <Playlist user={user} {...props} isFave="true" />
+               <Playlist user={user} {...props} isFave="true" liftLocation={this.handleLocation} />
              } />
 
              <Route path='/results' render={(props) =>

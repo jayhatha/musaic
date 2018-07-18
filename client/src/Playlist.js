@@ -29,7 +29,8 @@ class Playlist extends Component {
       imageURL: this.props.location.state.imageURL,
       colorData: this.props.location.state.colorData,
       songs: this.props.location.state.songs,
-      spfyAtts: this.props.location.state.spfyAtts
+      spfyAtts: this.props.location.state.spfyAtts,
+      savedLocation: ''
     }
   }
 
@@ -56,8 +57,11 @@ class Playlist extends Component {
     if (!sfyUserToken) {
       // change this URL in production
       console.log('no spotify cookie found');
-      axios.get('https://localhost:8888/login');
-      // window.location = 'http://localhost:8888/login/';
+      this.setState({
+        savedLocation: props.location.pathname
+      }).then(() => {
+        this.props.liftLocation();
+        window.location = 'http://localhost:8888/login/'});
       }
     sfyUserToken = cookie.load('ACCESS_TOKEN');
     if (this.state.playlist) {
