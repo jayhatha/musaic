@@ -94,11 +94,16 @@ class Playlist extends Component {
     imgUrl = (this.state.playlist) ? this.state.imageURL : '';
     colors = (this.state.playlist) ? this.state.colorData : '';
 
-    if (this.state.updateForm == true) {
+    if (this.state.updateForm === true) {
       return (
         <div className="root">
           <Paper className="paper">
-            <UpdatePlaylist />
+            <UpdatePlaylist name={this.state.name} 
+                            description={this.state.description}
+                            tags={this.state.tags}
+                            genres={this.state.genres}
+                            songs={this.state.songs}
+            />
           </Paper>
         </div>
       )

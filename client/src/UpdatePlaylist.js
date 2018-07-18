@@ -21,8 +21,10 @@ const styles = theme => ({
   button: {
     margin: theme.spacing.unit * 1
   },
-  input: {
-    margin: theme.spacing.unit * 1,
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200
   }
 })
 
@@ -30,39 +32,47 @@ class UpdatePlaylist extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      user: this.props.user,
-      playlist: this.props.playlist,
       name: this.props.name,
       description: this.props.description,
       tags: this.props.tags,
       genres: this.props.genres,
-      imageURL: this.props.imgURL,
-      songs: this.props.playlist,
-      colorData: this.props.colors
+      songs: this.props.songs
     }
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
     console.log("Updating Playlist!");
     axios.put('/playlist', {
-      user: this.props.user,
-      playlist: this.props.playlist,
-      name: this.props.name,
-      description: this.props.description,
-      tags: this.props.tags,
-      genres: this.props.genres,
-      imageURL: this.props.imgURL,
-      songs: this.props.playlist,
-      colorData: this.props.colors
+      name: this.state.name,
+      description: this.state.description,
+      tags: this.state.tags,
+      genres: this.state.genres,
+      songs: this.state.playlist
     }).then(result => {
-      console.log(result);
+      console.log(result + " of updating playlist");
     }).catch( err => {
       console.log('We caught an error: ' + err);
     })
   }
+
+  handleChange = (e) => {
+    console.log("things are a-changing");
+    this.setState({
+      name: e.target.value,
+      description: e.target.value,
+      tags: e.target.value,
+      genres: e.target.value,
+      songs: e.target.value
+    }), () => {
+      console.log("changes lifted to state");
+    }
+  }
+
   render(){
+    const { classes } = this.props;
     return (
       <div className="root" >
         <Grid container spacing={12}>
@@ -72,43 +82,42 @@ class UpdatePlaylist extends Component {
                 <TextField
                   id="name"
                   label="Name"
-                  className="TextField, input"
+                  className="textField"
                   value={this.state.name}
-                  // onChange={this.handleChange('name')}
+                  onChange={this.handleChange(name)}
                   margin="normal"
                 />
                 <TextField
                   id="description"
                   label="Description"
-                  className="TextField, input"
+                  className="textField"
                   value={this.state.description}
-                  // onChange={this.handleChange('description')}
+                  onChange={this.handleChange(description)}
                   margin="normal"
                 />
                 <TextField
                   id="tag"
                   label="Tag"
-                  className="TextField, input"
+                  className="textField"
                   value={this.state.tags}
-                  // onChange={this.handleChange('tag')}
+                  onChange={this.handleChange(tags)}
                   margin="normal"
                 />
                 <TextField
                   id="genre"
                   label="Genre(s)"
-                  className="TextField, input"
+                  className="textField"
                   value={this.state.genres}
-                  // onChange={this.handleChange('genre')}
                   margin="normal"
-                  // disabled
+                  disabled
                 />
                 <TextField
-                  id="playlist"
-                  label="Playlist"
-                  className="TextField, input"
-                  value={this.state.playlist}
-                  // onChange={this.handleChange('playlist')}
+                  id="songs"
+                  label="Songs"
+                  className="textField"
+                  value={this.state.songs}
                   margin="normal"
+                  disabled
                 />
                 <Button variant="outlined" type="submit">Update</Button>
               </form>
