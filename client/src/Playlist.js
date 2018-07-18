@@ -8,6 +8,29 @@ import {Link} from 'react-router-dom';
 import cookie from 'react-cookie'
 import UpdatePlaylist from './UpdatePlaylist';
 import {withRouter} from 'react-router-dom';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1
+  },
+  paper: {
+    padding: theme.spacing.unit * 2,
+    margin: theme.spacing.unit * 2,
+    height: '100%',
+    color: theme.palette.text.secondary,
+    textAlign: 'center'
+  },
+  button: {
+    margin: theme.spacing.unit * 2
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200
+  }
+})
+
 
 class Playlist extends Component {
 
@@ -43,6 +66,17 @@ class Playlist extends Component {
     })
   }
 
+<<<<<<< HEAD
+=======
+  handleRemoveFaveClick(e) {
+    e.preventDefault();
+    const url = '/playlist/' + this.state.playlist._id;
+    axios.delete(url).then((result) => {
+      this.props.history.push({pathname: '/profile'});
+    })
+  }
+
+>>>>>>> ca8ad02c20c29474fd685f9fc6ee053ebe6bf137
   sendPlaylistToSpotify(e) {
     let sfyUserToken = cookie.load('ACCESS_TOKEN');
     if (!sfyUserToken) {
@@ -77,6 +111,7 @@ class Playlist extends Component {
       })
       }
     }
+<<<<<<< HEAD
 
   handleRemoveFaveClick(e) {
     e.preventDefault();
@@ -85,6 +120,8 @@ class Playlist extends Component {
       this.props.history.push({pathname: '/profile'});
     })
   }
+=======
+>>>>>>> ca8ad02c20c29474fd685f9fc6ee053ebe6bf137
 
   toggleUpdateForm(e) {
     e.preventDefault();
@@ -93,6 +130,10 @@ class Playlist extends Component {
   }
 
   render() {
+<<<<<<< HEAD
+=======
+    const {classes} = this.props;
+>>>>>>> ca8ad02c20c29474fd685f9fc6ee053ebe6bf137
     let addOrRemoveBtn = (this.state.isFave === 'true') ? <Button onClick={this.handleRemoveFaveClick} variant="contained" color="primary">Remove Playlist from Favorites</Button> :
     <Button onClick={this.handleFaveClick} variant="contained" color="primary">Add Playlist to Favorites</Button>;
 
@@ -109,18 +150,23 @@ class Playlist extends Component {
 
     console.log('Playlist State', this.state);
 
-    if (this.state.updateForm == true) {
+    if (this.state.updateForm === true) {
       return (
-        <div className="root">
-          <Paper className="paper">
-            <UpdatePlaylist />
+        <div>
+          <Paper>
+            <UpdatePlaylist playlist={this.state.playlist}
+                            name={this.state.name} 
+                            description={this.state.description}
+                            tags={this.state.tags}
+                            genres={this.state.genres}
+            />
           </Paper>
         </div>
       )
     } else {
       return (
-        <div className="root">
-          <Paper className="paper">
+        <div className={classes.root}>
+          <Paper className={classes.paper}>
             <h1>Your Spotify-Generated Playlist:</h1>
             <h3>{name}</h3>
             <p>Genres: {genres}</p>
@@ -141,4 +187,4 @@ class Playlist extends Component {
   }
 }
 
-export default withRouter(Playlist);
+export default withRouter(withStyles(styles)(Playlist));
