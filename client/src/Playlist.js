@@ -56,8 +56,8 @@ class Playlist extends Component {
     if (!sfyUserToken) {
       // change this URL in production
       console.log('no spotify cookie found');
-      window.location = 'http://localhost:8888/login/';
-      console.log('at least we\'re hitting the window-loc')
+      axios.get('https://localhost:8888/login');
+      // window.location = 'http://localhost:8888/login/';
       }
     sfyUserToken = cookie.load('ACCESS_TOKEN');
     if (this.state.playlist) {
