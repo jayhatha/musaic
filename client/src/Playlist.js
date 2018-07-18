@@ -150,7 +150,6 @@ class Playlist extends Component {
       )
     } else {
       return (
-
         <div className={classes.root}>
           <Paper className={classes.paper}>
             <h1>Your Spotify-Generated Playlist:</h1>
@@ -162,12 +161,10 @@ class Playlist extends Component {
             <ColorChart colors={colors} />
             <AttsChart spfyAtts={spfyAtts} />
             {addOrRemoveBtn}
-
-            {/* make sure buttons stick to the color theme */}
             <Button className="edit-button" variant="text" onClick={this.toggleUpdateForm}>Edit Playlist</Button>
             <Button variant="text" onClick={this.sendPlaylistToSpotify}>Send Playlist to Spotify</Button>
             <Link className="profile-button" to="/profile"><Button variant="contained" color="primary">Back to Profile</Button></Link>
-
+          </Paper>
         </div>
       );
     }
