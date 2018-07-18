@@ -1,6 +1,5 @@
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
-import axios from 'axios';
 import {Link} from 'react-router-dom';
 
 const PlaylistCard = (props) => {

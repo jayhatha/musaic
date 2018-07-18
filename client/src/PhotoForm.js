@@ -14,10 +14,7 @@ import Dropzone from 'react-dropzone';
 import Paper from '@material-ui/core/Paper';
 import AddAPhoto from '@material-ui/icons/AddAPhoto';
 import Grid from '@material-ui/core/Grid';
-import createHistory from 'history/createBrowserHistory';
 import {withRouter} from 'react-router-dom';
-
-const history = createHistory();
 
 const styles = theme => ({
 	root: {
@@ -237,7 +234,7 @@ class PhotoForm extends Component {
 		console.log('PHOTOFORM STATE: ', this.state);
 		let colorChart = (this.state.cloudColors) ? <ColorChart colors={this.state.cloudColors} /> : '';
 		let attsChart = (this.state.spfyAtts) ? <AttsChart spfyAtts={this.state.spfyAtts} /> : '';
-		let currImg = (this.state.currImgURL) ? <img src={this.state.currImgURL} width="200px" /> : '';
+		let currImg = (this.state.currImgURL) ? <img src={this.state.currImgURL} width="200px" alt="uploaded-image" /> : '';
 		return (
 			<div className="root">
 				<Grid container spacing={12}>
