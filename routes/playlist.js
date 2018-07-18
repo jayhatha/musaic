@@ -10,14 +10,15 @@ var request = require('request'); // "Request" library
 router.post('/', (req, res) => {
 	console.log('HIT PLAYLIST POST ROUTE');
 	Playlist.create({
-		name: '',
-		description: '',
-		tags: [],
+		name: req.body.name,
+		description: req.body.description,
+		tags: req.body.tags,
 		genres: req.body.genres,
 		imageUrl: req.body.imageURL,
 		songs: req.body.playlist,
 		colorData: req.body.colorData,
-		userID: req.body.user._id
+		userID: req.body.user._id,
+		spfyAtts: req.body.spfyAtts
 	}, function(err, playlist) {
 		if(err) {
 			console.log('Error creating playlist', err)

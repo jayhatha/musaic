@@ -3,7 +3,6 @@ import {Doughnut} from 'react-chartjs-2';
 
 class AttsChart extends Component {
 	render() {
-		console.log('##SPFY', this.props.spfyAtts);
 		const valence = this.props.spfyAtts[0] * 100;
 		const mode = (this.props.spfyAtts[1]) ? 'Major' : 'Minor';
 		const energy = this.props.spfyAtts[2] * 100;

@@ -96,11 +96,15 @@ class PhotoForm extends Component {
 		    		pathname: '/results',
 		    		state: {
 		    			playlist: this.state.playlist,
-		    			spotifyToken: this.state.spotifyToken,
+		    			name: this.state.genres, // TODO: add highest attribute
+		    			description: '',
+		    			tags: [],
 		    			genres: this.state.genres,
-		    			cloudColors: this.state.cloudColors,
+		    			colorData: this.state.cloudColors,
 		    			spfyAtts: this.state.spfyAtts,
-		    			currImgURL: this.state.currImgURL
+		    			imageURL: this.state.currImgURL,
+		    			songs: this.state.playlist,
+		    			spotifyToken: this.state.spotifyToken,
 		    		}
 		    	})
 		    })
@@ -224,7 +228,9 @@ class PhotoForm extends Component {
 			danceability = 0.2
 		}
 
-		this.setState({spfyAtts: [valence, mode, energy, danceability]});
+		this.setState({
+			spfyAtts: [valence, mode, energy, danceability]
+		}, () => {this.props.liftAtts(this.state.spfyAtts)});
 	}
 
 	render() {
