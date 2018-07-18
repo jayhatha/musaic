@@ -90,7 +90,7 @@ class OpenIconSpeedDial extends React.Component {
     let buttons = this.props.user ? actionsLoggedIn : actionsLoggedOut;
 
     return (
-      <div className={classes.root}>
+      <div>
         <SpeedDial
           ariaLabel="SpeedDial example"
           className={classes.speedDial}
