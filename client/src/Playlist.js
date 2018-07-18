@@ -84,9 +84,9 @@ class Playlist extends Component {
     } else {
       return (
         <div className="root">
-          <Paper className="paper">
-            <h1>Your Spotify-Generated Playlist:</h1>
-            <h3>{name}</h3>
+          {/* <Paper className="paper"> */}
+            <h1 className="h1-test" >Your Spotify-Generated Playlist:</h1>
+            <h3 className="h3-test" >{name}</h3>
             <p>Genres: {genres}</p>
             <p>Description: {description}</p>
             <img src={imgUrl} width="300px" alt="playlist-image" />
@@ -97,7 +97,7 @@ class Playlist extends Component {
             {/* make sure buttons stick to the color theme */}
             <Button className="edit-button" variant="text" onClick={this.toggleUpdateForm}>Edit Playlist</Button>
             <Link className="profile-button" to="/profile"><Button variant="contained" color="primary">Back to Profile</Button></Link>
-          </Paper>
+          {/* </Paper> */}
         </div>
       );
     }

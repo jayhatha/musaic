@@ -58,6 +58,13 @@ a, u {
   background: black;
 }
 
+.h1-test {
+  color: white;
+}
+.h3-test {
+  font-size: 3em;
+}
+
 #home-page {
   min-height: 100vh;
   margin-bottom: 0em;
