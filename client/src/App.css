@@ -31,18 +31,38 @@ a, u {
   font-family: 'Monoton', cursive;
   color: rgb(21, 23, 22);
   font-size: 5em;
-  background: rgb(48, 93, 121);
+  /* background: rgb(48, 93, 121); */
+  background: rgb(11, 82, 79);
   margin-top: 0em;
   margin-bottom: 0em;
+  font-weight: lighter;
 }
 
 .auth input {
   margin-bottom: 1.3em;
 }
 
+.hello {
+  margin-left: 4em;
+  margin-right: 4em;
+  padding: 2em 3em;
+  background: none !important;
+}
+
+/* REMOVED .root, testing */
+.root {
+  background: black;
+}
+
+.h1-test {
+  color: white;
+}
+.h3-test {
+  font-size: 3em;
+}
+
 #home-page {
   min-height: 100vh;
-  /* background: rgba(158, 163, 163, .5); */
   margin-bottom: 0em;
 }
 
@@ -56,11 +76,13 @@ a, u {
 }
 
 #page-title {
-  color: rgb(32, 145, 152) !important;
+  color: white !important;
+  /* color: rgb(32, 145, 152) !important; */
   font-size: 3em;
   text-align: left;
   font-family: 'Monoton', cursive;
 }
+
 
 #home-button,
 #login-button,
@@ -71,9 +93,20 @@ a, u {
   text-decoration: none;
 }
 
-#auth-wrapper {
-  background-image: url('./musicphoto.jpeg');
+
+/* #auth-wrapper {
+  background-image: url('./sheetmusic.jpeg');
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 80vh;
-}
+} */
+
+#auth-wrapper, .root{
+Background-image: url('./sheetmusic.jpeg');
+Background-size: cover;
+Background-position: center center;
+Position: relative;
+Top: 0;
+Bottom: 0;
+Height: 100vh;
+/* Z-index: -10 */

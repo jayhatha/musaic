@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import convert from 'color-convert';
-import {colors} from './colors';
 import {hues} from './hues';
 import ColorChart from './ColorChart';
 import AttsChart from './AttsChart';
@@ -291,15 +290,16 @@ class PhotoForm extends Component {
 	}
 	
 	render() {
+		const {classes} = this.props;
 		console.log('PHOTOFORM STATE: ', this.state);
 		let colorChart = (this.state.cloudColors) ? <ColorChart colors={this.state.cloudColors} /> : '';
 		let attsChart = (this.state.spfyAtts) ? <AttsChart spfyAtts={this.state.spfyAtts} /> : '';
 		let currImg = (this.state.currImgURL) ? <img src={this.state.currImgURL} width="200px" alt="uploaded-image" /> : '';
 		return (
-			<div className="root">
+			<div className={classes.root}>
 				<Grid container spacing={12}>
 					<Grid item xs={12} >
-						<Paper className="paper">
+						<Paper className={classes.paper}>
 							<Dropzone className="dropzone" onDrop={this.handleDrop} accept="image/*">
 								<p className="dropzone">Drag and drop your files or click here to upload</p>
 								<AddAPhoto className="icon" style={{ fontSize: 100 }} />

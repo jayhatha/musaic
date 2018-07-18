@@ -55,15 +55,13 @@ router.get('/user/:userID', (req, res) => {
 	})
 }); 
 
-// put /playlist/user/:userID - update a user's playlist
+// put /playlist/:id - update a user's playlist
 router.put('/:id', (req, res) => {
 	console.log('Hit the PUT user playlist route');
 	Playlist.findByIdAndUpdate({_id: req.params.id}, {
 		name: req.body.name, 
 		description: req.body.description, 
-		tags: req.body.tags, 
-		genres: req.body.genres, 
-		songs: req.body.playlist
+		tags: req.body.tags
 	},{new: true}, (err, playlist) => {
 		if (err) {
 			console.log("Error finding playlist", err);
@@ -73,7 +71,7 @@ router.put('/:id', (req, res) => {
 	})
 });
 
-// delete /playlist/user/:userID - delete a user's playlist
+// delete /playlist/:id - delete a user's playlist
 router.delete('/:id', (req, res) => {
 	console.log('HIT DELET ROUTE');
 	Playlist.remove({_id: req.params.id}, (err, result) => {
@@ -85,9 +83,6 @@ router.delete('/:id', (req, res) => {
 		}
 	});
 });
-
-
-// delete /playlist/user/:userID - delete a song
 
 
 module.exports = router;
