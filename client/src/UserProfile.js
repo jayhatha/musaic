@@ -41,7 +41,7 @@ class UserProfile extends Component {
 
 	render() {
 		const playlistsMapped = this.state.playlists.map((playlist) => {
-			return <PlaylistCard playlist={playlist} />
+			return <PlaylistCard playlist={playlist} spfyAtts={this.props.spfyAtts} />
 		})
 
 		return (
