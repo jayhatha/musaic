@@ -8,7 +8,6 @@ import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
   root: {
-    textAlign: 'center',
     flexGrow: 1
   },
   paper: {
@@ -35,22 +34,23 @@ class UpdatePlaylist extends Component {
       name: this.props.name,
       description: this.props.description,
       tags: this.props.tags,
-      genres: this.props.genres,
-      songs: this.props.songs
+      genres: this.props.genres
     }
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleChange = this.handleChange.bind(this)
+    this.handleNameChange = this.handleNameChange.bind(this)
+    this.handleDescriptionChange = this.handleDescriptionChange.bind(this)
+    this.handleTagChange = this.handleTagChange.bind(this)
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
+    const url = '/playlist/' + //playlist id
     console.log("Updating Playlist!");
     axios.put('/playlist', {
       name: this.state.name,
       description: this.state.description,
       tags: this.state.tags,
-      genres: this.state.genres,
-      songs: this.state.playlist
+      genres: this.state.genres
     }).then(result => {
       console.log(result + " of updating playlist");
     }).catch(err => {
@@ -81,16 +81,17 @@ class UpdatePlaylist extends Component {
 
   render() {
     const { classes } = this.props;
+    
     return (
-      <div className="root" >
+      <div className={classes.root} >
         <Grid container spacing={12}>
           <Grid item xs={12}>
-            <Paper className="paper" >
-              <form onSubmit={this.handleSubmit} method="POST">
+            <Paper className={classes.paper} >
+              <form onSubmit={this.handleSubmit}>
                 <TextField
                   id="name"
                   label="Name"
-                  className="textField"
+                  className={classes.textField}
                   value={this.state.name}
                   onChange={this.handleNameChange}
                   margin="normal"
@@ -98,7 +99,7 @@ class UpdatePlaylist extends Component {
                 <TextField
                   id="description"
                   label="Description"
-                  className="textField"
+                  className={classes.textField}
                   value={this.state.description}
                   onChange={this.handleDescriptionChange}
                   margin="normal"
@@ -106,24 +107,16 @@ class UpdatePlaylist extends Component {
                 <TextField
                   id="tag"
                   label="Tag"
-                  className="textField"
+                  className={classes.textField}
                   value={this.state.tags}
                   onChange={this.handleTagChange}
                   margin="normal"
                 />
                 <TextField
                   id="genre"
-                  label="Genre(s)"
-                  className="textField"
+                  label="Genre(s)" 
+                  className={classes.textField}
                   value={this.state.genres}
-                  margin="normal"
-                  disabled
-                />
-                <TextField
-                  id="songs"
-                  label="Songs"
-                  className="textField"
-                  value={this.state.songs}
                   margin="normal"
                   disabled
                 />
