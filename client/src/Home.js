@@ -42,7 +42,7 @@ const Home = props => {
         <Grid item xs={12} md={12}>
           <Paper id="description" className={classes.paper}>
 
-            <p>Welcome to Moodsic! <br>
+            <p>Welcome to Moodsic!</p> <br />
 
 
             <p>Want a playlist generated for you based on what you are doing? Yes? Then check this out!
