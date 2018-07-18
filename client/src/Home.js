@@ -25,6 +25,14 @@ const styles = theme => ({
 
 const Home = props => {
   const { classes } = props;
+  let tryButton = (
+    <Link to='/loginsignup'>
+      <button className='try-button' >Try</button>
+    </Link>
+  );
+  if (props.user) {
+    tryButton = '';
+  }
   return (
     <div id="home-page" className={classes.root}>
       <Grid container spacing={12}>
@@ -39,9 +47,7 @@ const Home = props => {
               Want to select the genre of music where this playlist will generate from? Go ahead!
               Click the link below to get started. Enjoy the Moodsic.</p>
           </Paper>
-          <Link to='/loginsignup'>
-            <button className='try-button' >Try</button>
-          </Link>
+          {tryButton}
           <button className='try-button' >Learn More</button>
         </Grid>
       </Grid>

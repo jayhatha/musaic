@@ -9,8 +9,8 @@ const LogininSignup = (props) => {
   } else {
     return (
       <div>
-        <Signup user={props.user} liftToken={props.liftTokenToState} />
-        <Login user={props.user} liftToken={props.liftTokenToState} />
+        <Signup user={props.user} liftToken={props.liftToken} />
+        <Login user={props.user} liftToken={props.liftToken} />
       </div>
     )
   }
