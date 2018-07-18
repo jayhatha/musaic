@@ -47,8 +47,7 @@ class UserProfile extends Component {
 		return (
 			<div className="root">
 				<Paper className="paper">
-          Hello, {this.props.user.name}!
-			  		{/* <p className="hello" >Hello, {this.props.user.name}!</p> */}
+			  		<p className="hello" >Hello, {this.props.user.name}!</p>
 			  		{/* <a onClick={this.props.logout}>LOG OUT</a> */}
 			  	</Paper>
 			  	{playlistsMapped}

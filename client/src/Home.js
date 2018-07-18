@@ -33,7 +33,7 @@ const Home = props => {
   if (props.user) {
     tryButton = '';
   }
-  
+
   return (
     <div id="home-page" className={classes.root}>
       <Grid container spacing={12}>
@@ -52,8 +52,8 @@ const Home = props => {
         </Grid>
       </Grid>
       <div>
-        <p className="caption">Here is an example from one of our users. </p>
         <img id='sample-photo' src={PhotoPlaylistSample}></img>
+        <p className="caption">Here is an example from one of our users. </p>
       </div>
     </div>
   )
