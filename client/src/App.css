@@ -1,10 +1,11 @@
-a, u {
+a,
+u {
   text-decoration: none;
 }
 
 .App {
   text-align: center;
-  background: rgba(158, 163, 163, .5)
+  background: rgba(158, 163, 163, .5);
 }
 
 .text-overflow {
@@ -15,11 +16,11 @@ a, u {
 }
 
 .home-button {
-  margin-left: .5em;
-  padding: .05em .3em;
+  margin-left: 0.5em;
+  padding: 0.05em 0.3em;
   font-size: 1.4em;
-  border-radius: .5em;
-  transition: all .5s;
+  border-radius: 0.5em;
+  transition: all 0.5s;
 }
 
 .home-button:hover {
@@ -33,8 +34,8 @@ a, u {
   font-size: 5em;
   /* background: rgb(48, 93, 121); */
   background: rgb(11, 82, 79);
-  margin-top: 0em;
-  margin-bottom: 0em;
+  margin-top: 0;
+  margin-bottom: 0;
   font-weight: lighter;
 }
 
@@ -48,7 +49,6 @@ a, u {
   padding: 2em 3em;
   background: none !important;
 }
-
 /* REMOVED .root, testing */
 .root {
   background: black;
@@ -57,13 +57,14 @@ a, u {
 .h1-test {
   color: white;
 }
+
 .h3-test {
   font-size: 3em;
 }
 
 #home-page {
   min-height: 100vh;
-  margin-bottom: 0em;
+  margin-bottom: 0;
 }
 
 #description {
@@ -83,7 +84,6 @@ a, u {
   font-family: 'Monoton', cursive;
 }
 
-
 #home-button,
 #login-button,
 #logout-button,
@@ -92,21 +92,20 @@ a, u {
   color: white;
   text-decoration: none;
 }
-
-
 /* #auth-wrapper {
   background-image: url('./sheetmusic.jpeg');
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 80vh;
 } */
-
-#auth-wrapper, .root{
-Background-image: url('./sheetmusic.jpeg');
-Background-size: cover;
-Background-position: center center;
-Position: relative;
-Top: 0;
-Bottom: 0;
-Height: 100vh;
-/* Z-index: -10 */
+#auth-wrapper,
+.root {
+  Background-image: url("./sheetmusic.jpeg");
+  Background-size: cover;
+  Background-position: center center;
+  Position: relative;
+  Top: 0;
+  Bottom: 0;
+  Height: 100vh;
+  /* Z-index: -10 */
+}
