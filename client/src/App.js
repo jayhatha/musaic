@@ -149,11 +149,6 @@ class App extends Component {
 
   render() {
     let user = this.state.user;
-    let results = (this.state.playlist.length) ? <Playlist playlist={this.state.playlist}
-                                                         imgURL={this.state.imgURL}
-                                                         genres={this.state.genres}
-                                                         colors={this.state.cloudColors}
-                                                         user={user} /> : '';
     let userProfile = (user) ? <UserProfile user={user} 
                                             logout={this.logout}
                                             spfyAtts={this.state.spfyAtts} /> : 'Must Log in to view profile';
