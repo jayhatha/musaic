@@ -140,7 +140,6 @@ class App extends Component {
   }
 
   handleColors(colors) {
-    console.log('PHOTO LIFT')
     this.setState({cloudColors: colors});
   }
 
