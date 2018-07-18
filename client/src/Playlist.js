@@ -58,9 +58,20 @@ class Playlist extends Component {
 
   handleFaveClick(e) {
     e.preventDefault();
-    this.setState({isFave: 'false'})
-    axios.post('/playlist', this.state).then(result => {
-      console.log('AND WE BACK', result);
+    axios.post('/playlist', this.state).then(playlist => {
+      console.log('SAVED PLAYLIST', playlist);
+      this.setState({
+        isFave: 'true',
+        playlist: playlist.data,
+        name: playlist.data.name,
+        description: playlist.data.description,
+        tags: playlist.data.tags,
+        genres: playlist.data.genres,
+        imageURL: playlist.data.imageUrl,
+        colorData: playlist.data.colorData,
+        songs: playlist.data.songs,
+        spfyAtts: playlist.data.spfyAtts
+      });
     }).catch(err => {
       console.log('UH OH', err);
     })
@@ -77,16 +88,16 @@ class Playlist extends Component {
   sendPlaylistToSpotify(e) {
     let sfyUserToken = cookie.load('ACCESS_TOKEN');
     if (!sfyUserToken) {
+      console.log("NO SFYTOKEN");
       // change this URL in production
-      () => {window.location = 'http://localhost:8888/login/'}
-      let sfyUserToken = cookie.load('ACCESS_TOKEN');
+      window.location = 'http://localhost:8888/login/';
+      sfyUserToken = cookie.load('ACCESS_TOKEN');
     }
     if (this.state.playlist) {
     let sfyUserId;
     let playlistId;
-    console.log(this.state.playlist.songs, this.state.playlist.songs[0].uri);
     var playlistTest = [];
-    let playlistTracks = this.state.playlist.songs.map((song) => playlistTest.push(song.uri));
+    let playlistTracks = this.state.songs.map((song) => playlistTest.push(song.uri));
     playlistTracks = playlistTest;
 
     console.log(playlistTracks)
@@ -133,7 +144,6 @@ class Playlist extends Component {
     let colors = this.state.colorData;
     let spfyAtts = this.state.spfyAtts;
 
-    console.log('Playlist State', this.state);
 
     if (this.state.updateForm === true) {
       return (
@@ -166,8 +176,9 @@ class Playlist extends Component {
             {/* make sure buttons stick to the color theme */}
             <Button className="edit-button" variant="text" onClick={this.toggleUpdateForm}>Edit Playlist</Button>
             <Button variant="text" onClick={this.sendPlaylistToSpotify}>Send Playlist to Spotify</Button>
-            <Link className="profile-button" to="/profile"><Button variant="contained" color="primary">Back to Profile</Button></Link>
 
+            <Link className="profile-button" to="/profile"><Button variant="contained" color="primary">Back to Profile</Button></Link>
+          </Paper>
         </div>
       );
     }
