@@ -47,7 +47,6 @@ const Result = props => {
                       user={props.user} />
           </Paper>
         </Grid>
-
       </Grid>
     </div>
   )
