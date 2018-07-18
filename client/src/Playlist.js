@@ -35,9 +35,20 @@ class Playlist extends Component {
 
   handleFaveClick(e) {
     e.preventDefault();
-    this.setState({isFave: 'true'});
-    axios.post('/playlist', this.state).then(result => {
-      console.log('SAVED PLAYLIST', result);
+    axios.post('/playlist', this.state).then(playlist => {
+      console.log('SAVED PLAYLIST', playlist);
+      this.setState({
+        isFave: 'true',
+        playlist: playlist.data,
+        name: playlist.data.name,
+        description: playlist.data.description,
+        tags: playlist.data.tags,
+        genres: playlist.data.genres,
+        imageURL: playlist.data.imageUrl,
+        colorData: playlist.data.colorData,
+        songs: playlist.data.songs,
+        spfyAtts: playlist.data.spfyAtts
+      });
     }).catch(err => {
       console.log('UH OH', err);
     })
@@ -93,6 +104,7 @@ class Playlist extends Component {
   }
 
   render() {
+    console.log('PLAYLIST STATE', this.state)
     let addOrRemoveBtn = (this.state.isFave === 'true') ? <Button onClick={this.handleRemoveFaveClick} variant="contained" color="primary">Remove Playlist from Favorites</Button> :
     <Button onClick={this.handleFaveClick} variant="contained" color="primary">Add Playlist to Favorites</Button>;
 
@@ -106,9 +118,6 @@ class Playlist extends Component {
     let imgUrl = this.state.imageURL;
     let colors = this.state.colorData;
     let spfyAtts = this.state.spfyAtts;
-
-    console.log('Playlist State', this.state);
-    console.log('Playlist Location State', this.props);
 
     if (this.state.updateForm == true) {
       return (
