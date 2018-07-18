@@ -1,2 +1,2 @@
-# project3
+# Moodsic!
 WDI Seattle project 3! 

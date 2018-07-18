@@ -14,7 +14,7 @@ const PlaylistCard = (props) => {
 			imageURL: props.playlist.imageUrl,
 			colorData: props.playlist.colorData,
 			songs: props.playlist.songs,
-			spfyAtts: props.spfyAtts
+			spfyAtts: props.playlist.spfyAtts
 		}}}>
 			<Paper className="paper">
 				<img src={props.playlist.imageUrl} alt="playlist-image" width="300px" />
