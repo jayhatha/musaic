@@ -61,7 +61,7 @@ class App extends Component {
   componentDidMount() {
     this.checkForLocalToken();
     this.checkForSpotifyToken()
-    if (this.state.savedLocation){
+    if (document.referrer.includes('spotify')){
       this.props.history.push(this.state.savedLocation);
     }
   }
