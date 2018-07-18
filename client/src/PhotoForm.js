@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import convert from 'color-convert';
 import {colors} from './colors';
+import {hues} from './hues';
 import ColorChart from './ColorChart';
 import AttsChart from './AttsChart';
 import { withStyles } from '@material-ui/core/styles';
@@ -44,7 +45,8 @@ class PhotoForm extends Component {
 		this.handleChange = this.handleChange.bind(this);
 		this.handleDrop = this.handleDrop.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
-		this.spotifyAttributes = this.spotifyAttributes.bind(this);
+		// this.spotifyAttributes = this.spotifyAttributes.bind(this);
+		this.calculateSpfyAtts = this.calculateSpfyAtts.bind(this);
 		this.state = {
 			playlist: [],
 			spotifyToken: '',
@@ -148,7 +150,8 @@ class PhotoForm extends Component {
 	        	currImgURL: imgURL
 	        }, () => {
 	        	// calls spfyAtts function using the colors stored in state
-	        	this.spotifyAttributes(this.state.cloudColors);
+	        	// this.spotifyAttributes(this.state.cloudColors);
+	        	this.calculateSpfyAtts(this.state.cloudColors);
 	        	this.props.liftPhoto(this.state.currImgURL);
 	        	this.props.liftColors(this.state.cloudColors);
 	        });
@@ -156,79 +159,182 @@ class PhotoForm extends Component {
 	    });
 	  }
 
-	getColorRange(hexHash) {
+	getHsl(hexHash) {
 		// convert hex color to hsl
 		let hexColor = hexHash.split('#')[1];
 		let hslColor = convert.hex.hsl(hexColor);
 		let hue = hslColor[0];
-		let sat = hslColor[1];
-		let light = hslColor[2];
+		let saturation = hslColor[1];
+		let lightness = hslColor[2];
 
-		// divide colors in to 8 ranges
+		// divide colors in to 15 ranges
 		let color;
-		if(hue <= 45) color = 'redOrange';
-		else if (hue > 45 && hue <= 90) color = 'orangeYellowGreen';
-		else if (hue > 90 && hue <= 135) color = 'green';
-		else if (hue > 135 && hue <= 180) color = 'greenAqua';
-		else if (hue > 180 && hue <= 225) color = 'aquaBlue';
-		else if (hue > 225 && hue <= 270) color = 'bluePurple';
-		else if (hue > 270 && hue <= 315) color = 'purplePink';
-		else if (hue > 315 && hue <= 360) color = 'pinkRed';
-		// and lightness into 4
-		let lightness;
-		if(light <= 25) lightness = 'dark';
-		else if(light > 25 && light <= 50) lightness = 'medDark';
-		else if(light > 50 && light <= 75) lightness = 'medLight';
-		else if(light > 75 && light <= 100) lightness = 'light';
+		if(hue <= 24) color = 'redOrange';
+		else if (hue > 24 && hue <= 48) color = 'orangeLight';
+		else if (hue > 48 && hue <= 72) color = 'yellow';
+		else if (hue > 72 && hue <= 96) color = 'lightGreen';
+		else if (hue > 96 && hue <= 120) color = 'green';
+		else if (hue > 120 && hue <= 144) color = 'greenPale';
+		else if (hue > 144 && hue <= 168) color = 'greenAqua';
+		else if (hue > 168 && hue <= 192) color = 'aquaBlue';
+		else if (hue > 192 && hue <= 216) color = 'lightBlue';
+		else if (hue > 216 && hue <= 240) color = 'blue';
+		else if (hue > 240 && hue <= 264) color = 'bluePurple';
+		else if (hue > 264 && hue <= 288) color = 'purplePink';
+		else if (hue > 288 && hue <= 312) color = 'pink';
+		else if (hue > 312 && hue <= 336) color = 'pinkRed';
+		else if (hue > 336 && hue <= 360) color = 'red';
 
-		return color + '-' + lightness;
+		return [color, saturation, lightness];
 	}
 
-	spotifyAttributes(cloudColors) {
-		let colorsArr = [];
-		// first, call colorRange function with every cloudColor
+	calculateSpfyAtts(cloudColors) {
+		let hslArr = [];
+		let topColors = [];
+		let pctCounter = 0;
 		cloudColors.map((color) => {
-			let colorRange = this.getColorRange(color[0]);
-
-			colorsArr.push(colorRange);
+			let hsl = this.getHsl(color[0]);
+			hslArr.push(hsl);
+			if(pctCounter < 75) {
+				topColors.push(hsl);
+				pctCounter += color[1];
+			}
 		});
 
 		let valence = 0;
 		let mode = 0;
 		let energy = 0;
 		let danceability = 0;
-		// then find the matching object by color name,
-		// and tally the value of each attribute for all the colors
-		colorsArr.map((colorName) => {
-			let currColor = colors.find((colorObj) => colorObj.name === colorName);
+		const max = 5 * cloudColors.length;
+
+		hslArr.map((hslColor) => {
+			let currColor = hues.find((color) => color.hue === hslColor[0]);
 			valence += currColor.valence;
 			mode += currColor.mode;
 			energy += currColor.energy;
-			danceability += currColor.danceability;
+			danceability += currColor.danceability; 
 		});
 
-		// then divide those values by the length of the cloudColors array,
-		// to return floats that can be used in spotify call
-		// (mode is always 1 or 0)
-		valence = valence / cloudColors.length;
-		mode = (mode >= (cloudColors.length / 2)) ? 1 : 0;
-		energy = energy / cloudColors.length;
-		danceability = danceability / cloudColors.length;
+		valence = valence / max;
+		mode = mode / max;
+		energy = energy / max;
+		danceability = danceability / max;
 
-		if (valence < 0.2) {
-			valence = 0.2
-		}
-		if (energy < 0.2) {
-			energy = 0.2
-		}
-		if (danceability < 0.2) {
-			danceability = 0.2
+		let saturationAvg = 0; 
+		let lightnessAvg = 0;
+		topColors.map((color) => {
+			saturationAvg += color[1]
+			lightnessAvg += color[2];
+		});
+		saturationAvg = saturationAvg / topColors.length;		
+		lightnessAvg = lightnessAvg / topColors.length;		
+
+		if(saturationAvg < 20) {
+			valence -= 0.4;
+			mode -= 0.4;
+			energy -= 0.3;
+			danceability -= 0.5;
+		} else if(saturationAvg >= 20 && saturationAvg <= 40) {
+			valence -= 0.2;
+			mode -= 0.2;
+			energy -= 0.1;
+			danceability -= 0.3
+		} else if(saturationAvg >= 40 && saturationAvg <= 60) {
+			danceability -= 0.1;
+		} else if(saturationAvg >= 60 && saturationAvg <= 80) {
+			valence += 0.1;
+			mode += 0.1;
+			energy += 0.1;
+			danceability += 0.3;
+		} else if(saturationAvg >= 80 && saturationAvg <= 100) {
+			valence += 0.2;
+			mode += 0.2;
+			energy += 0.1;
+			danceability += 0.4;
 		}
 
+		if(lightnessAvg < 20) {
+			valence -= 0.4;
+			mode -= 0.4;
+			energy -= 0.5;
+			danceability -= 0.3;
+		} else if(lightnessAvg >= 20 && lightnessAvg <= 40) {
+			valence -= 0.2;
+			mode -= 0.2;
+			energy -= 0.3;
+			danceability -= 0.1;
+		} else if(lightnessAvg >= 40 && lightnessAvg <= 60) {
+			energy -= 0.1;
+		} else if(lightnessAvg >= 60 && lightnessAvg <= 80) {
+			valence += 0.2;
+			mode += 0.2;
+			energy += 0.3;
+			danceability += 0.1;
+		} else if(lightnessAvg >= 80 && lightnessAvg <= 100) {
+			valence += 0.2;
+			mode += 0.2;
+			energy += 0.4;
+			danceability += 0.1
+		}
+		
+		mode = (mode >= (0.5) ) ? 1 : 0;
+		if(valence < 0.2) valence = 0.2;
+		if(valence > 1) valence = 1;
+		if(energy < 0.2) energy = 0.2;
+		if(energy > 1) energy = 1;
+		if(danceability < 0.2) danceability = 0.2;
+		if(danceability > 1) danceability = 1;
+		
 		this.setState({
 			spfyAtts: [valence, mode, energy, danceability]
-		}, () => {this.props.liftAtts(this.state.spfyAtts)});
+		}, () => {this.props.liftAtts(this.state.spfyAtts)})
 	}
+
+	// spotifyAttributes(cloudColors) {
+	// 	let colorsArr = [];
+	// 	// first, call colorRange function with every cloudColor
+	// 	cloudColors.map((color) => {
+	// 		let colorRange = this.getColorRange(color[0]);
+
+	// 		colorsArr.push(colorRange);
+	// 	});
+
+	// 	let valence = 0;
+	// 	let mode = 0;
+	// 	let energy = 0;
+	// 	let danceability = 0;
+	// 	// then find the matching object by color name,
+	// 	// and tally the value of each attribute for all the colors
+	// 	colorsArr.map((colorName) => {
+	// 		let currColor = colors.find((colorObj) => colorObj.name === colorName);
+	// 		valence += currColor.valence;
+	// 		mode += currColor.mode;
+	// 		energy += currColor.energy;
+	// 		danceability += currColor.danceability;
+	// 	});
+
+	// 	// then divide those values by the length of the cloudColors array,
+	// 	// to return floats that can be used in spotify call
+	// 	// (mode is always 1 or 0)
+	// 	valence = valence / cloudColors.length;
+	// 	mode = (mode >= (cloudColors.length / 2)) ? 1 : 0;
+	// 	energy = energy / cloudColors.length;
+	// 	danceability = danceability / cloudColors.length;
+
+	// 	if (valence < 0.2) {
+	// 		valence = 0.2
+	// 	}
+	// 	if (energy < 0.2) {
+	// 		energy = 0.2
+	// 	}
+	// 	if (danceability < 0.2) {
+	// 		danceability = 0.2
+	// 	}
+
+	// 	this.setState({
+	// 		spfyAtts: [valence, mode, energy, danceability]
+	// 	}, () => {this.props.liftAtts(this.state.spfyAtts)});
+	// }
 
 	render() {
 		console.log('PHOTOFORM STATE: ', this.state);

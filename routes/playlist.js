@@ -73,7 +73,18 @@ router.put('/:id', (req, res) => {
 });
 
 // delete /playlist/user/:userID - delete a user's playlist
-// router.delete('')
+router.delete('/:id', (req, res) => {
+	console.log('HIT DELET ROUTE');
+	Playlist.remove({_id: req.params.id}, (err, result) => {
+		if(err) {
+			console.log('Error removing playlist');
+		}
+		else {
+			res.sendStatus(200);
+		}
+	});
+});
+
 
 // delete /playlist/user/:userID - delete a song
 

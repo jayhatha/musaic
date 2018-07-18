@@ -6,6 +6,7 @@ import ColorChart from './ColorChart';
 import AttsChart from './AttsChart';
 import {Link} from 'react-router-dom';
 import UpdatePlaylist from './UpdatePlaylist';
+import {withRouter} from 'react-router-dom';
 
 class Playlist extends Component {
 
@@ -32,6 +33,7 @@ class Playlist extends Component {
 
   handleFaveClick(e) {
     e.preventDefault();
+    this.setState({isFave: 'false'})
     axios.post('/playlist', this.state).then(result => {
       console.log('AND WE BACK', result);
     }).catch(err => {
@@ -41,7 +43,10 @@ class Playlist extends Component {
 
   handleRemoveFaveClick(e) {
     e.preventDefault();
-    console.log("REMOVE")
+    const url = '/playlist/' + this.state.playlist._id;
+    axios.delete(url).then((result) => {
+      this.props.history.push({pathname: '/profile'});
+    })
   }
 
   toggleUpdateForm(e) {
@@ -51,7 +56,7 @@ class Playlist extends Component {
   }
 
   render() {
-    let faveBtn = (this.props.isFave === 'true') ? <Button onClick={this.handleRemoveFaveClick} variant="contained" color="primary">Remove Playlist from Favorites</Button> : 
+    let addOrRemoveBtn = (this.state.isFave === 'true') ? <Button onClick={this.handleRemoveFaveClick} variant="contained" color="primary">Remove Playlist from Favorites</Button> : 
     <Button onClick={this.handleFaveClick} variant="contained" color="primary">Add Playlist to Favorites</Button>;
     
     let tracks = this.state.songs.map((track) => {
@@ -87,7 +92,7 @@ class Playlist extends Component {
             {tracks}
             <ColorChart colors={colors} />
             <AttsChart spfyAtts={spfyAtts} />
-            {faveBtn}
+            {addOrRemoveBtn}
             <Button variant="text" onClick={this.toggleUpdateForm}>Edit Playlist</Button>
             <Link to="/profile"><Button variant="contained" color="primary">Back to Profile</Button></Link>
           </Paper>
@@ -97,4 +102,4 @@ class Playlist extends Component {
   }
 }
 
-export default Playlist;
+export default withRouter(Playlist);
