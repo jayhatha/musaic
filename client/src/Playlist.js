@@ -8,6 +8,7 @@ import {Link} from 'react-router-dom';
 import cookie from 'react-cookie'
 import UpdatePlaylist from './UpdatePlaylist';
 import {withRouter} from 'react-router-dom';
+import './App.css';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
@@ -30,7 +31,6 @@ const styles = theme => ({
     width: 200
   }
 })
-
 
 class Playlist extends Component {
 
@@ -127,7 +127,9 @@ class Playlist extends Component {
   }
 
   render() {
+
     const {classes} = this.props;
+    
     let addOrRemoveBtn = (this.state.isFave === 'true') ? <Button onClick={this.handleRemoveFaveClick} variant="contained" color="primary">Remove Playlist from Favorites</Button> :
     <Button onClick={this.handleFaveClick} variant="contained" color="primary">Add Playlist to Favorites</Button>;
 
@@ -158,6 +160,7 @@ class Playlist extends Component {
       )
     } else {
       return (
+
         <div className={classes.root}>
           <Paper className={classes.paper}>
             <h1>Your Spotify-Generated Playlist:</h1>
@@ -169,9 +172,12 @@ class Playlist extends Component {
             <ColorChart colors={colors} />
             <AttsChart spfyAtts={spfyAtts} />
             {addOrRemoveBtn}
-            <Button variant="text" onClick={this.toggleUpdateForm}>Edit Playlist</Button>
+
+            {/* make sure buttons stick to the color theme */}
+            <Button className="edit-button" variant="text" onClick={this.toggleUpdateForm}>Edit Playlist</Button>
             <Button variant="text" onClick={this.sendPlaylistToSpotify}>Send Playlist to Spotify</Button>
-            <Link to="/profile"><Button variant="contained" color="primary">Back to Profile</Button></Link>
+
+            <Link className="profile-button" to="/profile"><Button variant="contained" color="primary">Back to Profile</Button></Link>
           </Paper>
         </div>
       );
