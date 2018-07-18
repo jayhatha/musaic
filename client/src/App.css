@@ -55,7 +55,7 @@ a, u {
 
 /* REMOVED .root, testing */
 .root {
-  background: black;
+  background: yellow;
 }
 
 .h1-test {
@@ -63,6 +63,17 @@ a, u {
 }
 .h3-test {
   font-size: 3em;
+}
+
+.hello {
+font-size: 2em;
+background: orange;
+position: relative;
+color: white;
+}
+
+.playlist-box {
+  padding-top: 2em;
 }
 
 #home-page {
