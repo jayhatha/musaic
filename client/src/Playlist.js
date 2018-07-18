@@ -7,6 +7,7 @@ import AttsChart from './AttsChart';
 import {Link} from 'react-router-dom';
 import UpdatePlaylist from './UpdatePlaylist';
 import {withRouter} from 'react-router-dom';
+import './App.css';
 
 class Playlist extends Component {
 
@@ -56,9 +57,9 @@ class Playlist extends Component {
   }
 
   render() {
-    let addOrRemoveBtn = (this.state.isFave === 'true') ? <Button onClick={this.handleRemoveFaveClick} variant="contained" color="primary">Remove Playlist from Favorites</Button> : 
+    let addOrRemoveBtn = (this.state.isFave === 'true') ? <Button onClick={this.handleRemoveFaveClick} variant="contained" color="primary">Remove Playlist from Favorites</Button> :
     <Button onClick={this.handleFaveClick} variant="contained" color="primary">Add Playlist to Favorites</Button>;
-    
+
     let tracks = this.state.songs.map((track) => {
       return <p>{track.name} - {track.artists[0].name}</p>
     });
@@ -93,12 +94,13 @@ class Playlist extends Component {
             <ColorChart colors={colors} />
             <AttsChart spfyAtts={spfyAtts} />
             {addOrRemoveBtn}
-            <Button variant="text" onClick={this.toggleUpdateForm}>Edit Playlist</Button>
-            <Link to="/profile"><Button variant="contained" color="primary">Back to Profile</Button></Link>
+            {/* make sure buttons stick to the color theme */}
+            <Button className="edit-button" variant="text" onClick={this.toggleUpdateForm}>Edit Playlist</Button>
+            <Link className="profile-button" to="/profile"><Button variant="contained" color="primary">Back to Profile</Button></Link>
           </Paper>
         </div>
-      ); 
-    }   
+      );
+    }
   }
 }
 
