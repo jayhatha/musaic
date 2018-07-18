@@ -3,20 +3,20 @@ import {Doughnut} from 'react-chartjs-2';
 
 class AttsChart extends Component {
 	render() {
-		console.log('##SPFY', this.props.spfyAtts);
-		const valence = this.props.spfyAtts[0] * 100;
+		const valence = Math.floor(this.props.spfyAtts[0] * 100);
 		const mode = (this.props.spfyAtts[1]) ? 'Major' : 'Minor';
-		const energy = this.props.spfyAtts[2] * 100;
-		const danceability = this.props.spfyAtts[3] * 100;
+		const energy = Math.floor(this.props.spfyAtts[2] * 100);
+		const danceability = Math.floor(this.props.spfyAtts[3] * 100);
 
 		const data = {
 			labels: ['valence', 'energy', 'danceability'],
 			datasets: [
 				{
 					data: [valence, energy, danceability],
-					backgroundColor: ['#32ace1', '#fbeb3e', '#e71a8b']
+					backgroundColor: ['#32ace1', '#fbeb3e', '#e71a8b'],
+					label: "Major"
 				}
-			]
+			],
 		}
 		
 		const legendOpts = {
