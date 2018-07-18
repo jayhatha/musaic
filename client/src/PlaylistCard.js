@@ -18,7 +18,7 @@ const PlaylistCard = (props) => {
 		}}}>
 			<Paper className="paper">
 				<img src={props.playlist.imageUrl} alt="playlist-image" width="300px" />
-				<h3>Untitled Playlist</h3>
+				<h3>{props.playlist.name}</h3>
 			</Paper>
 		</Link>
 	);

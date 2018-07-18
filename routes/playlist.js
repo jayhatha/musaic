@@ -66,6 +66,8 @@ router.put('/:id', (req, res) => {
 			console.log("Error finding playlist", err);
 		} else {
 			res.json(playlist);
+			console.log(playlist + " sent");
+			
 		}
 	})
 });

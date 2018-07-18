@@ -5,6 +5,7 @@ import Paper from '@material-ui/core/Paper';
 import { TextField } from '../node_modules/@material-ui/core';
 import axios from 'axios';
 import Button from '@material-ui/core/Button';
+import {withRouter} from 'react-router-dom';
 
 const styles = theme => ({
   root: {
@@ -37,9 +38,7 @@ class UpdatePlaylist extends Component {
       tags: this.props.tags,
       genres: this.props.genres
     }
-    console.log(this.state.name);
-    console.log(this.state.playlist);
-    
+    console.log(this.state.playlist._id);
     
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleNameChange = this.handleNameChange.bind(this)
@@ -49,14 +48,29 @@ class UpdatePlaylist extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const url = '/playlist/' + this.state.playlistId;
+    const url = '/playlist/' + this.state.playlist._id;
     console.log("Updating Playlist for " + url);
     axios.put(url, {
       name: this.state.name,
       description: this.state.description,
       tags: this.state.tags
     }).then(result => {
-      console.log(result + "is the result of updating playlist");
+      console.log(result.data + "is the result of updating playlist");
+      this.props.history.push({
+        pathname: url,
+        // state: {
+        //   playlist: this.state.playlist,
+        //   name: this.state.genres, // TODO: add highest attribute
+        //   description: '',
+        //   tags: [],
+        //   genres: this.state.genres,
+        //   colorData: this.state.cloudColors,
+        //   spfyAtts: this.state.spfyAtts,
+        //   imageURL: this.state.currImgURL,
+        //   songs: this.state.playlist,
+        //   spotifyToken: this.state.spotifyToken,
+        // }
+      })
     }).catch(err => {
       console.log('We caught an error: ' + err);
     })
@@ -135,4 +149,4 @@ class UpdatePlaylist extends Component {
 
 }
 
-export default withStyles(styles)(UpdatePlaylist);
+export default withRouter(withStyles(styles)(UpdatePlaylist));
