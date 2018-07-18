@@ -9,7 +9,8 @@ const playlistSchema = new mongoose.Schema({
     imageUrl: String,
     songs: Array,
     colorData: Array,
-    userID: String
+    userID: String,
+    spfyAtts: Array
 });
 
 // make a new model from that Schema
