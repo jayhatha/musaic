@@ -25,6 +25,7 @@ router.post('/', (req, res) => {
 		}
 		else {
 			console.log('SUCCESS creating playlist!', playlist.userID)
+			res.json(playlist);
 		}
 	})
 }); 
