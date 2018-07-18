@@ -4,10 +4,9 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import ColorChart from './ColorChart';
 import AttsChart from './AttsChart';
-import {Link} from 'react-router-dom';
+import {Link, withRouter}  from 'react-router-dom';
 import cookie from 'react-cookie'
 import UpdatePlaylist from './UpdatePlaylist';
-import {withRouter} from 'react-router-dom';
 
 class Playlist extends Component {
 
@@ -30,7 +29,7 @@ class Playlist extends Component {
       colorData: this.props.location.state.colorData,
       songs: this.props.location.state.songs,
       spfyAtts: this.props.location.state.spfyAtts,
-      savedLocation: ''
+      savedLocation: this.props.location.pathname
     }
   }
 
@@ -43,6 +42,7 @@ class Playlist extends Component {
       console.log('UH OH', err);
     })
   }
+
 
   handleRemoveFaveClick(e) {
     e.preventDefault();
@@ -57,11 +57,10 @@ class Playlist extends Component {
     if (!sfyUserToken) {
       // change this URL in production
       console.log('no spotify cookie found');
-      this.setState({
-        savedLocation: props.location.pathname
-      }).then(() => {
-        this.props.liftLocation();
-        window.location = 'http://localhost:8888/login/'});
+      console.log(this.state.savedLocation);
+      let liftThis=this.props.location.pathname;
+      this.props.liftLocation(liftThis);
+      window.location = 'http://localhost:8888/login/'
       }
     sfyUserToken = cookie.load('ACCESS_TOKEN');
     if (this.state.playlist) {

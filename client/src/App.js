@@ -61,7 +61,9 @@ class App extends Component {
   componentDidMount() {
     this.checkForLocalToken();
     this.checkForSpotifyToken()
-    if (document.referrer.includes('spotify')){
+    console.log('saved location is ' + this.state.savedLocation)
+    if (this.state.savedLocation){
+      console.log(this.state.savedLocation);
       this.props.history.push(this.state.savedLocation);
     }
   }
@@ -150,8 +152,8 @@ class App extends Component {
     this.setState({spfyAtts: atts});
   }
 
-  handleLocation(location) {
-    this.setState({savedLocation: location});
+  handleLocation(loc) {
+    this.setState({savedLocation: loc}, console.log('location handled!', this.state));
   }
   // **********************
 
@@ -209,6 +211,7 @@ class App extends Component {
                          genres={this.state.genres}
                          colors={this.state.cloudColors}
                          spfyAtts={this.state.spfyAtts}
+                         liftLocation={this.handleLocation}
                       />
              } />
               <OpenIconSpeedDial user={this.state.user} logout={this.logout} />
