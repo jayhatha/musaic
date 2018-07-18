@@ -1,7 +1,3 @@
-body {
-  margin: 0px;
-}
-
 a, u {
   text-decoration: none;
 }
@@ -87,6 +83,7 @@ a, u {
   font-family: 'Monoton', cursive;
 }
 
+
 #home-button,
 #login-button,
 #logout-button,
@@ -95,6 +92,7 @@ a, u {
   color: white;
   text-decoration: none;
 }
+
 
 /* #auth-wrapper {
   background-image: url('./sheetmusic.jpeg');
@@ -112,4 +110,3 @@ Top: 0;
 Bottom: 0;
 Height: 100vh;
 /* Z-index: -10 */
-}

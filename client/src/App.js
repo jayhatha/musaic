@@ -3,15 +3,14 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import axios from 'axios';
 import './App.css';
 import UserProfile from './UserProfile';
-import TitleBar from './TitleBar';
 import PhotoForm from './PhotoForm';
+import TitleBar from './TitleBar'
 import Home from './Home';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import OpenIconSpeedDial from './OpenIconSpeedDial';
 import About from './About';
 import Playlist from './Playlist';
 import LoginSignup from './LoginSignup';
-
 
 class App extends Component {
   constructor(props) {
@@ -55,6 +54,7 @@ class App extends Component {
       })
     })
   }
+
 
   componentDidMount() {
     this.checkForLocalToken();
@@ -149,7 +149,7 @@ class App extends Component {
 
   render() {
     let user = this.state.user;
-    let userProfile = (user) ? <UserProfile user={user}
+    let userProfile = (user) ? <UserProfile user={user} 
                                             logout={this.logout}
                                             spfyAtts={this.state.spfyAtts} /> : 'Must Log in to view profile';
     return (
