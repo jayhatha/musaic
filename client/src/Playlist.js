@@ -35,9 +35,9 @@ class Playlist extends Component {
 
   handleFaveClick(e) {
     e.preventDefault();
-    this.setState({isFave: 'false'})
+    this.setState({isFave: 'true'});
     axios.post('/playlist', this.state).then(result => {
-      console.log('AND WE BACK', result);
+      console.log('SAVED PLAYLIST', result);
     }).catch(err => {
       console.log('UH OH', err);
     })
@@ -54,16 +54,16 @@ class Playlist extends Component {
   sendPlaylistToSpotify(e) {
     let sfyUserToken = cookie.load('ACCESS_TOKEN');
     if (!sfyUserToken) {
+      console.log("NO SFYTOKEN");
       // change this URL in production
-      () => {window.location = 'http://localhost:8888/login/'}
-      let sfyUserToken = cookie.load('ACCESS_TOKEN');
+      window.location = 'http://localhost:8888/login/';
+      sfyUserToken = cookie.load('ACCESS_TOKEN');
     }
     if (this.state.playlist) {
     let sfyUserId;
     let playlistId;
-    console.log(this.state.playlist.songs, this.state.playlist.songs[0].uri);
     var playlistTest = [];
-    let playlistTracks = this.state.playlist.songs.map((song) => playlistTest.push(song.uri));
+    let playlistTracks = this.state.songs.map((song) => playlistTest.push(song.uri));
     playlistTracks = playlistTest;
 
     console.log(playlistTracks)
@@ -108,6 +108,7 @@ class Playlist extends Component {
     let spfyAtts = this.state.spfyAtts;
 
     console.log('Playlist State', this.state);
+    console.log('Playlist Location State', this.props);
 
     if (this.state.updateForm == true) {
       return (
@@ -133,7 +134,6 @@ class Playlist extends Component {
             <Button variant="text" onClick={this.toggleUpdateForm}>Edit Playlist</Button>
             <Button variant="text" onClick={this.sendPlaylistToSpotify}>Send Playlist to Spotify</Button>
             <Link to="/profile"><Button variant="contained" color="primary">Back to Profile</Button></Link>
-
           </Paper>
         </div>
       );
