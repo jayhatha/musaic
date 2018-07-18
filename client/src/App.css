@@ -76,6 +76,10 @@ color: white;
   padding-top: 2em;
 }
 
+.paper {
+  padding-top: 2em;
+}
+
 #home-page {
   min-height: 100vh;
   margin-bottom: 0em;
