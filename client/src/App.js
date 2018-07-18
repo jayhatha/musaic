@@ -5,7 +5,7 @@ import './App.css';
 import Login from './Login';
 import Signup from './Signup';
 import UserProfile from './UserProfile';
-import Navbar from './Navbar';
+import TitleBar from './TitleBar';
 import PhotoForm from './PhotoForm';
 import Home from './Home';
 import Result from './Result';
@@ -157,14 +157,16 @@ class App extends Component {
                                                          genres={this.state.genres}
                                                          colors={this.state.cloudColors}
                                                          user={user} /> : '';
-    let userProfile = (user) ? <UserProfile user={user} logout={this.logout} /> : '';
+    let userProfile = (user) ? <UserProfile user={user} 
+                                            logout={this.logout}
+                                            spfyAtts={this.state.spfyAtts} /> : 'Must Log in to view profile';
     return (
      <React.Fragment>
      <CssBaseline />
       <div className="App">
         <Router>
           <div>
-            <Navbar user={this.state.user} logout={this.logout} />
+            <TitleBar />
 
             <Route exact path='/' render={() =>
                <Home />
@@ -199,8 +201,8 @@ class App extends Component {
              } />
 
              <Route path='/results' render={(props) =>
-               <Playlist user={user} 
-                         {...props} 
+               <Playlist user={user}
+                         {...props}
                          isFave="false"
                          playlist={this.state.playlist}
                          spotifyToken={this.state.spotifyToken}
@@ -210,11 +212,7 @@ class App extends Component {
                          spfyAtts={this.state.spfyAtts}
                       />
              } />
-
-
-              <OpenIconSpeedDial />
               <OpenIconSpeedDial user={this.state.user} logout={this.logout} />
-
           </div>
         </Router>
       </div>

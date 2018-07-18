@@ -12,22 +12,23 @@ import Android from '@material-ui/icons/Android';
 import VpnKey from '@material-ui/icons/VpnKey';
 import Home from '@material-ui/icons/Home';
 import Create from '@material-ui/icons/Create';
-import PanTool from '@material-ui/icons/PanTool';
-import Portrait from '@material-ui/icons/Portrait';
-import InsertPhoto from '@material-ui/icons/InsertPhoto';
-
+import ArrowForward from '@material-ui/icons/ArrowForward';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import AddAPhoto from '@material-ui/icons/AddAPhoto';
+import './App.css';
 
 const styles = theme => ({
   root: {
     height: 380,
   },
   speedDial: {
-    position: 'absolute',
+    position: 'fixed',
     bottom: theme.spacing.unit * 2,
     right: theme.spacing.unit * 3,
   },
 });
 
+// can use font size to make icons bigger <PhotoCamera style={{fonSize: 100}} />
 const actionsLoggedOut = [
   { icon: <Link to='/'><Home /></Link>, name: 'Home' },
   { icon: <Link to='/signup'><Create /></Link>, name: 'Signup' },
@@ -36,9 +37,9 @@ const actionsLoggedOut = [
 
 const actionsLoggedIn = [
   { icon: <Link to='/'><Home /></Link>, name: 'Home' },
-  { icon: <Link to='/profile'><Portrait /></Link>, name: 'Profile' },
-  { icon: <Link to='/'><PanTool /></Link>, name: 'LogOut' },
-  { icon: <Link to='/upload'><InsertPhoto /></Link>, name: 'Upload Photo' }
+  { icon: <Link to='/profile'><AccountCircle /></Link>, name: 'Profile' },
+  { icon: <Link to='/'><ArrowForward /></Link>, name: 'LogOut' },
+  { icon: <Link to='/upload'><AddAPhoto /></Link>, name: 'Upload Photo' }
 ];
 
 class OpenIconSpeedDial extends React.Component {
