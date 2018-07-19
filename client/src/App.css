@@ -32,15 +32,10 @@ u {
   font-family: 'Monoton', cursive;
   color: rgb(21, 23, 22);
   font-size: 5em;
-  <<<<<<< HEAD
-  /* background: rgb(48, 93, 121); */
-  background: rgb(11, 82, 79);
+  background: #607D8B;
   margin-top: 0;
   margin-bottom: 0;
-  ======= background: #607D8B;
-  margin-top: 0;
-  margin-bottom: 0;
-  >>>>>>> a44b753aad341b8f91644132c4310b4b256dfaca font-weight: lighter;
+  font-weight: lighter;
 }
 
 .auth {
