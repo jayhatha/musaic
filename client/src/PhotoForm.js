@@ -15,6 +15,8 @@ import Paper from '@material-ui/core/Paper';
 import AddAPhoto from '@material-ui/icons/AddAPhoto';
 import Grid from '@material-ui/core/Grid';
 import {withRouter} from 'react-router-dom';
+import sheetmusic from './sheetmusic.jpeg';
+import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
 	root: {
@@ -144,15 +146,14 @@ class PhotoForm extends Component {
 	      console.log('SHOULD BE GETTING COLORS NOW');
 	      axios.post('/cloudinary-data', {imgPublicId: imgPublicId}).then((result) => {
 	        // set colors in state
+	        const spfyAtts = this.calculateSpfyAtts(result.data.colors);
 	        this.setState({
 	        	cloudColors: result.data.colors,
-	        	currImgURL: imgURL
+	        	currImgURL: imgURL,
+	        	spfyAtts: spfyAtts
 	        }, () => {
-	        	// calls spfyAtts function using the colors stored in state
-	        	// this.spotifyAttributes(this.state.cloudColors);
-	        	this.calculateSpfyAtts(this.state.cloudColors);
-	        	this.props.liftPhoto(this.state.currImgURL);
-	        	this.props.liftColors(this.state.cloudColors);
+				this.props.liftPhoto(this.state.currImgURL);
+				this.props.liftColors(this.state.cloudColors);
 	        });
 	      });
 	    });
@@ -284,77 +285,115 @@ class PhotoForm extends Component {
 		if(danceability < 0.2) danceability = 0.2;
 		if(danceability > 1) danceability = 1;
 		
-		this.setState({
-			spfyAtts: [valence, mode, energy, danceability]
-		}, () => {this.props.liftAtts(this.state.spfyAtts)})
+		return [valence, mode, energy, danceability]
 	}
 	
 	render() {
 		const {classes} = this.props;
-		console.log('PHOTOFORM STATE: ', this.state);
-		let colorChart = (this.state.cloudColors) ? <ColorChart colors={this.state.cloudColors} /> : '';
-		let attsChart = (this.state.spfyAtts) ? <AttsChart spfyAtts={this.state.spfyAtts} /> : '';
-		let currImg = (this.state.currImgURL) ? <img src={this.state.currImgURL} width="200px" alt="uploaded-image" /> : '';
+		const phototFormStyle = {
+			backgroundImage: 'url(' + sheetmusic + ')',
+			backgroundSize: 'cover',
+			backgroundPosition: 'center center'
+		}
+
+		const selectStyle = {
+			width: '100% !important',
+			display: 'block !important'
+		}
+		
+		const submitStyle = {
+			display: 'block',
+			width: '50%',
+			borderBottom: 'none',
+			borderRadius: '5px',
+			backgroundColor: '#4054b2',
+			color: '#fff'
+		}
+
+		let photoFormContent = (!this.state.currImgURL) ? (
+				<div className="dropzone-container">
+					<Dropzone className="dropzone" onDrop={this.handleDrop} accept="image/*">
+				   		<p className="dropzone">Drag and drop your files or click here to upload</p>
+				   		<AddAPhoto className="icon" style={{ fontSize: 100 }} />
+				   </Dropzone>
+				</div>
+			) : (
+				<div className="image-uploaded-container">
+					<div className="image-uploaded-top">
+						<div className="currImage-container">
+							<img src={this.state.currImgURL} width="100%" alt="uploaded-image" />
+							<Button variant="contained" color="primary">Upload New Photo</Button>
+						</div>
+						<div className="form-container">
+							<h3>Select Genre:</h3>
+							<form onSubmit={this.handleSubmit} autoComplete="off">
+								<FormControl required>
+								<InputLabel htmlFor="genre-select">Genre</InputLabel>
+									<Select value={this.state.genres}
+											style={selectStyle}
+											multiple
+											onChange={this.handleChange}
+											inputProps={{name: 'genres', id: 'genre-select'}} >
+
+											<MenuItem value='blues'>blues</MenuItem>
+											<MenuItem value='chill'>chill</MenuItem>
+											<MenuItem value='classical'>classical</MenuItem>
+											<MenuItem value='club'>club</MenuItem>
+											<MenuItem value='country'>country</MenuItem>
+											<MenuItem value='dance'>dance</MenuItem>
+											<MenuItem value='disco'>disco</MenuItem>
+											<MenuItem value='dubstep'>dubstep</MenuItem>
+											<MenuItem value='electronic'>electronic</MenuItem>
+											<MenuItem value='folk'>folk</MenuItem>
+											<MenuItem value='funk'>funk</MenuItem>
+											<MenuItem value='hip-hop'>hip-hop</MenuItem>
+											<MenuItem value='house'>house</MenuItem>
+											<MenuItem value='indie'>indie</MenuItem>
+											<MenuItem value='indie-pop'>indie-pop</MenuItem>
+											<MenuItem value='j-pop'>j-pop</MenuItem>
+											<MenuItem value='jazz'>jazz</MenuItem>
+											<MenuItem value='k-pop'>k-pop</MenuItem>
+											<MenuItem value='metal'>metal</MenuItem>
+											<MenuItem value='pop'>pop</MenuItem>
+											<MenuItem value='punk'>punk</MenuItem>
+											<MenuItem value='punk-rock'>punk-rock</MenuItem>
+											<MenuItem value='r-n-b'>r-n-b</MenuItem>
+											<MenuItem value='reggae'>reggae</MenuItem>
+											<MenuItem value='rock-n-roll'>rock-n-roll</MenuItem>
+											<MenuItem value='romance'>romance</MenuItem>
+											<MenuItem value='salsa'>salsa</MenuItem>
+											<MenuItem value='samba'>samba</MenuItem>
+											<MenuItem value='synth-pop'>synth-pop</MenuItem>
+											<MenuItem value='techno'>techno</MenuItem>
+									</Select>
+								</FormControl>
+								<Input style={submitStyle} value="Get Playlist" type="submit"></Input>
+							</form>
+						</div>
+					</div>
+					
+					<div className="image-uploaded-bottom">
+						<h3>Color Data</h3>
+						<div className="charts-container">
+							<div className="colorChart-container">
+								<ColorChart colors={this.state.cloudColors} />
+							</div>
+							<div className="attsChart-container">
+								<AttsChart spfyAtts={this.state.spfyAtts} />
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			);
+												   
+
+
 		return (
-			<div className={classes.root}>
-				<Grid container spacing={12}>
-					<Grid item xs={12} >
-						<Paper className={classes.paper}>
-							<Dropzone className="dropzone" onDrop={this.handleDrop} accept="image/*">
-								<p className="dropzone">Drag and drop your files or click here to upload</p>
-								<AddAPhoto className="icon" style={{ fontSize: 100 }} />
-							</Dropzone>
-							{currImg}
-						</Paper>
-					</Grid>
-				</Grid>
-
-				<form onSubmit={this.handleSubmit} autoComplete="off">
-					<FormControl required>
-					<InputLabel htmlFor="genre-select">Genre</InputLabel>
-						<Select value={this.state.genres}
-								multiple
-								onChange={this.handleChange}
-								inputProps={{name: 'genres', id: 'genre-select'}} >
-
-								<MenuItem value='blues'>blues</MenuItem>
-								<MenuItem value='chill'>chill</MenuItem>
-								<MenuItem value='classical'>classical</MenuItem>
-								<MenuItem value='club'>club</MenuItem>
-								<MenuItem value='country'>country</MenuItem>
-								<MenuItem value='dance'>dance</MenuItem>
-								<MenuItem value='disco'>disco</MenuItem>
-								<MenuItem value='dubstep'>dubstep</MenuItem>
-								<MenuItem value='electronic'>electronic</MenuItem>
-								<MenuItem value='folk'>folk</MenuItem>
-								<MenuItem value='funk'>funk</MenuItem>
-								<MenuItem value='hip-hop'>hip-hop</MenuItem>
-								<MenuItem value='house'>house</MenuItem>
-								<MenuItem value='indie'>indie</MenuItem>
-								<MenuItem value='indie-pop'>indie-pop</MenuItem>
-								<MenuItem value='j-pop'>j-pop</MenuItem>
-								<MenuItem value='jazz'>jazz</MenuItem>
-								<MenuItem value='k-pop'>k-pop</MenuItem>
-								<MenuItem value='metal'>metal</MenuItem>
-								<MenuItem value='pop'>pop</MenuItem>
-								<MenuItem value='punk'>punk</MenuItem>
-								<MenuItem value='punk-rock'>punk-rock</MenuItem>
-								<MenuItem value='r-n-b'>r-n-b</MenuItem>
-								<MenuItem value='reggae'>reggae</MenuItem>
-								<MenuItem value='rock-n-roll'>rock-n-roll</MenuItem>
-								<MenuItem value='romance'>romance</MenuItem>
-								<MenuItem value='salsa'>salsa</MenuItem>
-								<MenuItem value='samba'>samba</MenuItem>
-								<MenuItem value='synth-pop'>synth-pop</MenuItem>
-								<MenuItem value='techno'>techno</MenuItem>
-						</Select>
-					</FormControl>
-					<Input value="Get Playlist" type="submit"></Input>
-				</form>
-				
-				{colorChart}
-				{attsChart}
-
+			<div className="photoForm-container" style={phototFormStyle}>
+				<div className="photoForm-paper">
+					{photoFormContent}
+				</div>
 			</div>
 		);
 	}

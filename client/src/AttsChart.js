@@ -18,16 +18,19 @@ class AttsChart extends Component {
 				}
 			],
 		}
-		
-		const legendOpts = {
-			display: false
-		}
 
-		return (
-			<div className="atts-chart">
-				<Doughnut data={data} />
-			</div>
-		);
+		if(this.props.spfyAtts.length) {
+			console.log('IF', this.props)
+			return (
+				<div className="atts-chart">
+					<Doughnut data={data} />
+				</div>
+			);
+		}
+		else {
+			console.log('ELSE', this.props)
+			return '';
+		}
 	}
 }
 
