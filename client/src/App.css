@@ -43,6 +43,11 @@ u {
   >>>>>>> a44b753aad341b8f91644132c4310b4b256dfaca font-weight: lighter;
 }
 
+.auth {
+  margin-top: 2.3em;
+  color: white;
+}
+
 .auth input {
   margin-bottom: 1.3em;
 }
@@ -53,9 +58,9 @@ u {
   padding: 2em 3em;
   background: none !important;
 }
-/* REMOVED .root, testing */
+
 .root {
-  Background-image: url("./blackdesign.jpeg");
+  Background-image: url("./blackdots.jpeg");
 }
 
 .h1-test {
@@ -65,10 +70,9 @@ u {
 .h3-test {
   font-size: 3em;
 }
-
+/*NEED TO FIX ADD CHANGE COLORS */
 .hello {
   font-size: 2em;
-  background: orange;
   position: relative;
   color: white;
 }
@@ -87,7 +91,10 @@ u {
 }
 
 #description {
-  background: rgba(124, 123, 185, .5);
+  background: rgba(39, 17, 163, .5);
+  /* background: rgba(124, 123, 185, .5); */
+  font-size: 1em;
+  color: black;
 }
 
 #sample-photo {
@@ -111,12 +118,7 @@ u {
   color: white;
   text-decoration: none;
 }
-/* #auth-wrapper {
-  background-image: url('./sheetmusic.jpeg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  min-height: 80vh;
-} */
+
 #auth-wrapper {
   Background-image: url("./sheetmusic.jpeg");
   Background-size: cover;
@@ -125,7 +127,6 @@ u {
   Top: 0;
   Bottom: 0;
   Height: 100vh;
-  /* Z-index: -10 */
 }
 /*********************************************************
               UPLOAD PHOTO PAGE

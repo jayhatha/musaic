@@ -42,13 +42,8 @@ const Home = props => {
         <Grid item xs={12} md={12}>
           <Paper id="description" className={classes.paper}>
 
-<<<<<<< HEAD
-            <p>Welcome to Moodsic!</p> <br/>
-
-=======
             <p>Welcome to Moodsic!</p> <br />
-            
->>>>>>> 6e28a5d6dce037eef827bc091f32f636a234eb9b
+
             <p>Want a playlist generated for you based on what you are doing? Yes? Then check this out!
 
               Moodsic is an application that will generate a playlist from a photo you upload.</p>

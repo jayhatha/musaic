@@ -59,11 +59,6 @@ class App extends Component {
   componentDidMount() {
     this.checkForLocalToken();
     this.checkForSpotifyToken()
-    console.log('saved location is ' + this.state.savedLocation)
-    if (this.state.savedLocation){
-      console.log(this.state.savedLocation);
-      this.props.history.push(this.state.savedLocation);
-    }
   }
 
   logout() {
@@ -79,7 +74,6 @@ class App extends Component {
   checkForSpotifyToken() {
     //Look for Spotify token in local storage
     let spotifyToken = localStorage.getItem('spotifyToken');
-    console.log('checking for sfy token')
     if (!spotifyToken || spotifyToken == 'undefined') {
       // There was no token
       // clear out anything weird that might be there
@@ -90,9 +84,7 @@ class App extends Component {
       })
       // we need to call the Spotify API on the back end and get a token
       axios.post('/auth/get/spotify/token').then(results => {
-        console.log('trying to hit route on back end')
         // put the token in local storage
-        console.log(results.data)
         localStorage.setItem('spotifyToken', results.data.access_token);
         this.setState({
           spotifyToken: results.data.access_token,
