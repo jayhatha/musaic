@@ -8,6 +8,7 @@ import {Link, withRouter}  from 'react-router-dom';
 import cookie from 'react-cookie'
 import UpdatePlaylist from './UpdatePlaylist';
 
+
 class Playlist extends Component {
 
   constructor(props) {
@@ -28,8 +29,7 @@ class Playlist extends Component {
       imageURL: this.props.location.state.imageURL,
       colorData: this.props.location.state.colorData,
       songs: this.props.location.state.songs,
-      spfyAtts: this.props.location.state.spfyAtts,
-      savedLocation: this.props.location.pathname
+      spfyAtts: this.props.location.state.spfyAtts
     }
   }
 
@@ -57,11 +57,8 @@ class Playlist extends Component {
     if (!sfyUserToken) {
       // change this URL in production
       console.log('no spotify cookie found');
-      console.log(this.state.savedLocation);
-      let liftThis=this.props.location.pathname;
-      this.props.liftLocation(liftThis);
-      window.location = 'http://localhost:8888/login/'
-      }
+      var spotifyLoginWindow = window.open('http://localhost:8888/login/', "width=400, height=600");
+    } else {
     sfyUserToken = cookie.load('ACCESS_TOKEN');
     if (this.state.playlist) {
     let sfyUserId;
@@ -87,6 +84,7 @@ class Playlist extends Component {
         }).then(console.log('okay, we added a playlist and some tracks'))
       })
       })
+      }
       }
     }
 

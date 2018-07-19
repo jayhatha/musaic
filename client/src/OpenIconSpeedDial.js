@@ -3,12 +3,6 @@ import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { withStyles, Button} from '@material-ui/core';
 import {SpeedDial, SpeedDialAction, SpeedDialIcon} from '@material-ui/lab/';
-import SaveIcon from '@material-ui/icons/Save';
-import PrintIcon from '@material-ui/icons/Print';
-import ShareIcon from '@material-ui/icons/Share';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-import Android from '@material-ui/icons/Android';
 import VpnKey from '@material-ui/icons/VpnKey';
 import Home from '@material-ui/icons/Home';
 import Create from '@material-ui/icons/Create';
@@ -90,7 +84,7 @@ class OpenIconSpeedDial extends React.Component {
     let buttons = this.props.user ? actionsLoggedIn : actionsLoggedOut;
 
     return (
-      <div className={classes.root}>
+      <div>
         <SpeedDial
           ariaLabel="SpeedDial example"
           className={classes.speedDial}

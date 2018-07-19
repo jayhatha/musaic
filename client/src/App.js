@@ -24,8 +24,7 @@ class App extends Component {
       imgURL: '',
       genres: [],
       cloudColors: [],
-      spfyAtts: [],
-      savedLocation: ''
+      spfyAtts: []
     }
     this.checkForLocalToken = this.checkForLocalToken.bind(this);
     this.checkForSpotifyToken = this.checkForSpotifyToken.bind(this);
@@ -37,7 +36,6 @@ class App extends Component {
     this.handleColors = this.handleColors.bind(this);
     this.handleGenres = this.handleGenres.bind(this);
     this.handleAtts = this.handleAtts.bind(this);
-    this.handleLocation = this.handleLocation.bind(this);
   }
 
   liftTokenToState(data) {
@@ -152,9 +150,6 @@ class App extends Component {
     this.setState({spfyAtts: atts});
   }
 
-  handleLocation(loc) {
-    this.setState({savedLocation: loc}, console.log('location handled!', this.state));
-  }
   // **********************
 
 
@@ -198,7 +193,7 @@ class App extends Component {
              } />
 
              <Route path='/playlist/:id' render={(props) =>
-               <Playlist user={user} {...props} isFave="true" liftLocation={this.handleLocation} />
+               <Playlist user={user} {...props} isFave="true" />
              } />
 
              <Route path='/results' render={(props) =>
@@ -211,7 +206,6 @@ class App extends Component {
                          genres={this.state.genres}
                          colors={this.state.cloudColors}
                          spfyAtts={this.state.spfyAtts}
-                         liftLocation={this.handleLocation}
                       />
              } />
               <OpenIconSpeedDial user={this.state.user} logout={this.logout} />
