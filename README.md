@@ -1,6 +1,10 @@
 # Moodsic!
 WDI Seattle project 3!
 
+#### Wire Frames
+
+#### Project Management
+![Trello Board Screen Shot](trelloBoard.jpg)
 
 ###########
 
@@ -15,7 +19,7 @@ View the live site at http…….
 Developers:
 	Jay Hathaway
 	Kacy Sommers
-	Genevieve Shultz
+	Genevieve Schultz
 	Eva Barrett
 
 About the App
@@ -65,3 +69,4 @@ Routes
  
 
 Next Steps and Future Improvements
+
