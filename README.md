@@ -2,29 +2,6 @@
 
 #### WDI Seattle Project 3
 
-## Wire Frames
-#### Genevieve created wire frames in Adobe XD
-![Home Page](Home-Landing.jpg)
-#
-![Login/Signup](Login-Signup.jpg)
-
-![Profile Page](Profile-Account.jpg)
-
-![Upload Page](UploadPhoto.jpg)
-
-![Color/Mood Results](Color-MoodResults.jpg)
-
-![Music Results](MusicResults.jpg)
-
-![Create Playlist](SongManagement-CreatePlaylist.jpg)
-
-![New Song](SongManagement-NewSong.jpg)
-
-![Edit Playlist](SongManagement–EditPlaylist.jpg)
-
-![All Saved Music](SongManagement–Music.jpg)
-
-
 ## Project Management Tools
 ![Trello Board Screen Shot](trelloBoard.jpg)
 ##### Slack
@@ -65,7 +42,6 @@ User Stories:
 - Chart.JS
 - Spotify API
 - Cloudinary API
------
 
 
 ## Project Timeline
@@ -76,6 +52,29 @@ User Stories:
 - finalized out selection to Spotify and Cloudinary API
 - agreed to use Trello Board
 - agreed to use wire framing (Adobe XD)
+
+## Wire Frames
+#### Genevieve created wire frames in Adobe XD
+![Home Page](Home-Landing.jpg)
+#
+![Login/Signup](Login-Signup.jpg)
+
+![Profile Page](Profile-Account.jpg)
+
+![Upload Page](UploadPhoto.jpg)
+
+![Color/Mood Results](Color-MoodResults.jpg)
+
+![Music Results](MusicResults.jpg)
+
+![Create Playlist](SongManagement-CreatePlaylist.jpg)
+
+![New Song](SongManagement-NewSong.jpg)
+
+![Edit Playlist](SongManagement–EditPlaylist.jpg)
+
+![All Saved Music](SongManagement–Music.jpg)
+
 
 ##### Organization
 - We used a trello board to keep track of tasks.
@@ -94,4 +93,4 @@ Genevieve helped with a little bit of everything, especially when it came to wri
 ###### Kacy's Section
 =====
 
-##### Jay's Section?
+###### Jay's Section
