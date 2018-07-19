@@ -2,6 +2,8 @@
 WDI Seattle project 3!
 
 #### Wire Frames
+Genevieve created wire frames in Adobe XD
+=====================================================================================
 
 #### Project Management
 ![Trello Board Screen Shot](trelloBoard.jpg)
