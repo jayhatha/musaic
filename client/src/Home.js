@@ -6,7 +6,8 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import './App.css';
 import {Link} from 'react-router-dom';
-import PhotoPlaylistSample from './PhotoPlaylistSample.png';
+import homescreenshot from './homescreenshot.png';
+import './App.css';
 
 const styles = theme => ({
   root: {
@@ -27,7 +28,7 @@ const Home = props => {
   const { classes } = props;
   let tryButton = (
     <Link to='/loginsignup'>
-      <button className='home-button try-button' >Try</button>
+      <button className='home-button try-button' >Get started or login</button>
     </Link>
   );
   if (props.user) {
@@ -42,19 +43,15 @@ const Home = props => {
         <Grid item xs={12} md={12}>
           <Paper id="description" className={classes.paper}>
 
-            <p>Welcome to Moodsic!</p> <br />
-
-            <p>Want a playlist generated for you based on what you are doing? Yes? Then check this out!
-
-              Moodsic is an application that will generate a playlist from a photo you upload.</p>
+            <p>Moodsic is a color analysis appication that generates a personalized
+              playlist. Simply upload a photo, select a genre and create your playlist!</p>
 
           </Paper>
           {tryButton}
         </Grid>
       </Grid>
       <div>
-        <img id='sample-photo' src={PhotoPlaylistSample}></img>
-        <p className="caption">Here is an example from one of our users. </p>
+        <img id='sample-photo' src={homescreenshot}></img>
       </div>
     </div>
   )
