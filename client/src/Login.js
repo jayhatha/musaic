@@ -60,8 +60,7 @@ class Login extends Component {
         localStorage.setItem('mernToken', result.data.token)
         this.props.liftToken(result.data);
         this.setState({
-          response: null,
-          open: true
+          response: null
         })
       }
     })
@@ -89,9 +88,8 @@ class Login extends Component {
           ContentProps={{
             'aria-describedby': 'message-id',
           }}
-          message={<span id="message-id">{this.state.response ? this.state.response.message : 'You have logged in!'}</span>}
+          message={<span id="message-id" className={classes.text}>{this.state.response ? this.state.response.message : ''}</span>}
           action={[
-            
             <IconButton
               key="close"
               aria-label="Close"

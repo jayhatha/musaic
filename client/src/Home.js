@@ -4,9 +4,10 @@ import Playlist from './Playlist';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-import './App.css';
 import {Link} from 'react-router-dom';
 import PhotoPlaylistSample from './PhotoPlaylistSample.png';
+import './App.css';
+
 
 const styles = theme => ({
   root: {
@@ -18,6 +19,7 @@ const styles = theme => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
+
   button: {
     margin: theme.spacing.unit * 1
   }
@@ -42,11 +44,13 @@ const Home = props => {
         <Grid item xs={12} md={12}>
           <Paper id="description" className={classes.paper}>
 
+
             <p>Welcome to Moodsic!</p> <br />
             
             <p>Want a playlist generated for you based on what you are doing? Yes? Then check this out!
-              Moodsic is an application that will generate a playlist from a photo you upload.
-            </p>
+
+              Moodsic is an application that will generate a playlist from a photo you upload.</p>
+
           </Paper>
           {tryButton}
         </Grid>
