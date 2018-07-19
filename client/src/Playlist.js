@@ -4,7 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import ColorChart from './ColorChart';
 import AttsChart from './AttsChart';
-import {Link} from 'react-router-dom';
+import {Link, withRouter}  from 'react-router-dom';
 import cookie from 'react-cookie'
 import UpdatePlaylist from './UpdatePlaylist';
 import {withRouter} from 'react-router-dom';
@@ -77,6 +77,7 @@ class Playlist extends Component {
     })
   }
 
+
   handleRemoveFaveClick(e) {
     e.preventDefault();
     const url = '/playlist/' + this.state.playlist._id;
@@ -90,9 +91,11 @@ class Playlist extends Component {
     if (!sfyUserToken) {
       console.log("NO SFYTOKEN");
       // change this URL in production
-      window.location = 'http://localhost:8888/login/';
-      sfyUserToken = cookie.load('ACCESS_TOKEN');
-    }
+      console.log('no spotify cookie found');
+      var spotifyLoginWindow = window.open('http://localhost:8888/login/', "width=400, height=600");
+    } else {
+    sfyUserToken = cookie.load('ACCESS_TOKEN');
+
     if (this.state.playlist) {
     let sfyUserId;
     let playlistId;
@@ -117,6 +120,7 @@ class Playlist extends Component {
         }).then(console.log('okay, we added a playlist and some tracks'))
       })
       })
+      }
       }
     }
 

@@ -1,3 +1,5 @@
+//DELETE imports we do not need
+
 import React from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';

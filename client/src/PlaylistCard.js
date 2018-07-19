@@ -1,6 +1,7 @@
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import {Link} from 'react-router-dom';
+import './App.css';
 
 const PlaylistCard = (props) => {
 	const url = '/playlist/' + props.playlist._id;
