@@ -16,7 +16,7 @@ Developers:
 	Jay Hathaway
 	Kacy Sommers
 	Genevieve Shultz
-	Eva Barrett
+	Eva Barrett - Google Vision API research (decided to go with another), Cloudinary API research and application, routes and styling with Material UI
 
 About the App
 
