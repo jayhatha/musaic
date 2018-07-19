@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import convert from 'color-convert';
-import {colors} from './colors';
 import {hues} from './hues';
 import ColorChart from './ColorChart';
 import AttsChart from './AttsChart';
@@ -82,7 +81,7 @@ class PhotoForm extends Component {
 		console.log('###TOKEN', spotifyToken)
 		// Jay Magic...
 		axios.defaults.headers.common['Authorization'] = "Bearer " + spotifyToken;
-		  axios.get(`https://api.spotify.com/v1/recommendations?limit=50&market=US&seed_genres=${genres}&max_danceability=${danceability}&max_valence=${valence}&max_energy=${energy}&mode=${mode}`)
+		  axios.get(`https://api.spotify.com/v1/recommendations?limit=25&market=US&seed_genres=${genres}&target_danceability=${danceability}&target_valence=${valence}&target_energy=${energy}&mode=${mode}`)
 		  .then(response => {
 				// FIXME: error handle the token here
 		  this.setState({
@@ -289,53 +288,7 @@ class PhotoForm extends Component {
 			spfyAtts: [valence, mode, energy, danceability]
 		}, () => {this.props.liftAtts(this.state.spfyAtts)})
 	}
-
-	// spotifyAttributes(cloudColors) {
-	// 	let colorsArr = [];
-	// 	// first, call colorRange function with every cloudColor
-	// 	cloudColors.map((color) => {
-	// 		let colorRange = this.getColorRange(color[0]);
-
-	// 		colorsArr.push(colorRange);
-	// 	});
-
-	// 	let valence = 0;
-	// 	let mode = 0;
-	// 	let energy = 0;
-	// 	let danceability = 0;
-	// 	// then find the matching object by color name,
-	// 	// and tally the value of each attribute for all the colors
-	// 	colorsArr.map((colorName) => {
-	// 		let currColor = colors.find((colorObj) => colorObj.name === colorName);
-	// 		valence += currColor.valence;
-	// 		mode += currColor.mode;
-	// 		energy += currColor.energy;
-	// 		danceability += currColor.danceability;
-	// 	});
-
-	// 	// then divide those values by the length of the cloudColors array,
-	// 	// to return floats that can be used in spotify call
-	// 	// (mode is always 1 or 0)
-	// 	valence = valence / cloudColors.length;
-	// 	mode = (mode >= (cloudColors.length / 2)) ? 1 : 0;
-	// 	energy = energy / cloudColors.length;
-	// 	danceability = danceability / cloudColors.length;
-
-	// 	if (valence < 0.2) {
-	// 		valence = 0.2
-	// 	}
-	// 	if (energy < 0.2) {
-	// 		energy = 0.2
-	// 	}
-	// 	if (danceability < 0.2) {
-	// 		danceability = 0.2
-	// 	}
-
-	// 	this.setState({
-	// 		spfyAtts: [valence, mode, energy, danceability]
-	// 	}, () => {this.props.liftAtts(this.state.spfyAtts)});
-	// }
-
+	
 	render() {
 		const {classes} = this.props;
 		console.log('PHOTOFORM STATE: ', this.state);

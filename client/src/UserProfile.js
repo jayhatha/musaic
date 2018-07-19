@@ -47,6 +47,7 @@ class UserProfile extends Component {
           <PlaylistCard playlist={playlist} spfyAtts={this.props.spfyAtts} />
         </Grid>
       )
+
 		})
 
 		return (

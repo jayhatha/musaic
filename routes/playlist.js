@@ -25,6 +25,7 @@ router.post('/', (req, res) => {
 		}
 		else {
 			console.log('SUCCESS creating playlist!', playlist.userID)
+			res.json(playlist);
 		}
 	})
 }); 
@@ -66,6 +67,8 @@ router.put('/:id', (req, res) => {
 			console.log("Error finding playlist", err);
 		} else {
 			res.json(playlist);
+			console.log(playlist + " sent");
+			
 		}
 	})
 });
