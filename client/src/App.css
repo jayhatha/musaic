@@ -4,7 +4,7 @@ a, u {
 
 .App {
   text-align: center;
-  background: rgba(158, 163, 163, .5)
+  background: rgba(158, 163, 163, .5);
 }
 
 .text-overflow {
@@ -31,8 +31,7 @@ a, u {
   font-family: 'Monoton', cursive;
   color: rgb(21, 23, 22);
   font-size: 5em;
-  /* background: rgb(48, 93, 121); */
-  background: rgb(11, 82, 79);
+  background: #607D8B;
   margin-top: 0em;
   margin-bottom: 0em;
   font-weight: lighter;
@@ -51,7 +50,7 @@ a, u {
 
 /* REMOVED .root, testing */
 .root {
-  background: black;
+  Background-image: url('./blackdesign.jpeg');
 }
 
 .h1-test {
@@ -59,6 +58,21 @@ a, u {
 }
 .h3-test {
   font-size: 3em;
+}
+
+.hello {
+font-size: 2em;
+background: orange;
+position: relative;
+color: white;
+}
+
+.playlist-box {
+  padding-top: 2em;
+}
+
+.paper {
+  padding-top: 2em;
 }
 
 #home-page {
@@ -101,7 +115,7 @@ a, u {
   min-height: 80vh;
 } */
 
-#auth-wrapper, .root{
+#auth-wrapper {
 Background-image: url('./sheetmusic.jpeg');
 Background-size: cover;
 Background-position: center center;

@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import axios from 'axios';
 import PlaylistCard from './PlaylistCard';
+import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
   root: {
@@ -41,14 +42,24 @@ class UserProfile extends Component {
 
 	render() {
 		const playlistsMapped = this.state.playlists.map((playlist) => {
-			return <PlaylistCard playlist={playlist} />
+			return (
+        <Grid item xs={4}>
+          <PlaylistCard playlist={playlist} spfyAtts={this.props.spfyAtts} />
+        </Grid>
+      )
+
 		})
 
 		return (
 			<div className="root">
+        <Grid container >
+          <Grid item xs={12}>
 			  		<p className="hello" >Hello, {this.props.user.name}!</p>
-			  		{/* <a onClick={this.props.logout}>LOG OUT</a> */}
-			  	{playlistsMapped}
+          </Grid>
+        </Grid>
+        <Grid container spacing={24} className="playlist-box">
+            {playlistsMapped}
+        </Grid>
 			</div>
 		)
 	}

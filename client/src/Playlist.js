@@ -129,7 +129,7 @@ class Playlist extends Component {
   render() {
 
     const {classes} = this.props;
-    
+
     let addOrRemoveBtn = (this.state.isFave === 'true') ? <Button onClick={this.handleRemoveFaveClick} variant="contained" color="primary">Remove Playlist from Favorites</Button> :
     <Button onClick={this.handleFaveClick} variant="contained" color="primary">Add Playlist to Favorites</Button>;
 
@@ -150,7 +150,7 @@ class Playlist extends Component {
         <div>
           <Paper>
             <UpdatePlaylist playlist={this.state.playlist}
-                            name={this.state.name} 
+                            name={this.state.name}
                             description={this.state.description}
                             tags={this.state.tags}
                             genres={this.state.genres}
