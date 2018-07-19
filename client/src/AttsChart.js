@@ -4,7 +4,7 @@ import {Doughnut} from 'react-chartjs-2';
 class AttsChart extends Component {
 	render() {
 		const valence = Math.floor(this.props.spfyAtts[0] * 100);
-		const mode = (this.props.spfyAtts[1]) ? 'Major' : 'Minor';
+		const mode = (this.props.spfyAtts[1] >= 0.5) ? 'Major' : 'Minor';
 		const energy = Math.floor(this.props.spfyAtts[2] * 100);
 		const danceability = Math.floor(this.props.spfyAtts[3] * 100);
 
@@ -19,11 +19,15 @@ class AttsChart extends Component {
 			],
 		}
 
+		const legendOpts = {
+		  display: false
+		};
+
 		if(this.props.spfyAtts.length) {
 			console.log('IF', this.props)
 			return (
 				<div className="atts-chart">
-					<Doughnut data={data} />
+					<Doughnut data={data} legend={legendOpts}/>
 				</div>
 			);
 		}

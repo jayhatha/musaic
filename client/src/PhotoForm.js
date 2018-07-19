@@ -46,6 +46,7 @@ class PhotoForm extends Component {
 		this.handleChange = this.handleChange.bind(this);
 		this.handleDrop = this.handleDrop.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleNewUploadClick = this.handleNewUploadClick.bind(this);
 		// this.spotifyAttributes = this.spotifyAttributes.bind(this);
 		this.calculateSpfyAtts = this.calculateSpfyAtts.bind(this);
 		this.state = {
@@ -63,9 +64,21 @@ class PhotoForm extends Component {
 	// by updating the genres state with each selection
 	handleChange(e) {
 		console.log('change');
-		this.setState({genres: e.target.value}, () => {
+		const genresArr = this.state.genres;
+		genresArr.push(e.target.value)
+		this.setState({genres: genresArr}, () => {
 			this.props.liftGenres(this.state.genres);
 		})
+	}
+
+	handleNewUploadClick(e) {
+		this.setState({
+			playlist: [],
+			genres: [],
+			cloudColors: [],
+			spfyAtts: [],
+			currImgURL: ''
+		});
 	}
 
 	handleSubmit(e) {
@@ -289,98 +302,94 @@ class PhotoForm extends Component {
 	}
 	
 	render() {
+		console.log('Photot:', this.state)
 		const {classes} = this.props;
 		const phototFormStyle = {
 			backgroundImage: 'url(' + sheetmusic + ')',
 			backgroundSize: 'cover',
-			backgroundPosition: 'center center'
+			backgroundPosition: 'center center',
+			minHeight: 'calc(100vh - 125px)',
+			padding: '4em 0'
 		}
 
-		const selectStyle = {
-			width: '100% !important',
-			display: 'block !important'
-		}
-		
-		const submitStyle = {
-			display: 'block',
-			width: '50%',
-			borderBottom: 'none',
-			borderRadius: '5px',
-			backgroundColor: '#4054b2',
-			color: '#fff'
+		let valence, mode, energy, danceability;
+		if(this.state.spfyAtts.length) {
+			valence = Math.floor(this.state.spfyAtts[0] * 100).toString();
+			mode = (this.state.spfyAtts[1] >= 0.5) ? 'Major' : 'Minor';
+			energy = Math.floor(this.state.spfyAtts[2] * 100).toString();
+			danceability = Math.floor(this.state.spfyAtts[3] * 100).toString();
 		}
 
 		let photoFormContent = (!this.state.currImgURL) ? (
-				<div className="dropzone-container">
-					<Dropzone className="dropzone" onDrop={this.handleDrop} accept="image/*">
-				   		<p className="dropzone">Drag and drop your files or click here to upload</p>
-				   		<AddAPhoto className="icon" style={{ fontSize: 100 }} />
-				   </Dropzone>
+				<div className="show-dropzone">
+					<div className="dropzone-container">
+						<Dropzone className="dropzone" onDrop={this.handleDrop} accept="image/*">
+					   		<p className="dropzone">Drag and drop your files or click here to upload</p>
+					   		<AddAPhoto className="icon" style={{ fontSize: 100 }} />
+					   </Dropzone>
+					</div>
 				</div>
 			) : (
-				<div className="image-uploaded-container">
+				<div className="show-uploaded">
 					<div className="image-uploaded-top">
 						<div className="currImage-container">
-							<img src={this.state.currImgURL} width="100%" alt="uploaded-image" />
-							<Button variant="contained" color="primary">Upload New Photo</Button>
+							<img src={this.state.currImgURL} width="300px" alt="uploaded-image" />
+							<Button onClick={this.handleNewUploadClick} variant="contained" color="primary">Upload New Photo</Button>
+							<div className="form-container">
+								<h3>Select Genre:</h3>
+								<form className="select-genre" onSubmit={this.handleSubmit} autoComplete="off">
+										<select onChange={this.handleChange}>
+										  <option value='blues'>blues</option>
+											<option value='chill'>chill</option>
+											<option value='classical'>classical</option>
+											<option value='club'>club</option>
+											<option value='country'>country</option>
+											<option value='dance'>dance</option>
+											<option value='disco'>disco</option>
+											<option value='dubstep'>dubstep</option>
+											<option value='electronic'>electronic</option>
+											<option value='folk'>folk</option>
+											<option value='funk'>funk</option>
+											<option value='hip-hop'>hip-hop</option>
+											<option value='house'>house</option>
+											<option value='indie'>indie</option>
+											<option value='indie-pop'>indie-pop</option>
+											<option value='j-pop'>j-pop</option>
+											<option value='jazz'>jazz</option>
+											<option value='k-pop'>k-pop</option>
+											<option value='metal'>metal</option>
+											<option value='pop'>pop</option>
+											<option value='punk'>punk</option>
+											<option value='punk-rock'>punk-rock</option>
+											<option value='r-n-b'>r-n-b</option>
+											<option value='reggae'>reggae</option>
+											<option value='rock-n-roll'>rock-n-roll</option>
+											<option value='romance'>romance</option>
+											<option value='salsa'>salsa</option>
+											<option value='samba'>samba</option>
+											<option value='synth-pop'>synth-pop</option>
+											<option value='techno'>techno</option>
+										</select>
+									<input value="Get Playlist" type="submit"></input>
+								</form>
+							</div>
 						</div>
-						<div className="form-container">
-							<h3>Select Genre:</h3>
-							<form onSubmit={this.handleSubmit} autoComplete="off">
-								<FormControl required>
-								<InputLabel htmlFor="genre-select">Genre</InputLabel>
-									<Select value={this.state.genres}
-											style={selectStyle}
-											multiple
-											onChange={this.handleChange}
-											inputProps={{name: 'genres', id: 'genre-select'}} >
-
-											<MenuItem value='blues'>blues</MenuItem>
-											<MenuItem value='chill'>chill</MenuItem>
-											<MenuItem value='classical'>classical</MenuItem>
-											<MenuItem value='club'>club</MenuItem>
-											<MenuItem value='country'>country</MenuItem>
-											<MenuItem value='dance'>dance</MenuItem>
-											<MenuItem value='disco'>disco</MenuItem>
-											<MenuItem value='dubstep'>dubstep</MenuItem>
-											<MenuItem value='electronic'>electronic</MenuItem>
-											<MenuItem value='folk'>folk</MenuItem>
-											<MenuItem value='funk'>funk</MenuItem>
-											<MenuItem value='hip-hop'>hip-hop</MenuItem>
-											<MenuItem value='house'>house</MenuItem>
-											<MenuItem value='indie'>indie</MenuItem>
-											<MenuItem value='indie-pop'>indie-pop</MenuItem>
-											<MenuItem value='j-pop'>j-pop</MenuItem>
-											<MenuItem value='jazz'>jazz</MenuItem>
-											<MenuItem value='k-pop'>k-pop</MenuItem>
-											<MenuItem value='metal'>metal</MenuItem>
-											<MenuItem value='pop'>pop</MenuItem>
-											<MenuItem value='punk'>punk</MenuItem>
-											<MenuItem value='punk-rock'>punk-rock</MenuItem>
-											<MenuItem value='r-n-b'>r-n-b</MenuItem>
-											<MenuItem value='reggae'>reggae</MenuItem>
-											<MenuItem value='rock-n-roll'>rock-n-roll</MenuItem>
-											<MenuItem value='romance'>romance</MenuItem>
-											<MenuItem value='salsa'>salsa</MenuItem>
-											<MenuItem value='samba'>samba</MenuItem>
-											<MenuItem value='synth-pop'>synth-pop</MenuItem>
-											<MenuItem value='techno'>techno</MenuItem>
-									</Select>
-								</FormControl>
-								<Input style={submitStyle} value="Get Playlist" type="submit"></Input>
-							</form>
+						<div className="colorChart-container">
+							<h3>Image Colors</h3>
+							<hr className="hr" />
+							<ColorChart colors={this.state.cloudColors} />
 						</div>
 					</div>
-					
+
 					<div className="image-uploaded-bottom">
-						<h3>Color Data</h3>
-						<div className="charts-container">
-							<div className="colorChart-container">
-								<ColorChart colors={this.state.cloudColors} />
-							</div>
-							<div className="attsChart-container">
-								<AttsChart spfyAtts={this.state.spfyAtts} />
-							</div>
+						<div className="spfyAtts">
+							<p className="valenceP"><em>Valence: </em>{valence}%</p>
+							<p className="energyP"><em>Energy: </em>{energy}%</p>
+							<p className="danceabilityP"><em>Danceability: </em>{danceability}%</p>
+							<p className="modeP"><em>Mode: </em>{mode}</p>
+						</div>
+						<div className="attsChart-container">
+							<AttsChart spfyAtts={this.state.spfyAtts} />
 						</div>
 					</div>
 					
