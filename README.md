@@ -4,10 +4,6 @@ WDI Seattle project 3!
 
 ###########
 
-(Rough outline of READ ME)
-
-Moodsic
-
 Moodsic allows you to create personalized playlist based on your mood, by uploading a photo to your profile.
 
 View the live site at http…….
@@ -23,7 +19,7 @@ About the App
 How to use Moodsic:
 Start by clicking “Sign Up” on the homepage and creating a user profile.   
 
-User Stories:  (****rough draft user stories*****)
+## User Stories:  (****rough draft user stories*****)
 Sam has a busy work and personal life and enjoys all types of music. Since he is always on the go he needs a way to be able to open an app and get a list of songs playing without any time wasted. With his love for all genres of music, Moodsic will allow him to quickly select his generated playlist and get back to what he’s doing. 
 Derrick likes to call himself a musician and enjoys inspiration. One way he gets his ideas is to listen to new artists. Not knowing what all is out there with Moodsic he will be able to get random categorized playlists for him to enjoy. He is able to select the genre to make it more customized for what type of music he is in the mood for.
 Megan likes social media and the latest apps that allow her to express herself and enjoy life. She likes to upload photos of her daily adventures. With Moodsic she will not only get to upload her favorite photos but have some music to go along with what she is doing. The app will allow her to share with friends and stay connected.
@@ -38,7 +34,7 @@ Mongoose
 Material UI
 
 
-Project Timeline
+## Project Timeline
 
 Planning
 -Shared app Ideas
@@ -47,13 +43,13 @@ Planning
 -agreed to use Trello Board
 -agreed to use wire framing
 
-Building Phase
+## Building Phase
+After making sure that we were able to get the data we needed back from the spotify and cloudinary API's, the next major step was to create logic for converting the image colors into mood attributes. This was done by converting the HEX colors receieved from cloudinary to HSL, using a handy node module. Once the hue, saturation and lightness were available, it was much easier to divide the color spectrum. Using google images, a few articles and some arbitrary gut feelings, the hues were assigned a value of valence, energy, danceability and mode (major or minor) on a scale of 1 to 5. The less saturation the color had, the less danceability, and the less lightness, the less energy. These scores were then divided by the total possible score to get a percentage to send to spotify.
 
 
+## Testing/Debugging:
 
-Testing/Debugging:
-
-Organization
+## Organization
 We used a trello board to keep track of tasks.
 
 Wire Frames
@@ -61,7 +57,7 @@ Wire Frames
 (Add photos and labels)
 
 
-Routes
+## Routes
 
 ## auth routes
 | Method | Path						|
@@ -82,4 +78,6 @@ Routes
 
  
 
-Next Steps and Future Improvements
+## Next Steps and Future Improvements
+
+This project would be very useful as a mobile app, and still has a long way to go in that regard. Ideally it could become something of an instagram and spotify hybrid, accessing the users camera through, playing the music without leaving it, and allowing users to follow each other and have a feed. Along with these mobile improvements, we hope to be able to continue enhancing the color to mood logic as well.
