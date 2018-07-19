@@ -62,6 +62,24 @@ Wire Frames
 
 
 Routes
+
+## auth routes
+| Method | Path						|
+| -------| ------------------------ | 
+| POST 	 | /auth/me/from/token 		|
+| POST 	 | /auth/login				|
+| GET 	 | /auth/logout				|
+| GET 	 | /auth/get/spotify/token	|
+
+## playlist routes
+| Method | Path						|
+| -------| ------------------------	|
+| POST 	 | /playlist				|
+| GET 	 | /playlist/user/:userId	|
+| PUT 	 | /playlist/:id			|
+| DELETE | /playlist/:id			|
+
+
  
 
 Next Steps and Future Improvements
