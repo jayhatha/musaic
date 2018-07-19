@@ -100,7 +100,7 @@ class Playlist extends Component {
     let sfyUserId;
     let playlistId;
     var playlistArray = [];
-    let playlistTracks = this.state.songs.map((song) => playlistTest.push(song.uri));
+    let playlistTracks = this.state.songs.map((song) => playlistArray.push(song.uri));
     playlistTracks = playlistArray;
     axios.defaults.headers.common['Authorization'] = "Bearer " + sfyUserToken;
     axios.get('https://api.spotify.com/v1/me').then(results => {
