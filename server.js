@@ -3,11 +3,10 @@ let express = require('express')
 let request = require('request')
 let querystring = require('querystring')
 
-let app = express()
+let app = express();
+app.use(express.static(`${__dirname}/client/public`))
 
-let redirect_uri =
-  process.env.REDIRECT_URI ||
-  'http://localhost:8888/callback'
+let redirect_uri = 'http://localhost:8888/callback'
 
 app.get('/login', function(req, res) {
   res.redirect('https://accounts.spotify.com/authorize?' +
@@ -36,12 +35,13 @@ app.get('/callback', function(req, res) {
     json: true
   }
   request.post(authOptions, function(error, response, body) {
+    console.log('heyo')
     var access_token = body.access_token
-    let uri = process.env.FRONTEND_URI || 'http://localhost:3000'
     res.cookie('ACCESS_TOKEN', access_token);
-    res.redirect(uri + '?access_token=' + access_token)
+    res.sendFile(`${__dirname}/client/public/closewindow.html`)
   })
 })
+
 
 let port = 8888
 console.log(`Listening on port ${port}. Go /login to initiate authentication flow.`)
