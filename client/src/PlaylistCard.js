@@ -1,6 +1,7 @@
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import {Link} from 'react-router-dom';
+import './App.css';
 
 const PlaylistCard = (props) => {
 	const url = '/playlist/' + props.playlist._id;
@@ -18,7 +19,7 @@ const PlaylistCard = (props) => {
 		}}}>
 			<Paper className="paper">
 				<img src={props.playlist.imageUrl} alt="playlist-image" width="300px" />
-				<h3>Untitled Playlist</h3>
+				<h3>{props.playlist.name}</h3>
 			</Paper>
 		</Link>
 	);

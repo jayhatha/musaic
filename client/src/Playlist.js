@@ -4,7 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import ColorChart from './ColorChart';
 import AttsChart from './AttsChart';
-import {Link} from 'react-router-dom';
+import {Link, withRouter}  from 'react-router-dom';
 import cookie from 'react-cookie'
 import UpdatePlaylist from './UpdatePlaylist';
 import {withRouter} from 'react-router-dom';
@@ -77,6 +77,7 @@ class Playlist extends Component {
     })
   }
 
+
   handleRemoveFaveClick(e) {
     e.preventDefault();
     const url = '/playlist/' + this.state.playlist._id;
@@ -90,9 +91,11 @@ class Playlist extends Component {
     if (!sfyUserToken) {
       console.log("NO SFYTOKEN");
       // change this URL in production
-      window.location = 'http://localhost:8888/login/';
-      sfyUserToken = cookie.load('ACCESS_TOKEN');
-    }
+      console.log('no spotify cookie found');
+      var spotifyLoginWindow = window.open('http://localhost:8888/login/', "width=400, height=600");
+    } else {
+    sfyUserToken = cookie.load('ACCESS_TOKEN');
+
     if (this.state.playlist) {
     let sfyUserId;
     let playlistId;
@@ -118,6 +121,7 @@ class Playlist extends Component {
       })
       })
       }
+      }
     }
 
   toggleUpdateForm(e) {
@@ -129,7 +133,7 @@ class Playlist extends Component {
   render() {
 
     const {classes} = this.props;
-    
+
     let addOrRemoveBtn = (this.state.isFave === 'true') ? <Button onClick={this.handleRemoveFaveClick} variant="contained" color="primary">Remove Playlist from Favorites</Button> :
     <Button onClick={this.handleFaveClick} variant="contained" color="primary">Add Playlist to Favorites</Button>;
 
@@ -150,17 +154,17 @@ class Playlist extends Component {
         <div>
           <Paper>
             <UpdatePlaylist playlist={this.state.playlist}
-                            name={this.state.name} 
+                            name={this.state.name}
                             description={this.state.description}
                             tags={this.state.tags}
                             genres={this.state.genres}
+                            updateForm={this.state.updateForm}
             />
           </Paper>
         </div>
       )
     } else {
       return (
-
         <div className={classes.root}>
           <Paper className={classes.paper}>
             <h1>Your Spotify-Generated Playlist:</h1>
@@ -172,11 +176,8 @@ class Playlist extends Component {
             <ColorChart colors={colors} />
             <AttsChart spfyAtts={spfyAtts} />
             {addOrRemoveBtn}
-
-            {/* make sure buttons stick to the color theme */}
             <Button className="edit-button" variant="text" onClick={this.toggleUpdateForm}>Edit Playlist</Button>
             <Button variant="text" onClick={this.sendPlaylistToSpotify}>Send Playlist to Spotify</Button>
-
             <Link className="profile-button" to="/profile"><Button variant="contained" color="primary">Back to Profile</Button></Link>
           </Paper>
         </div>
