@@ -69,7 +69,7 @@ color: white;
 }
 
 .saved-text {
-  font-size: 2.5em;
+  font-size: 2em;
 }
 
 .playlist-box, .paper {
@@ -93,6 +93,7 @@ color: white;
 #sample-photo {
   max-width: 60vw;
   margin-top: 3em;
+  padding-bottom: 5em;
 }
 
 #page-title {
