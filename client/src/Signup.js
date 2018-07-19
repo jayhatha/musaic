@@ -68,8 +68,7 @@ class Signup extends Component {
       axios.post('/auth/signup', {
         name: this.state.name,
         email: this.state.email,
-        password: this.state.password,
-        open: true
+        password: this.state.password
       }).then(result => {
         localStorage.setItem('mernToken', result.data.token)
         this.props.liftToken(result.data)
@@ -100,7 +99,7 @@ class Signup extends Component {
           ContentProps={{
             'aria-describedby': 'message-id',
           }}
-          message={<span id="message-id" className={classes.text}>{this.state.error ? this.state.error.message : 'You have logged in!'}</span>}
+          message={<span id="message-id" className={classes.text}>{this.state.error ? this.state.error.message : ''}</span>}
           action={[
             <IconButton
               key="close"
