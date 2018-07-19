@@ -7,7 +7,6 @@ import AttsChart from './AttsChart';
 import {Link, withRouter}  from 'react-router-dom';
 import cookie from 'react-cookie'
 import UpdatePlaylist from './UpdatePlaylist';
-import {withRouter} from 'react-router-dom';
 import './App.css';
 import { withStyles } from '@material-ui/core/styles';
 
