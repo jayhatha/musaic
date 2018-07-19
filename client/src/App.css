@@ -19,7 +19,6 @@ u {
   margin-left: 0.5em;
   padding: 0.05em 0.3em;
   font-size: 1.4em;
-  border-radius: 0.5em;
   transition: all 0.5s;
 }
 
@@ -55,10 +54,6 @@ u {
 }
 
 
-.root {
-  Background-image: url('./blackdots.jpeg');
-}
-
 .h1-test {
   color: white;
 }
@@ -67,20 +62,22 @@ u {
   font-size: 3em;
 }
 
-/*NEED TO FIX ADD CHANGE COLORS */
 .hello {
 font-size: 2em;
 position: relative;
 color: white;
 }
 
-.playlist-box {
+.saved-text {
+  font-size: 2.5em;
+}
+
+.playlist-box, .paper {
   padding-top: 2em;
 }
 
-.paper {
-  padding-top: 2em;
-}
+
+
 
 #home-page {
   min-height: 100vh;
@@ -89,7 +86,6 @@ color: white;
 
 #description {
   background: rgba(39, 17, 163, .5);
-  /* background: rgba(124, 123, 185, .5); */
   font-size: 1em;
   color: black;
 }
@@ -101,7 +97,6 @@ color: white;
 
 #page-title {
   color: white !important;
-  /* color: rgb(32, 145, 152) !important; */
   font-size: 3em;
   text-align: left;
   font-family: 'Monoton', cursive;
@@ -116,8 +111,7 @@ color: white;
   text-decoration: none;
 }
 
-
-#auth-wrapper {
+#auth-wrapper, #update-page {
 Background-image: url('./sheetmusic.jpeg');
 Background-size: cover;
 Background-position: center center;

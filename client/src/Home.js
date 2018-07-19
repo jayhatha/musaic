@@ -29,7 +29,7 @@ const Home = props => {
   const { classes } = props;
   let tryButton = (
     <Link to='/loginsignup'>
-      <button className='home-button try-button' >Try</button>
+      <button className='home-button try-button' >Get Started</button>
     </Link>
   );
   if (props.user) {
@@ -43,14 +43,9 @@ const Home = props => {
         </Grid>
         <Grid item xs={12} md={12}>
           <Paper id="description" className={classes.paper}>
-
-
-            <p>Welcome to Moodsic!</p> <br />
-            
-            <p>Want a playlist generated for you based on what you are doing? Yes? Then check this out!
-
-              Moodsic is an application that will generate a playlist from a photo you upload.</p>
-
+            <p>Moodsic is a color analysis appication that generates a personalized
+              playlist connecting you to Spotify. Simply upload a photo,
+              select a genre and create your playlist!</p>
           </Paper>
           {tryButton}
         </Grid>

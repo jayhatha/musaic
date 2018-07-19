@@ -6,6 +6,7 @@ import { TextField } from '../node_modules/@material-ui/core';
 import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import {withRouter, Redirect} from 'react-router-dom';
+import './App.css';
 
 
 const styles = theme => ({
@@ -38,12 +39,12 @@ class UpdatePlaylist extends Component {
       description: this.props.description,
       tags: this.props.tags,
       genres: this.props.genres,
-      updateForm: this.props.updateForm, 
+      updateForm: this.props.updateForm,
       redirect: false
     }
     console.log(this.state.playlist._id);
     console.log(this.state.updateForm);
-    
+
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleNameChange = this.handleNameChange.bind(this)
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this)
@@ -56,7 +57,7 @@ class UpdatePlaylist extends Component {
       return <Redirect to='/profile'/>
     }
   }
-    
+
   handleSubmit = (e) => {
     e.preventDefault();
     const url = '/playlist/' + this.state.playlist._id;
@@ -98,7 +99,7 @@ class UpdatePlaylist extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <div className={classes.root} >
+      <div id="update-page" className={classes.root} >
         <Grid container spacing={12}>
           <Grid item xs={12}>
             <Paper >
@@ -129,7 +130,7 @@ class UpdatePlaylist extends Component {
                 />
                 <TextField
                   id="genre"
-                  label="Genre(s)" 
+                  label="Genre(s)"
                   className={classes.textField}
                   value={this.state.genres}
                   margin="normal"
