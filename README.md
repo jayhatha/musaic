@@ -15,11 +15,11 @@ Moodsic allows you to create personalized playlist based on your mood, by upload
 
 [Check it out for yourself!](heroku link)
 
-Developers:
-	Jay Hathaway - Spotify API and Backend
-	Kacy Sommers - Full-Stack
-	Genevieve Schultz - PM, Design, Full-Stack
-	Eva Barrett - Design, Front-End, Cloudinary API
+### Developers:
+###### Jay Hathaway - Spotify API and Backend
+###### Kacy Sommers - Full-Stack and Logics
+###### Genevieve Schultz - Project Manager, Design, Full-Stack
+###### Eva Barrett - Design, Front-End, Cloudinary API
 
 About the App
 
