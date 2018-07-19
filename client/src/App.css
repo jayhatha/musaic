@@ -37,6 +37,11 @@ a, u {
   font-weight: lighter;
 }
 
+.auth {
+  margin-top: 2.3em;
+  color: white;
+}
+
 .auth input {
   margin-bottom: 1.3em;
 }
@@ -48,9 +53,8 @@ a, u {
   background: none !important;
 }
 
-/* REMOVED .root, testing */
 .root {
-  Background-image: url('./blackdesign.jpeg');
+  Background-image: url('./blackdots.jpeg');
 }
 
 .h1-test {
@@ -60,9 +64,9 @@ a, u {
   font-size: 3em;
 }
 
+/*NEED TO FIX ADD CHANGE COLORS */
 .hello {
 font-size: 2em;
-background: orange;
 position: relative;
 color: white;
 }
@@ -81,7 +85,10 @@ color: white;
 }
 
 #description {
-  background: rgba(124, 123, 185, .5);
+  background: rgba(39, 17, 163, .5);
+  /* background: rgba(124, 123, 185, .5); */
+  font-size: 1em;
+  color: black;
 }
 
 #sample-photo {
@@ -97,7 +104,6 @@ color: white;
   font-family: 'Monoton', cursive;
 }
 
-
 #home-button,
 #login-button,
 #logout-button,
@@ -107,14 +113,6 @@ color: white;
   text-decoration: none;
 }
 
-
-/* #auth-wrapper {
-  background-image: url('./sheetmusic.jpeg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  min-height: 80vh;
-} */
-
 #auth-wrapper {
 Background-image: url('./sheetmusic.jpeg');
 Background-size: cover;
@@ -123,7 +121,6 @@ Position: relative;
 Top: 0;
 Bottom: 0;
 Height: 100vh;
-/* Z-index: -10 */
 }
 
 
