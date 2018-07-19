@@ -1,14 +1,10 @@
-body {
-  margin: 0px;
-}
-
 a, u {
   text-decoration: none;
 }
 
 .App {
   text-align: center;
-  background: rgba(158, 163, 163, .5)
+  background: rgba(158, 163, 163, .5);
 }
 
 .text-overflow {
@@ -35,8 +31,7 @@ a, u {
   font-family: 'Monoton', cursive;
   color: rgb(21, 23, 22);
   font-size: 5em;
-  /* background: rgb(48, 93, 121); */
-  background: rgb(11, 82, 79);
+  background: #607D8B;
   margin-top: 0em;
   margin-bottom: 0em;
   font-weight: lighter;
@@ -55,7 +50,7 @@ a, u {
 
 /* REMOVED .root, testing */
 .root {
-  background: yellow;
+  Background-image: url('./blackdesign.jpeg');
 }
 
 .h1-test {
@@ -102,6 +97,7 @@ color: white;
   font-family: 'Monoton', cursive;
 }
 
+
 #home-button,
 #login-button,
 #logout-button,
@@ -111,6 +107,7 @@ color: white;
   text-decoration: none;
 }
 
+
 /* #auth-wrapper {
   background-image: url('./sheetmusic.jpeg');
   background-repeat: no-repeat;
@@ -118,7 +115,7 @@ color: white;
   min-height: 80vh;
 } */
 
-#auth-wrapper, .root{
+#auth-wrapper {
 Background-image: url('./sheetmusic.jpeg');
 Background-size: cover;
 Background-position: center center;

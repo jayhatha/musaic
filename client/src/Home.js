@@ -52,6 +52,7 @@ const Home = props => {
       </Grid>
       <div>
         <img id='sample-photo' src={PhotoPlaylistSample}></img>
+        <p className="caption">Here is an example from one of our users. </p>
       </div>
     </div>
   )

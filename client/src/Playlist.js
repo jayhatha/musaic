@@ -5,9 +5,32 @@ import Button from '@material-ui/core/Button';
 import ColorChart from './ColorChart';
 import AttsChart from './AttsChart';
 import {Link} from 'react-router-dom';
+import cookie from 'react-cookie'
 import UpdatePlaylist from './UpdatePlaylist';
 import {withRouter} from 'react-router-dom';
 import './App.css';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1
+  },
+  paper: {
+    padding: theme.spacing.unit * 2,
+    margin: theme.spacing.unit * 2,
+    height: '100%',
+    color: theme.palette.text.secondary,
+    textAlign: 'center'
+  },
+  button: {
+    margin: theme.spacing.unit * 2
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200
+  }
+})
 
 class Playlist extends Component {
 
@@ -16,6 +39,7 @@ class Playlist extends Component {
     this.handleFaveClick = this.handleFaveClick.bind(this);
     this.handleRemoveFaveClick = this.handleRemoveFaveClick.bind(this);
     this.toggleUpdateForm = this.toggleUpdateForm.bind(this);
+    this.sendPlaylistToSpotify = this.sendPlaylistToSpotify.bind(this)
     this.state = {
       user: this.props.user,
       isFave: this.props.isFave,
@@ -50,6 +74,41 @@ class Playlist extends Component {
     })
   }
 
+  sendPlaylistToSpotify(e) {
+    let sfyUserToken = cookie.load('ACCESS_TOKEN');
+    if (!sfyUserToken) {
+      // change this URL in production
+      () => {window.location = 'http://localhost:8888/login/'}
+      let sfyUserToken = cookie.load('ACCESS_TOKEN');
+    }
+    if (this.state.playlist) {
+    let sfyUserId;
+    let playlistId;
+    console.log(this.state.playlist.songs, this.state.playlist.songs[0].uri);
+    var playlistTest = [];
+    let playlistTracks = this.state.playlist.songs.map((song) => playlistTest.push(song.uri));
+    playlistTracks = playlistTest;
+
+    console.log(playlistTracks)
+    console.log('token is ' + sfyUserToken)
+    axios.defaults.headers.common['Authorization'] = "Bearer " + sfyUserToken;
+    axios.get('https://api.spotify.com/v1/me').then(results => {
+      let sfyUserId = results.data.id;
+      axios.defaults.headers.common['Authorization'] = "Bearer " + sfyUserToken;
+      axios.post('https://api.spotify.com/v1/users/' +  sfyUserId + '/playlists', {
+        name: 'test playlist',
+        public: true,
+      }).then((response) => {
+        let playlistId = response.data.id
+        axios.defaults.headers.common['Authorization'] = "Bearer " + sfyUserToken;
+        axios.post('https://api.spotify.com/v1/users/' +  sfyUserId + '/playlists/' + playlistId + '/tracks', {
+          uris: playlistTracks
+        }).then(console.log('okay, we added a playlist and some tracks'))
+      })
+      })
+      }
+    }
+
   toggleUpdateForm(e) {
     e.preventDefault();
     console.log("You clicked the update form button!");
@@ -57,6 +116,9 @@ class Playlist extends Component {
   }
 
   render() {
+
+    const {classes} = this.props;
+
     let addOrRemoveBtn = (this.state.isFave === 'true') ? <Button onClick={this.handleRemoveFaveClick} variant="contained" color="primary">Remove Playlist from Favorites</Button> :
     <Button onClick={this.handleFaveClick} variant="contained" color="primary">Add Playlist to Favorites</Button>;
 
@@ -73,20 +135,26 @@ class Playlist extends Component {
 
     console.log('Playlist State', this.state);
 
-    if (this.state.updateForm == true) {
+    if (this.state.updateForm === true) {
       return (
-        <div className="root">
-          <Paper className="paper">
-            <UpdatePlaylist />
+        <div>
+          <Paper>
+            <UpdatePlaylist playlist={this.state.playlist}
+                            name={this.state.name}
+                            description={this.state.description}
+                            tags={this.state.tags}
+                            genres={this.state.genres}
+            />
           </Paper>
         </div>
       )
     } else {
       return (
-        <div className="root">
-          <Paper className="paper">
-            <h1 className="h1-test" >Your Spotify-Generated Playlist:</h1>
-            <h3 className="h3-test" >{name}</h3>
+
+        <div className={classes.root}>
+          <Paper className={classes.paper}>
+            <h1>Your Spotify-Generated Playlist:</h1>
+            <h3>{name}</h3>
             <p>Genres: {genres}</p>
             <p>Description: {description}</p>
             <img src={imgUrl} width="300px" alt="playlist-image" />
@@ -95,6 +163,7 @@ class Playlist extends Component {
             <AttsChart spfyAtts={spfyAtts} />
             {addOrRemoveBtn}
             <Button className="edit-button" variant="text" onClick={this.toggleUpdateForm}>Edit Playlist</Button>
+            <Button variant="text" onClick={this.sendPlaylistToSpotify}>Send Playlist to Spotify</Button>
             <Link className="profile-button" to="/profile"><Button variant="contained" color="primary">Back to Profile</Button></Link>
           </Paper>
         </div>
@@ -103,4 +172,4 @@ class Playlist extends Component {
   }
 }
 
-export default withRouter(Playlist);
+export default withRouter(withStyles(styles)(Playlist));
