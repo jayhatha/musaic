@@ -7,7 +7,6 @@ import AttsChart from './AttsChart';
 import {Link, withRouter}  from 'react-router-dom';
 import cookie from 'react-cookie'
 import UpdatePlaylist from './UpdatePlaylist';
-import {withRouter} from 'react-router-dom';
 import './App.css';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -95,7 +94,6 @@ class Playlist extends Component {
       var spotifyLoginWindow = window.open('http://localhost:8888/login/', "width=400, height=600");
     } else {
     sfyUserToken = cookie.load('ACCESS_TOKEN');
-
     if (this.state.playlist) {
     let sfyUserId;
     let playlistId;
@@ -123,14 +121,6 @@ class Playlist extends Component {
       }
       }
     }
-
-  handleRemoveFaveClick(e) {
-    e.preventDefault();
-    const url = '/playlist/' + this.state.playlist._id;
-    axios.delete(url).then((result) => {
-      this.props.history.push({pathname: '/profile'});
-    })
-  }
 
   toggleUpdateForm(e) {
     e.preventDefault();
