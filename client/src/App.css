@@ -1,4 +1,5 @@
-a, u {
+a,
+u {
   text-decoration: none;
 }
 
@@ -15,11 +16,11 @@ a, u {
 }
 
 .home-button {
-  margin-left: .5em;
-  padding: .05em .3em;
+  margin-left: 0.5em;
+  padding: 0.05em 0.3em;
   font-size: 1.4em;
-  border-radius: .5em;
-  transition: all .5s;
+  border-radius: 0.5em;
+  transition: all 0.5s;
 }
 
 .home-button:hover {
@@ -31,10 +32,15 @@ a, u {
   font-family: 'Monoton', cursive;
   color: rgb(21, 23, 22);
   font-size: 5em;
-  background: #607D8B;
-  margin-top: 0em;
-  margin-bottom: 0em;
-  font-weight: lighter;
+  <<<<<<< HEAD
+  /* background: rgb(48, 93, 121); */
+  background: rgb(11, 82, 79);
+  margin-top: 0;
+  margin-bottom: 0;
+  ======= background: #607D8B;
+  margin-top: 0;
+  margin-bottom: 0;
+  >>>>>>> a44b753aad341b8f91644132c4310b4b256dfaca font-weight: lighter;
 }
 
 .auth {
@@ -53,6 +59,7 @@ a, u {
   background: none !important;
 }
 
+
 .root {
   Background-image: url('./blackdots.jpeg');
 }
@@ -60,6 +67,7 @@ a, u {
 .h1-test {
   color: white;
 }
+
 .h3-test {
   font-size: 3em;
 }
@@ -81,7 +89,7 @@ color: white;
 
 #home-page {
   min-height: 100vh;
-  margin-bottom: 0em;
+  margin-bottom: 0;
 }
 
 #description {
@@ -112,6 +120,7 @@ color: white;
   color: white;
   text-decoration: none;
 }
+
 
 #auth-wrapper {
 Background-image: url('./sheetmusic.jpeg');
@@ -293,22 +302,5 @@ Height: 100vh;
 .modeP {
   background-color: #e0e2e2;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
