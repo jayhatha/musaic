@@ -1,4 +1,5 @@
-a, u {
+a,
+u {
   text-decoration: none;
 }
 
@@ -15,11 +16,11 @@ a, u {
 }
 
 .home-button {
-  margin-left: .5em;
-  padding: .05em .3em;
+  margin-left: 0.5em;
+  padding: 0.05em 0.3em;
   font-size: 1.4em;
-  border-radius: .5em;
-  transition: all .5s;
+  border-radius: 0.5em;
+  transition: all 0.5s;
 }
 
 .home-button:hover {
@@ -31,10 +32,20 @@ a, u {
   font-family: 'Monoton', cursive;
   color: rgb(21, 23, 22);
   font-size: 5em;
-  background: #607D8B;
-  margin-top: 0em;
-  margin-bottom: 0em;
-  font-weight: lighter;
+  <<<<<<< HEAD
+  /* background: rgb(48, 93, 121); */
+  background: rgb(11, 82, 79);
+  margin-top: 0;
+  margin-bottom: 0;
+  ======= background: #607D8B;
+  margin-top: 0;
+  margin-bottom: 0;
+  >>>>>>> a44b753aad341b8f91644132c4310b4b256dfaca font-weight: lighter;
+}
+
+.auth {
+  margin-top: 2.3em;
+  color: white;
 }
 
 .auth input {
@@ -48,21 +59,22 @@ a, u {
   background: none !important;
 }
 
-/* REMOVED .root, testing */
+
 .root {
-  Background-image: url('./blackdesign.jpeg');
+  Background-image: url('./blackdots.jpeg');
 }
 
 .h1-test {
   color: white;
 }
+
 .h3-test {
   font-size: 3em;
 }
 
+/*NEED TO FIX ADD CHANGE COLORS */
 .hello {
 font-size: 2em;
-background: orange;
 position: relative;
 color: white;
 }
@@ -77,11 +89,14 @@ color: white;
 
 #home-page {
   min-height: 100vh;
-  margin-bottom: 0em;
+  margin-bottom: 0;
 }
 
 #description {
-  background: rgba(124, 123, 185, .5);
+  background: rgba(39, 17, 163, .5);
+  /* background: rgba(124, 123, 185, .5); */
+  font-size: 1em;
+  color: black;
 }
 
 #sample-photo {
@@ -97,7 +112,6 @@ color: white;
   font-family: 'Monoton', cursive;
 }
 
-
 #home-button,
 #login-button,
 #logout-button,
@@ -108,13 +122,6 @@ color: white;
 }
 
 
-/* #auth-wrapper {
-  background-image: url('./sheetmusic.jpeg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  min-height: 80vh;
-} */
-
 #auth-wrapper {
 Background-image: url('./sheetmusic.jpeg');
 Background-size: cover;
@@ -123,7 +130,6 @@ Position: relative;
 Top: 0;
 Bottom: 0;
 Height: 100vh;
-/* Z-index: -10 */
 }
 
 
@@ -296,22 +302,5 @@ Height: 100vh;
 .modeP {
   background-color: #e0e2e2;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
