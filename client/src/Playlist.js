@@ -7,7 +7,30 @@ import AttsChart from './AttsChart';
 import {Link, withRouter}  from 'react-router-dom';
 import cookie from 'react-cookie'
 import UpdatePlaylist from './UpdatePlaylist';
+import {withRouter} from 'react-router-dom';
+import './App.css';
+import { withStyles } from '@material-ui/core/styles';
 
+const styles = theme => ({
+  root: {
+    flexGrow: 1
+  },
+  paper: {
+    padding: theme.spacing.unit * 2,
+    margin: theme.spacing.unit * 2,
+    height: '100%',
+    color: theme.palette.text.secondary,
+    textAlign: 'center'
+  },
+  button: {
+    margin: theme.spacing.unit * 2
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200
+  }
+})
 
 class Playlist extends Component {
 
@@ -35,9 +58,20 @@ class Playlist extends Component {
 
   handleFaveClick(e) {
     e.preventDefault();
-    this.setState({isFave: 'false'})
-    axios.post('/playlist', this.state).then(result => {
-      console.log('AND WE BACK', result);
+    axios.post('/playlist', this.state).then(playlist => {
+      console.log('SAVED PLAYLIST', playlist);
+      this.setState({
+        isFave: 'true',
+        playlist: playlist.data,
+        name: playlist.data.name,
+        description: playlist.data.description,
+        tags: playlist.data.tags,
+        genres: playlist.data.genres,
+        imageURL: playlist.data.imageUrl,
+        colorData: playlist.data.colorData,
+        songs: playlist.data.songs,
+        spfyAtts: playlist.data.spfyAtts
+      });
     }).catch(err => {
       console.log('UH OH', err);
     })
@@ -55,11 +89,13 @@ class Playlist extends Component {
   sendPlaylistToSpotify(e) {
     let sfyUserToken = cookie.load('ACCESS_TOKEN');
     if (!sfyUserToken) {
+      console.log("NO SFYTOKEN");
       // change this URL in production
       console.log('no spotify cookie found');
       var spotifyLoginWindow = window.open('http://localhost:8888/login/', "width=400, height=600");
     } else {
     sfyUserToken = cookie.load('ACCESS_TOKEN');
+
     if (this.state.playlist) {
     let sfyUserId;
     let playlistId;
@@ -95,6 +131,9 @@ class Playlist extends Component {
   }
 
   render() {
+
+    const {classes} = this.props;
+
     let addOrRemoveBtn = (this.state.isFave === 'true') ? <Button onClick={this.handleRemoveFaveClick} variant="contained" color="primary">Remove Playlist from Favorites</Button> :
     <Button onClick={this.handleFaveClick} variant="contained" color="primary">Add Playlist to Favorites</Button>;
 
@@ -109,20 +148,25 @@ class Playlist extends Component {
     let colors = this.state.colorData;
     let spfyAtts = this.state.spfyAtts;
 
-    console.log('Playlist State', this.state);
 
-    if (this.state.updateForm == true) {
+    if (this.state.updateForm === true) {
       return (
-        <div className="root">
-          <Paper className="paper">
-            <UpdatePlaylist />
+        <div>
+          <Paper>
+            <UpdatePlaylist playlist={this.state.playlist}
+                            name={this.state.name}
+                            description={this.state.description}
+                            tags={this.state.tags}
+                            genres={this.state.genres}
+                            updateForm={this.state.updateForm}
+            />
           </Paper>
         </div>
       )
     } else {
       return (
-        <div className="root">
-          <Paper className="paper">
+        <div className={classes.root}>
+          <Paper className={classes.paper}>
             <h1>Your Spotify-Generated Playlist:</h1>
             <h3>{name}</h3>
             <p>Genres: {genres}</p>
@@ -132,10 +176,9 @@ class Playlist extends Component {
             <ColorChart colors={colors} />
             <AttsChart spfyAtts={spfyAtts} />
             {addOrRemoveBtn}
-            <Button variant="text" onClick={this.toggleUpdateForm}>Edit Playlist</Button>
+            <Button className="edit-button" variant="text" onClick={this.toggleUpdateForm}>Edit Playlist</Button>
             <Button variant="text" onClick={this.sendPlaylistToSpotify}>Send Playlist to Spotify</Button>
-            <Link to="/profile"><Button variant="contained" color="primary">Back to Profile</Button></Link>
-
+            <Link className="profile-button" to="/profile"><Button variant="contained" color="primary">Back to Profile</Button></Link>
           </Paper>
         </div>
       );
@@ -143,4 +186,4 @@ class Playlist extends Component {
   }
 }
 
-export default withRouter(Playlist);
+export default withRouter(withStyles(styles)(Playlist));

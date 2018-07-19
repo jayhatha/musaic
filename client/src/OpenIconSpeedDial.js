@@ -1,7 +1,9 @@
+//DELETE imports we do not need
+
 import React from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { withStyles, Button} from '@material-ui/core';
+import { withStyles} from '@material-ui/core';
 import {SpeedDial, SpeedDialAction, SpeedDialIcon} from '@material-ui/lab/';
 import VpnKey from '@material-ui/icons/VpnKey';
 import Home from '@material-ui/icons/Home';
