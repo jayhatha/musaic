@@ -55,6 +55,7 @@ class UserProfile extends Component {
         <Grid container >
           <Grid item xs={12}>
 			  		<p className="hello" >Hello, {this.props.user.name}!</p>
+            <p className="saved-text"> Which playlist are you in the moodsic for today? </p>
           </Grid>
         </Grid>
         <Grid container spacing={24} className="playlist-box">
