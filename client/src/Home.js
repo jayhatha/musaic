@@ -4,10 +4,10 @@ import Playlist from './Playlist';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import './App.css';
 import {Link} from 'react-router-dom';
 import homescreenshot from './homescreenshot.png';
 import './App.css';
-
 
 const styles = theme => ({
   root: {
@@ -19,7 +19,6 @@ const styles = theme => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
-
   button: {
     margin: theme.spacing.unit * 1
   }
@@ -43,8 +42,10 @@ const Home = props => {
         </Grid>
         <Grid item xs={12} md={12}>
           <Paper id="description" className={classes.paper}>
+
             <p>Moodsic is a color analysis appication that generates a personalized
               playlist. Simply upload a photo, select a genre and create your playlist!</p>
+
           </Paper>
           {tryButton}
         </Grid>

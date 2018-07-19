@@ -53,7 +53,6 @@ u {
   background: none !important;
 }
 
-
 .h1-test {
   color: white;
 }
@@ -63,9 +62,9 @@ u {
 }
 
 .hello {
-font-size: 2em;
-position: relative;
-color: white;
+  font-size: 2em;
+  position: relative;
+  color: white;
 }
 
 .saved-text {
@@ -112,6 +111,7 @@ color: white;
   text-decoration: none;
 }
 
+
 #auth-wrapper, #update-page {
 Background-image: url('./sheetmusic.jpeg');
 Background-size: cover;
@@ -122,11 +122,9 @@ Bottom: 0;
 Height: 100vh;
 }
 
-
 /*********************************************************
               UPLOAD PHOTO PAGE
 *********************************************************/
-
 .show-dropzone {
   display: flex;
   justify-content: center;
@@ -178,11 +176,12 @@ Height: 100vh;
   flex: 0.6;
 }
 
-.colorChart-container, .attsChart-container {
+.attsChart-container,
+.colorChart-container {
   flex: 1;
 }
 
-.select-genre select{
+.select-genre select {
   display: block;
   width: 300px;
   font-size: 1.3em;
@@ -204,18 +203,12 @@ Height: 100vh;
   outline: none;
   margin: 1em 0;
 }
-
-
 /*********************************************************
               PLAYLIST PAGE
 *********************************************************/
-
 .playlist-grid {
   display: grid;
-  grid-template-areas: "playlist-heading playlist-heading"
-                       "playlist-image playlist-tracks"
-                       "playlist-colorChart playlist-tracks"
-                       "playlist-attsChart playlist-tracks";
+  grid-template-areas: "playlist-heading playlist-heading" "playlist-image playlist-tracks" "playlist-colorChart playlist-tracks" "playlist-attsChart playlist-tracks";
   grid-template-columns: 32em auto;
   grid-template-rows: auto auto auto;
   width: 100%;
@@ -231,7 +224,7 @@ Height: 100vh;
 }
 
 .playlist-heading {
-  grid-area: playlist-heading
+  grid-area: playlist-heading;
 }
 
 .playlist-image {
@@ -240,7 +233,7 @@ Height: 100vh;
 
 .playlist-image img {
   display: block;
-  margin: 0 auto 1em auto;
+  margin: 0 auto 1em;
   border: 2px solid #fff;
 }
 
@@ -268,7 +261,10 @@ Height: 100vh;
   margin-top: 1em;
 }
 
-.valenceP, .energyP, .danceabilityP, .modeP {
+.danceabilityP,
+.energyP,
+.modeP,
+.valenceP {
   width: 70%;
   margin: 0.5em auto;
   padding: 0.4em 0;
