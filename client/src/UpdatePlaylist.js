@@ -104,7 +104,6 @@ class UpdatePlaylist extends Component {
             <Paper >
               <form onSubmit={this.handleSubmit}>
                 <TextField
-                  id="name"
                   label="Name"
                   className={classes.textField}
                   value={this.state.name}
@@ -112,7 +111,6 @@ class UpdatePlaylist extends Component {
                   margin="normal"
                 />
                 <TextField
-                  id="description"
                   label="Description"
                   className={classes.textField}
                   value={this.state.description}
@@ -120,7 +118,6 @@ class UpdatePlaylist extends Component {
                   margin="normal"
                 />
                 <TextField
-                  id="tag"
                   label="Tag"
                   className={classes.textField}
                   value={this.state.tags}
@@ -128,7 +125,6 @@ class UpdatePlaylist extends Component {
                   margin="normal"
                 />
                 <TextField
-                  id="genre"
                   label="Genre(s)" 
                   className={classes.textField}
                   value={this.state.genres}
