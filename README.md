@@ -1,9 +1,21 @@
 # Moodsic!
 WDI Seattle project 3!
 
-#### Wire Frames
-Genevieve created wire frames in Adobe XD
-=====================================================================================
+## Wire Frames
+#### Genevieve created wire frames in Adobe XD
+![Home Page](Home-Landing.jpg)
+![Login/Signup](Login-Signup.jpg)
+![Profile Page](Profile-Account.jpg)
+![Upload Page](UploadPhoto.jpg)
+![Color/Mood Results](Color-MoodResults.jpg)
+![Music Results](MusicResults.jpg)
+![Create Playlist](SongManagement-CreatePlaylist.jpg)
+![New Song](SongManagement-NewSong.jpg)
+![Edit Playlist](SongManagement-EditPlaylist.jpg)
+![All Saved Music](SongManagement-Music.jpg)
+
+
+
 
 #### Project Management
 ![Trello Board Screen Shot](trelloBoard.jpg)
