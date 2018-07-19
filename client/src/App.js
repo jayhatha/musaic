@@ -59,6 +59,11 @@ class App extends Component {
   componentDidMount() {
     this.checkForLocalToken();
     this.checkForSpotifyToken()
+    console.log('saved location is ' + this.state.savedLocation)
+    if (this.state.savedLocation){
+      console.log(this.state.savedLocation);
+      this.props.history.push(this.state.savedLocation);
+    }
   }
 
   logout() {
@@ -144,12 +149,14 @@ class App extends Component {
   handleAtts(atts) {
     this.setState({spfyAtts: atts});
   }
+
   // **********************
 
 
   render() {
     let user = this.state.user;
     let userProfile = (user) ? <UserProfile user={user} logout={this.logout} /> : 'Must Log in to view profile';
+
     return (
      <React.Fragment>
      <CssBaseline />

@@ -5,6 +5,8 @@ import Paper from '@material-ui/core/Paper';
 import { TextField } from '../node_modules/@material-ui/core';
 import axios from 'axios';
 import Button from '@material-ui/core/Button';
+import {withRouter, Redirect} from 'react-router-dom';
+
 
 const styles = theme => ({
   root: {
@@ -35,11 +37,12 @@ class UpdatePlaylist extends Component {
       name: this.props.name,
       description: this.props.description,
       tags: this.props.tags,
-      genres: this.props.genres
+      genres: this.props.genres,
+      updateForm: this.props.updateForm, 
+      redirect: false
     }
-    console.log(this.state.name);
-    console.log(this.state.playlist);
-    
+    console.log(this.state.playlist._id);
+    console.log(this.state.updateForm);
     
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleNameChange = this.handleNameChange.bind(this)
@@ -47,16 +50,25 @@ class UpdatePlaylist extends Component {
     this.handleTagChange = this.handleTagChange.bind(this)
   }
 
+  // Redirect function
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to='/profile'/>
+    }
+  }
+    
   handleSubmit = (e) => {
     e.preventDefault();
-    const url = '/playlist/' + this.state.playlistId;
+    const url = '/playlist/' + this.state.playlist._id;
     console.log("Updating Playlist for " + url);
     axios.put(url, {
       name: this.state.name,
       description: this.state.description,
       tags: this.state.tags
     }).then(result => {
-      console.log(result + "is the result of updating playlist");
+      this.setState({
+        redirect: true
+      })
     }).catch(err => {
       console.log('We caught an error: ' + err);
     })
@@ -85,7 +97,6 @@ class UpdatePlaylist extends Component {
 
   render() {
     const { classes } = this.props;
-    
     return (
       <div className={classes.root} >
         <Grid container spacing={12}>
@@ -129,10 +140,11 @@ class UpdatePlaylist extends Component {
             </Paper>
           </Grid>
         </Grid>
+        {this.renderRedirect()}
       </div>
     )
   }
 
 }
 
-export default withStyles(styles)(UpdatePlaylist);
+export default withRouter(withStyles(styles)(UpdatePlaylist));

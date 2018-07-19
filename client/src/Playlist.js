@@ -4,10 +4,9 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import ColorChart from './ColorChart';
 import AttsChart from './AttsChart';
-import {Link} from 'react-router-dom';
+import {Link, withRouter}  from 'react-router-dom';
 import cookie from 'react-cookie'
 import UpdatePlaylist from './UpdatePlaylist';
-import {withRouter} from 'react-router-dom';
 import './App.css';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -77,6 +76,7 @@ class Playlist extends Component {
     })
   }
 
+
   handleRemoveFaveClick(e) {
     e.preventDefault();
     const url = '/playlist/' + this.state.playlist._id;
@@ -90,9 +90,11 @@ class Playlist extends Component {
     if (!sfyUserToken) {
       console.log("NO SFYTOKEN");
       // change this URL in production
-      window.location = 'http://localhost:8888/login/';
-      sfyUserToken = cookie.load('ACCESS_TOKEN');
-    }
+      console.log('no spotify cookie found');
+      var spotifyLoginWindow = window.open('http://localhost:8888/login/', "width=400, height=600");
+    } else {
+    sfyUserToken = cookie.load('ACCESS_TOKEN');
+
     if (this.state.playlist) {
     let sfyUserId;
     let playlistId;
@@ -118,6 +120,7 @@ class Playlist extends Component {
       })
       })
       }
+      }
     }
 
   toggleUpdateForm(e) {
@@ -129,12 +132,12 @@ class Playlist extends Component {
   render() {
 
     const {classes} = this.props;
-    
-    let addOrRemoveBtn = (this.state.isFave === 'true') ? <Button onClick={this.handleRemoveFaveClick} variant="contained" color="primary">Remove Playlist from Favorites</Button> :
-    <Button onClick={this.handleFaveClick} variant="contained" color="primary">Add Playlist to Favorites</Button>;
+
+    let addOrRemoveBtn = (this.state.isFave === 'true') ? <Button className="btn" onClick={this.handleRemoveFaveClick} variant="contained" color="primary">Remove Playlist from Favorites</Button> :
+    <Button className="btn" onClick={this.handleFaveClick} variant="contained" color="primary">Add Playlist to Favorites</Button>;
 
     let tracks = this.state.songs.map((track) => {
-      return <p>{track.name} - {track.artists[0].name}</p>
+      return <p><strong>{track.name}</strong> - <em>{track.artists[0].name}</em></p>
     });
 
     let name = this.state.name;
@@ -144,41 +147,72 @@ class Playlist extends Component {
     let colors = this.state.colorData;
     let spfyAtts = this.state.spfyAtts;
 
+    const valence = Math.floor(spfyAtts[0] * 100).toString();
+    const mode = (spfyAtts[1] >= 0.5) ? 'Major' : 'Minor';
+    const energy = Math.floor(spfyAtts[2] * 100).toString();
+    const danceability = Math.floor(spfyAtts[3] * 100).toString();
+
+    const color1 = colors[0][0];
+    const color2 = (colors[1]) ? colors[1][0] : '#fff';
+    const color3 = (colors[2]) ? colors[2][0] : '#fff';
+
+    const backgroundStyle = {
+      background: 'linear-gradient(to bottom right, '+ color1 + ', ' + color2 + ', ' + color3 + ')',
+      backgroundSize: 'cover',
+      backgroundPosition: 'fixed',
+      padding: '4em 5em'
+    }
+
 
     if (this.state.updateForm === true) {
       return (
         <div>
           <Paper>
             <UpdatePlaylist playlist={this.state.playlist}
-                            name={this.state.name} 
+                            name={this.state.name}
                             description={this.state.description}
                             tags={this.state.tags}
                             genres={this.state.genres}
+                            updateForm={this.state.updateForm}
             />
           </Paper>
         </div>
       )
     } else {
       return (
-
-        <div className={classes.root}>
-          <Paper className={classes.paper}>
-            <h1>Your Spotify-Generated Playlist:</h1>
-            <h3>{name}</h3>
-            <p>Genres: {genres}</p>
-            <p>Description: {description}</p>
-            <img src={imgUrl} width="300px" alt="playlist-image" />
-            {tracks}
-            <ColorChart colors={colors} />
-            <AttsChart spfyAtts={spfyAtts} />
-            {addOrRemoveBtn}
-
-            {/* make sure buttons stick to the color theme */}
-            <Button className="edit-button" variant="text" onClick={this.toggleUpdateForm}>Edit Playlist</Button>
-            <Button variant="text" onClick={this.sendPlaylistToSpotify}>Send Playlist to Spotify</Button>
-
-            <Link className="profile-button" to="/profile"><Button variant="contained" color="primary">Back to Profile</Button></Link>
-          </Paper>
+        <div className="playlist-container" style={backgroundStyle}>
+          <div className="playlist-grid">
+            <div className="playlist-heading">
+              <h1>Your Spotify-Generated Playlist:</h1>
+              <h3>{name}</h3>
+              <p>Genres: {genres}</p>
+              <p>Description: {description}</p>
+            </div>
+            <div className="playlist-image">
+              <img src={imgUrl} width="400px" alt="playlist-image" />
+              <Link className="profile-button" to="/profile"><Button className="btn" variant="contained" color="primary">Back to Profile</Button></Link>
+            </div>
+            <div className="playlist-tracks">
+              <h2>Tracks</h2>
+              <hr />
+              {tracks}
+              {addOrRemoveBtn}
+              <Button className="edit-button btn" color="primary" variant="contained" onClick={this.toggleUpdateForm}>Edit Playlist</Button>
+              <Button className="btn spfy-btn" variant="contained" onClick={this.sendPlaylistToSpotify}>Send Playlist to Spotify</Button>
+            </div>
+            <div className="playlist-colorChart">
+              <h2>Image Data</h2>
+              <hr />
+              <ColorChart colors={colors} />
+            </div>
+            <div className="playlist-attsChart">
+              <AttsChart spfyAtts={spfyAtts} />
+              <p className="valenceP"><em>Valence: </em>{valence}%</p>
+              <p className="energyP"><em>Energy: </em>{energy}%</p>
+              <p className="danceabilityP"><em>Danceability: </em>{danceability}%</p>
+              <p className="modeP"><em>Mode: </em>{mode}</p>
+            </div>
+          </div>
         </div>
       );
     }
