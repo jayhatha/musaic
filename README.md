@@ -4,11 +4,13 @@
 
 ![Moodsic Screen Shot](PlaylistPage.jpg)
 
+
 ## Project Management Tools
 ![Trello Board Screen Shot](trelloBoard.jpg)
+
 ##### Slack
 ![Slack Screen Shot](slackShot.jpg)
------
+
 ## Project Description
 
 Moodsic allows you to create personalized playlist based on your mood, by uploading a photo to your profile.
@@ -69,9 +71,12 @@ User Stories:
 
 ![Upload Page](UploadPhoto.jpg)
 
+
 ![Color/Mood Results](Color-MoodResults.jpg)
 
+
 ![Music Results](MusicResults.jpg)
+
 
 ![Create Playlist](SongManagement-CreatePlaylist.jpg)
 
@@ -110,9 +115,33 @@ Instead, we decided to open the Spotify login page in a different window. Thatâ€
 - We tested and debugged throughout the whole process
 - Had a bugs section on our trello board so items could be added there
 
+## Routes
+
+## auth routes
+| Method | Path						|
+| -------| ------------------------ | 
+| POST 	 | /auth/me/from/token 		|
+| POST 	 | /auth/login				|
+| GET 	 | /auth/logout				|
+| GET 	 | /auth/get/spotify/token	|
+
+## playlist routes
+| Method | Path						|
+| -------| ------------------------	|
+| POST 	 | /playlist				|
+| GET 	 | /playlist/user/:userId	|
+| PUT 	 | /playlist/:id			|
+| DELETE | /playlist/:id			|
+
+
+## Next Steps and Future Improvements
+
+This project would be very useful as a mobile app, and still has a long way to go in that regard. Ideally it could become something of an instagram and spotify hybrid, accessing the users camera through, playing the music without leaving it, and allowing users to follow each other and have a feed. Along with these mobile improvements, we hope to be able to continue enhancing the color to mood logic as well.
+
 ###### Kacy's Section
-=====
+
 
 ###### Acknowledgements: 
 
 Thanks to David and MPJ from the DevTips YouTube Channel for their great explanation of Spotify oAuth and their server template code. Thanks also to Bilal Budhani of CodeInfuse for his tutorial on uploading to Cloudinary with react-dropzone. 
+
