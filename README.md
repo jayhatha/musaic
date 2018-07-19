@@ -2,6 +2,8 @@
 
 #### WDI Seattle Project 3
 
+![Moodsic Screen Shot](PlaylistPage.jpg)
+
 ## Project Management Tools
 ![Trello Board Screen Shot](trelloBoard.jpg)
 ##### Slack
