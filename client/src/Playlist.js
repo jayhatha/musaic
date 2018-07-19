@@ -9,6 +9,7 @@ import cookie from 'react-cookie'
 import UpdatePlaylist from './UpdatePlaylist';
 import './App.css';
 import { withStyles } from '@material-ui/core/styles';
+import SpotifyModal from './SpotifyModal'
 
 const styles = theme => ({
   root: {
@@ -51,7 +52,8 @@ class Playlist extends Component {
       imageURL: this.props.location.state.imageURL,
       colorData: this.props.location.state.colorData,
       songs: this.props.location.state.songs,
-      spfyAtts: this.props.location.state.spfyAtts
+      spfyAtts: this.props.location.state.spfyAtts,
+      spotLink: ""
     }
   }
 
@@ -97,26 +99,27 @@ class Playlist extends Component {
     if (this.state.playlist) {
     let sfyUserId;
     let playlistId;
-    var playlistTest = [];
+    var playlistArray = [];
     let playlistTracks = this.state.songs.map((song) => playlistTest.push(song.uri));
-    playlistTracks = playlistTest;
-
-    console.log(playlistTracks)
-    console.log('token is ' + sfyUserToken)
+    playlistTracks = playlistArray;
     axios.defaults.headers.common['Authorization'] = "Bearer " + sfyUserToken;
     axios.get('https://api.spotify.com/v1/me').then(results => {
       let sfyUserId = results.data.id;
       axios.defaults.headers.common['Authorization'] = "Bearer " + sfyUserToken;
       axios.post('https://api.spotify.com/v1/users/' +  sfyUserId + '/playlists', {
-        name: 'test playlist',
+        name: this.state.playlist.name || 'untitled playlist',
         public: true,
       }).then((response) => {
         let playlistId = response.data.id
         axios.defaults.headers.common['Authorization'] = "Bearer " + sfyUserToken;
         axios.post('https://api.spotify.com/v1/users/' +  sfyUserId + '/playlists/' + playlistId + '/tracks', {
           uris: playlistTracks
-        }).then(console.log('okay, we added a playlist and some tracks'))
-      })
+        }).then((response) =>{
+          this.setState({
+            spotLink: 'https://open.spotify.com/user/' + sfyUserId + '/playlist/' + playlistId
+          }, this.child.onOpenModal())
+        }).catch(err => console.log(err))
+      }).catch(err => console.log(err))
       })
       }
       }
@@ -146,7 +149,6 @@ class Playlist extends Component {
     let colors = this.state.colorData;
     let spfyAtts = this.state.spfyAtts;
 
-
     if (this.state.updateForm === true) {
       return (
         <div>
@@ -159,6 +161,7 @@ class Playlist extends Component {
                             updateForm={this.state.updateForm}
             />
           </Paper>
+
         </div>
       )
     } else {
@@ -173,6 +176,7 @@ class Playlist extends Component {
             {tracks}
             <ColorChart colors={colors} />
             <AttsChart spfyAtts={spfyAtts} />
+            <SpotifyModal showCloseIcon='false' onRef={ref => (this.child = ref)} image={this.state.imageURL} spotLink={this.state.spotLink}/>
             {addOrRemoveBtn}
             <Button className="edit-button" variant="text" onClick={this.toggleUpdateForm}>Edit Playlist</Button>
             <Button variant="text" onClick={this.sendPlaylistToSpotify}>Send Playlist to Spotify</Button>
