@@ -162,7 +162,7 @@ class Playlist extends Component {
       background: 'linear-gradient(to bottom right, '+ color1 + ', ' + color2 + ', ' + color3 + ')',
       backgroundSize: 'cover',
       backgroundPosition: 'fixed',
-      padding: '4em 5em'
+      padding: '5vh 4vw'
     }
 
     if (this.state.updateForm === true) {
@@ -191,7 +191,7 @@ class Playlist extends Component {
               <p>Description: {description}</p>
             </div>
             <div className="playlist-image">
-              <img src={imgUrl} width="400px" alt="playlist-image" />
+              <img src={imgUrl} width="400px" alt="playlist-image" className="playlist-image-large" />
               <Link className="profile-button" to="/profile"><Button className="btn" variant="contained" color="primary">Back to Profile</Button></Link>
             </div>
             <div className="playlist-tracks">

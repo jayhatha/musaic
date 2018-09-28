@@ -18,7 +18,7 @@ const PlaylistCard = (props) => {
 			spfyAtts: props.playlist.spfyAtts
 		}}}>
 			<Paper className="paper">
-				<img src={props.playlist.imageUrl} alt="playlist-image" width="300px" />
+				<img src={props.playlist.imageUrl} alt="playlist-image" className="playlistgridimage" />
 				<h3>{props.playlist.name}</h3>
 			</Paper>
 		</Link>
