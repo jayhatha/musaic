@@ -43,7 +43,7 @@ const Home = props => {
         <Grid item xs={12} md={12}>
           <Paper id="description" className={classes.paper}>
 
-            <p>Moodsic is a color analysis appication that generates a personalized
+            <p>Musaic is a color analysis appication that generates a personalized
               playlist. Simply upload a photo, select a genre and create your playlist!</p>
 
           </Paper>

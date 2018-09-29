@@ -3,7 +3,7 @@ import './App.css';
 
 function TitleBar(props) {
   return (
-    <h1 className='title-bar'>Moodsic</h1>
+    <h1 className='title-bar'>Musaic</h1>
   )
 };
 

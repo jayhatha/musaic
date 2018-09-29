@@ -308,7 +308,7 @@ class PhotoForm extends Component {
 			backgroundImage: 'url(' + sheetmusic + ')',
 			backgroundSize: 'cover',
 			backgroundPosition: 'center center',
-			minHeight: 'calc(100vh - 125px)',
+			minHeight: '100vh',
 			padding: '4em 0'
 		}
 
@@ -333,8 +333,10 @@ class PhotoForm extends Component {
 				<div className="show-uploaded">
 					<div className="image-uploaded-top">
 						<div className="currImage-container">
-							<img src={this.state.currImgURL} width="300px" alt="uploaded-image" />
+							<img src={this.state.currImgURL} className="uploaded-image" alt="uploaded-image" />
+							<div>
 							<Button onClick={this.handleNewUploadClick} variant="contained" color="primary">Upload New Photo</Button>
+							</div>
 							<div className="form-container">
 								<h3>Select Genre:</h3>
 								<form className="select-genre" onSubmit={this.handleSubmit} autoComplete="off">

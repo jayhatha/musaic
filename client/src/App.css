@@ -53,6 +53,9 @@ u {
   margin-right: 4em;
   padding: 2em 3em;
   background: none !important;
+  font-size: 2em;
+  position: relative;
+  color: white;
 }
 
 .h1-test {
@@ -61,12 +64,6 @@ u {
 
 .h3-test {
   font-size: 3em;
-}
-
-.hello {
-  font-size: 2em;
-  position: relative;
-  color: white;
 }
 
 .saved-text {
@@ -127,6 +124,7 @@ Bottom: 0;
 Height: 100vh;
 }
 
+
 /*********************************************************
               UPLOAD PHOTO PAGE
 *********************************************************/
@@ -155,13 +153,8 @@ Height: 100vh;
   padding: 3em 2em;
 }
 
-.hr {
-  width: 85%;
-  margin: 1em auto;
-}
-
-.image-uploaded-top {
-  display: flex;
+hr {
+  width: 10%;
 }
 
 .currImage-container {
@@ -208,13 +201,17 @@ Height: 100vh;
   outline: none;
   margin: 1em 0;
 }
+
+.uploaded-image {
+  width: 300px;
+}
 /*********************************************************
               PLAYLIST PAGE
 *********************************************************/
 .playlist-grid {
   display: grid;
   grid-template-areas: "playlist-heading playlist-heading" "playlist-image playlist-tracks" "playlist-colorChart playlist-tracks" "playlist-attsChart playlist-tracks";
-  grid-auto-columns: 1fr 1fr;
+  grid-template-columns: 1fr 30vw;
   grid-template-rows: auto auto auto;
   column-gap: 20px;
   width: 100%;
@@ -257,7 +254,6 @@ Height: 100vh;
 .playlist-tracks {
   grid-area: playlist-tracks;
   text-align: center;
-  width: 30vw;
 }
 
 .playlist-colorChart {
@@ -277,7 +273,7 @@ Height: 100vh;
 .energyP,
 .modeP,
 .valenceP {
-  width: 50vw;
+  width: 50%;
   margin: 0.5em auto;
   padding: 0.4em 0;
   border-radius: 5px;
@@ -312,6 +308,9 @@ Height: 100vh;
     margin: 0 auto;
     padding: 1em 2em;
   }
+  .uploaded-image {
+    width: 200px;
+  }
 }
 
 @media (max-width: 525px) {
@@ -331,6 +330,12 @@ Height: 100vh;
   .btn {
     display: block;
     margin: 0.4em !important;
+  }
+  .uploaded-image {
+    width: 250px;
+  }
+  .select-genre select {
+    width: 250px;
   }
 
 }
@@ -358,5 +363,13 @@ Height: 100vh;
 .playlist-tracks {
   grid-area: playlist-tracks;
   text-align: center;
+}
+.image-uploaded-top {
+  display: flex;
+  flex-direction: column;
+}
+.image-uploaded-bottom {
+  display: flex;
+  flex-direction: column;
 }
 }

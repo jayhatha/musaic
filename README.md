@@ -1,8 +1,8 @@
-# Moodsic -- Find a new playlist with just one photo!
+# Musaic -- Find a new playlist with just one photo!
 
 #### WDI Seattle Project 3
 
-![Moodsic Screen Shot](PlaylistPage.jpg)
+![Musaic Screen Shot](PlaylistPage.jpg)
 
 
 ## Project Management Tools
@@ -13,7 +13,7 @@
 
 ## Project Description
 
-Moodsic allows you to create personalized playlist based on your mood, by uploading a photo to your profile.
+Musaic allows you to create personalized playlist based on your mood, by uploading a photo to your profile.
 
 [Check it out for yourself!](heroku link)
 
@@ -25,13 +25,13 @@ Moodsic allows you to create personalized playlist based on your mood, by upload
 
 About the App
 
-How to use Moodsic:
+How to use Musaic:
 Start by clicking “Sign Up” on the homepage and creating a user profile.   
 
 User Stories:
-- Sam has a busy work and personal life and enjoys all types of music. Since he is always on the go he needs a way to be able to open an app and get a list of songs playing without any time wasted. With his love for all genres of music, Moodsic will allow him to quickly select his generated playlist and get back to what he’s doing. 
-- Derrick likes to call himself a musician and enjoys inspiration. One way he gets his ideas is to listen to new artists. Not knowing what all is out there with Moodsic he will be able to get random categorized playlists for him to enjoy. He is able to select the genre to make it more customized for what type of music he is in the mood for.
-- Megan likes social media and the latest apps that allow her to express herself and enjoy life. She likes to upload photos of her daily adventures. With Moodsic she will not only get to upload her favorite photos but have some music to go along with what she is doing. The app will allow her to share with friends and stay connected.
+- Sam has a busy work and personal life and enjoys all types of music. Since he is always on the go he needs a way to be able to open an app and get a list of songs playing without any time wasted. With his love for all genres of music, Musaic will allow him to quickly select his generated playlist and get back to what he’s doing. 
+- Derrick likes to call himself a musician and enjoys inspiration. One way he gets his ideas is to listen to new artists. Not knowing what all is out there with Musaic he will be able to get random categorized playlists for him to enjoy. He is able to select the genre to make it more customized for what type of music he is in the mood for.
+- Megan likes social media and the latest apps that allow her to express herself and enjoy life. She likes to upload photos of her daily adventures. With Musaic she will not only get to upload her favorite photos but have some music to go along with what she is doing. The app will allow her to share with friends and stay connected.
 
 #### Under the Hood
 
