@@ -5,11 +5,11 @@ import Button from '@material-ui/core/Button';
 import ColorChart from './ColorChart';
 import AttsChart from './AttsChart';
 import {Link, withRouter}  from 'react-router-dom';
-import cookie from 'react-cookie';
+import cookie from 'react-cookie'
 import UpdatePlaylist from './UpdatePlaylist';
 import './App.css';
 import { withStyles } from '@material-ui/core/styles';
-import SpotifyModal from './SpotifyModal';
+import SpotifyModal from './SpotifyModal'
 
 const styles = theme => ({
   root: {
@@ -60,7 +60,6 @@ class Playlist extends Component {
   handleFaveClick(e) {
     e.preventDefault();
     axios.post('/playlist', this.state).then(playlist => {
-      console.log('SAVED PLAYLIST', playlist);
       this.setState({
         isFave: 'true',
         playlist: playlist.data,
@@ -91,7 +90,7 @@ class Playlist extends Component {
     let sfyUserToken = cookie.load('ACCESS_TOKEN');
     if (!sfyUserToken) {
       // change this URL in production
-      var spotifyLoginWindow = window.open('http://localhost:3000/spotifylogin/', "width=400, height=600");
+      var spotifyLoginWindow = window.open('https://moodsic11.herokuapp.com/spotifylogin/', "width=400, height=600");
     } else {
     sfyUserToken = cookie.load('ACCESS_TOKEN');
     if (this.state.playlist) {
@@ -125,7 +124,6 @@ class Playlist extends Component {
 
   toggleUpdateForm(e) {
     e.preventDefault();
-    console.log("You clicked the update form button!");
     this.setState({ updateForm: !this.state.updateForm });
   }
 
@@ -160,7 +158,7 @@ class Playlist extends Component {
       background: 'linear-gradient(to bottom right, '+ color1 + ', ' + color2 + ', ' + color3 + ')',
       backgroundSize: 'cover',
       backgroundPosition: 'fixed',
-      padding: '5vh 4vw'
+      padding: '4em 5em'
     }
 
     if (this.state.updateForm === true) {
@@ -189,7 +187,7 @@ class Playlist extends Component {
               <p>Description: {description}</p>
             </div>
             <div className="playlist-image">
-              <img src={imgUrl} alt="playlist-image" className="playlist-image-large" />
+              <img src={imgUrl} width="400px" alt="playlist-image" />
               <Link className="profile-button" to="/profile"><Button className="btn" variant="contained" color="primary">Back to Profile</Button></Link>
             </div>
             <div className="playlist-tracks">
