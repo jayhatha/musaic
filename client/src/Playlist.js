@@ -88,12 +88,13 @@ class Playlist extends Component {
   }
 
   sendPlaylistToSpotify(e) {
+    alert('you clicked it');
     let sfyUserToken = cookie.load('ACCESS_TOKEN');
     if (!sfyUserToken) {
       console.log("NO SFYTOKEN");
       // change this URL in production
       console.log('no spotify cookie found');
-      var spotifyLoginWindow = window.open('http://localhost:3000/spotifylogin/', "width=400, height=600");
+      var spotifyLoginWindow = window.open('http://localhost:3000/spotifylogin', "width=400, height=600");
     } else {
     sfyUserToken = cookie.load('ACCESS_TOKEN');
     if (this.state.playlist) {
